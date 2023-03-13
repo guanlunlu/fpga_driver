@@ -1,0 +1,3 @@
+/home/guanlunlu/fpga_server/cmake-build-debug/CMakeFiles/fpga_srv_main.dir
+/home/guanlunlu/fpga_server/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/guanlunlu/fpga_server/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -240,7 +240,10 @@ void Corgi::mainLoop_()
 
     for (auto &mod : modules_list_)
     {
-        // mod.io_.write_CAN_id_(mod.motors_list_[0].CAN_ID_, mod.motors_list_[1].CAN_ID_);
+        if (mod.enable_)
+        {
+            mod.io_.CAN_recieve_feedback(&mod.rxdata_buffer_[0], &mod.rxdata_buffer_[1]);
+        }
     }
 }
 
@@ -268,6 +271,10 @@ void Corgi::canLoop_()
 
     for (auto &mod : modules_list_)
     {
+        if (mod.enable_)
+        {
+            mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
+        }
         // mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
 
         // if (mod.CAN_first_transmit_)

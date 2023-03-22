@@ -58,7 +58,7 @@ void LegModule::load_config()
 
     // load configuration from yaml file
     std::cout << "[ " << label_ << " Configuration ]" << std::endl;
-    enable_ = config_[label]["Enable"].as<int>();
+    enable_ = config_[label_]["Enable"].as<int>();
     CAN_port_ = config_[label_]["CAN_PORT"].as<std::string>();
     // Motor F setup
     motor_f.fw_version_ = config_[label_]["Motor_F"]["FW_Version"].as<int>();

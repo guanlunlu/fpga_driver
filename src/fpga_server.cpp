@@ -11,6 +11,11 @@ uint32_t master_port = 8888;
 std::string command_topic = "/fpga/command";
 std::string publish_topic = "/fpga/state";
 
+void motor_module_cb(motor_msg::MotorModule &motor_msg, std::shared_ptr<motor_msg::MotorModule> msg)
+{
+    motor_msg = *msg;
+}
+
 Corgi::Corgi()
 {
     stop_ = false;
@@ -77,7 +82,7 @@ void Corgi::load_config_()
     }
 }
 
-void Corgi::interruptHandler(Subscriber &cmd_sub_, Publisher &state_pub_)
+void Corgi::interruptHandler(std::vector<core::Subscriber> cmd_sub_, std::vector<core::Publisher> state_pub_)
 {
     while (NiFpga_IsNotError(fpga_.status_) && !stop_ && !sys_stop)
     {
@@ -130,7 +135,7 @@ void Corgi::interruptHandler(Subscriber &cmd_sub_, Publisher &state_pub_)
                 /* Interrupt enabled only in Motor mode*/
                 if (fsm_.workingMode_ == Mode::MOTOR)
                 {
-                    canLoop_();
+                    canLoop_(cmd_sub_, state_pub_);
                 }
                 // Acknowledge IRQ to begin DMA acquisition
                 NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
@@ -139,155 +144,57 @@ void Corgi::interruptHandler(Subscriber &cmd_sub_, Publisher &state_pub_)
     }
 }
 
-void Corgi::interruptHandler()
-{
-    while (NiFpga_IsNotError(fpga_.status_) && !stop_ && !sys_stop)
-    {
-        uint32_t irqsAsserted;
-        uint32_t irqTimeout = 10; // millisecond
-        NiFpga_Bool TimedOut = 0;
-
-        // Wait on IRQ to ensure FPGA is ready
-        NiFpga_MergeStatus(&fpga_.status_,
-                           NiFpga_WaitOnIrqs(fpga_.session_, fpga_.irqContext_, NiFpga_Irq_0 | NiFpga_Irq_1, irqTimeout,
-                                             &irqsAsserted, &TimedOut));
-
-        if (NiFpga_IsError(fpga_.status_))
-        {
-            std::cout << red << "[FPGA Server] Error! Exiting program. LabVIEW error code: " << fpga_.status_ << reset
-                      << std::endl;
-        }
-
-        uint32_t irq0_cnt;
-        uint32_t irq1_cnt;
-
-        NiFpga_MergeStatus(
-            &fpga_.status_,
-            NiFpga_ReadU32(fpga_.session_, NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ0_cnt, &irq0_cnt));
-
-        NiFpga_MergeStatus(
-            &fpga_.status_,
-            NiFpga_ReadU32(fpga_.session_, NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ0_cnt, &irq1_cnt));
-
-        if (TimedOut)
-        {
-            std::cout << red << "IRQ timedout"
-                      << ", IRQ_0 cnt: " << irq0_cnt << ", IRQ_1 cnt: " << irq1_cnt << reset << std::endl;
-        }
-
-        /* if an IRQ was asserted */
-        if (NiFpga_IsNotError(fpga_.status_) && !TimedOut)
-        {
-            if (irqsAsserted & NiFpga_Irq_0)
-            {
-                /* TODO: do something if IRQ0 */
-                mainLoop_();
-                // Acknowledge IRQ to begin DMA acquisition
-                NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
-            }
-            if (irqsAsserted & NiFpga_Irq_1)
-            {
-                /* TODO: do something if IRQ1 */
-                /* Handling CAN-BUS communication */
-                /* Interrupt enabled only in Motor mode*/
-                if (fsm_.workingMode_ == Mode::MOTOR)
-                {
-                    canLoop_();
-                }
-                // Acknowledge IRQ to begin DMA acquisition
-                NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
-            }
-        }
-    }
-}
-
-void Corgi::mainLoop_(Subscriber &cmd_sub_, Publisher &state_pub_)
-{
-    if (behavior_ == Behavior::TCP_SLAVE)
-    {
-    }
-    else if (behavior_ == Behavior::SET_THETA)
-    {
-    }
-    else if (behavior_ == Behavior::CUSTOM_1)
-    {
-    }
-    else if (behavior_ == Behavior::CUSTOM_2)
-    {
-    }
-    else if (behavior_ == Behavior::CUSTOM_3)
-    {
-    }
-    // std::cout << "1" << std::endl;
-    // std::function<void(FpgaCmdMsg cmd_msg)> f = (std::bind(&Corgi::cmdCallback,
-    // this, std::placeholders::_1)); std::cout << "2" << std::endl; auto f1 =
-    // f.target<void (*)(FpgaCmdMsg i)>(); std::cout << "3" << std::endl;
-
-    // void (*f2)(FpgaCmdMsg i);
-    // f2 = &f1;
-
-    // void (Corgi::*x)();
-    // std::cout << "4" << std::endl;
-    // cmd_sub_.spinOnce(cmdCallback);
-    // std::cout << "5" << std::endl;
-}
-
-void Corgi::mainLoop_()
+void Corgi::mainLoop_(std::vector<core::Subscriber> cmd_sub_, std::vector<core::Publisher> state_pub_)
 {
     fpga_.write_powerboard_(&powerboard_state_);
 
     modules_list_[0].io_.CAN_recieve_feedback(&modules_list_[0].rxdata_buffer_[0], &modules_list_[0].rxdata_buffer_[1]);
-
+    int index = 0;
+    motor_msg::MotorModule motor_module;
     for (auto &mod : modules_list_)
     {
         if (mod.enable_)
         {
             mod.io_.CAN_recieve_feedback(&mod.rxdata_buffer_[0], &mod.rxdata_buffer_[1]);
+            motor_module.angle[0] = mod.rxdata_buffer_[0].position_;
+            motor_module.angle[1] = mod.rxdata_buffer_[1].position_;
+            motor_module.twist[0] = mod.rxdata_buffer_[0].velocity_;
+            motor_module.twist[1] = mod.rxdata_buffer_[1].velocity_;
+            motor_module.torque[0] = mod.rxdata_buffer_[0].torque_;
+            motor_module.torque[1] = mod.rxdata_buffer_[1].torque_;
+            state_pub_[index].publish(motor_module);
         }
+        index ++;
     }
 }
 
-void Corgi::canLoop_()
+void Corgi::canLoop_(std::vector<core::Subscriber> cmd_sub_, std::vector<core::Publisher> state_pub_)
 {
     // modules_list_[0].io_.CAN_recieve_feedback(&modules_list_[0].rxdata_buffer_[0], &modules_list_[0].rxdata_buffer_[1]);
     modules_list_[0].io_.CAN_send_command(modules_list_[0].txdata_buffer_[0], modules_list_[0].txdata_buffer_[1]);
-
-    // if (modules_list_[0].io_.read_CAN_success_())
-    // {
-    //     modules_list_[0].io_.CAN_recieve_feedback(&modules_list_[0].rxdata_buffer_[0], &modules_list_[0].rxdata_buffer_[1]);
-    // }
-
-    // if (modules_list_[0].CAN_first_transmit_)
-    // {
-    //     // endwin();
-    //     modules_list_[0].io_.CAN_send_command(modules_list_[0].txdata_buffer_[0], modules_list_[0].txdata_buffer_[1]);
-    //     // mod.CAN_first_transmit_ = false;
-    // }
-    // else if (modules_list_[0].io_.read_CAN_success_())
-    // {
-    //     modules_list_[0].io_.CAN_recieve_feedback(&modules_list_[0].rxdata_buffer_[0], &modules_list_[0].rxdata_buffer_[1]);
-    //     modules_list_[0].io_.CAN_send_command(modules_list_[0].txdata_buffer_[0], modules_list_[0].txdata_buffer_[1]);
-    // }
-
+    int index = 0;
+    motor_msg::MotorModule motor_module;
     for (auto &mod : modules_list_)
     {
         if (mod.enable_)
         {
+            std::function<void(std::shared_ptr<motor_msg::MotorModule>)> func = std::bind(motor_module_cb, motor_module, std::placeholders::_1);
+            cmd_sub_[index].spinOnce(func);
+            mod.txdata_buffer_[0].KP_ = motor_module.pid[0];
+            mod.txdata_buffer_[0].KI_ = motor_module.pid[1];
+            mod.txdata_buffer_[0].KD_ = motor_module.pid[2];
+            mod.txdata_buffer_[1].KP_ = motor_module.pid[3];
+            mod.txdata_buffer_[1].KI_ = motor_module.pid[4];
+            mod.txdata_buffer_[1].KD_ = motor_module.pid[5];
+            mod.txdata_buffer_[0].position_ = motor_module.angle[0];
+            mod.txdata_buffer_[1].position_ = motor_module.angle[1];
+            mod.txdata_buffer_[0].torque_ = motor_module.torque[0];
+            mod.txdata_buffer_[1].torque_ = motor_module.torque[1];
+
             mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
         }
-        // mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
-
-        // if (mod.CAN_first_transmit_)
-        // {
-        //     // endwin();
-        //     mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
-        //     // mod.CAN_first_transmit_ = false;
-        // }
-        // else if (mod.io_.read_CAN_success_())
-        // {
-        //     mod.io_.CAN_recieve_feedback(&mod.rxdata_buffer_[0], &mod.rxdata_buffer_[1]);
-        //     mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
-        // }
+        index ++;
+        
     }
 }
 
@@ -303,8 +210,17 @@ int main()
     // Publisher state_pub_ = nh_.publisher("/robot_state");
     // boost::thread node_service(boost::bind(&boost::asio::io_service::run, &node_ios));
     // corgi.interruptHandler(cmd_sub_, state_pub_);
+    core::NodeHandler nh(master_ip, master_port, local_ip);
+    std::vector<core::Subscriber> cmd_subs;
+    std::vector<core::Publisher> state_pubs;
+    for (int i = 0; i < 4; i++)
+    {
+        cmd_subs.push_back(nh.subscriber(command_topic+std::to_string(i+1)));
+        state_pubs.push_back(nh.publisher(publish_topic+std::to_string(i+1)));
+    }
+    boost::thread node_service(boost::bind(&boost::asio::io_service::run, &core::node_ios));
 
-    corgi.interruptHandler();
+    corgi.interruptHandler(cmd_subs, state_pubs);
 
     if (NiFpga_IsError(corgi.fpga_.status_))
     {

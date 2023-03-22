@@ -6,9 +6,9 @@
 #include <msg.hpp>
 #include <string>
 #include <vector>
-#include <brlos/NodeHandler.hpp>
-#include <brlos/parameters_parser.hpp>
+#include <NodeHandler.hpp>
 #include <mutex>
+#include "motor_msg.hpp"
 
 #include "boost/bind.hpp"
 #include "boost/thread.hpp"
@@ -45,10 +45,11 @@ public:
   bool power_switch_;
   bool stop_;
 
-  void interruptHandler(Subscriber &cmd_sub_, Publisher &state_pub_);
+  void interruptHandler(std::vector<core::Subscriber> cmd_sub_, std::vector<core::Publisher> state_pub_);
   void interruptHandler();
 
-  void mainLoop_(Subscriber &cmd_sub_, Publisher &state_pub_);
-  void mainLoop_();
-  void canLoop_();
+  void mainLoop_(std::vector<core::Subscriber> cmd_sub_, std::vector<core::Publisher> state_pub_);
+  void canLoop_(std::vector<core::Subscriber> cmd_sub_, std::vector<core::Publisher> state_pub_);
+  // void mainLoop_();
+  // void canLoop_();
 };

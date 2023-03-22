@@ -1,3 +1,0 @@
-ToolSet: 1.0 (local)Options: 
-
-Options:-DCMAKE_MAKE_PROGRAM=/home/guanlunlu/.cache/JetBrains/RemoteDev/dist/1e90e5f5fc61f_CLion-2022.3.1/bin/ninja/linux/ninja

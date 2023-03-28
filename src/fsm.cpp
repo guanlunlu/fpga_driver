@@ -59,12 +59,47 @@ void ModeFsm::runFsm()
 
 void ModeFsm::switchMode(Mode next_mode)
 {
-    prev_workingMode_ = workingMode_;
-    workingMode_ = next_mode;
 
     int mode_switched_cnt = 0;
 
-    modules_list_[0].io_.CAN_set_mode(next_mode);
+    // for (int i = 0; i < 4; i++)
+    // {
+    //     if (modules_list_[i].enable_)
+    //     {
+    //         modules_list_[i].io_.CAN_set_mode(next_mode);
+    //     }
+    // }
+
+    if (next_mode == Mode::MOTOR)
+    {
+        while (1)
+        {
+            if (mode_switched_cnt == 4)
+                break;
+            else
+                mode_switched_cnt = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (modules_list_[i].enable_)
+                {
+                    modules_list_[i].io_.CAN_set_mode(next_mode);
+
+                    modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0], &modules_list_[i].rxdata_buffer_[1]);
+
+                    if (modules_list_[i].rxdata_buffer_[0].mode_ == next_mode && modules_list_[i].rxdata_buffer_[1].mode_ == next_mode)
+                    {
+                        mode_switched_cnt++;
+                    }
+                }
+            }
+        }
+    }
+
+    prev_workingMode_ = workingMode_;
+    workingMode_ = next_mode;
+
+    // usleep(1000 * 1000);
 
     // for (auto &mod : modules_list_)
     // {
@@ -89,4 +124,8 @@ void ModeFsm::switchMode(Mode next_mode)
     //         // important_message(" [FSM] Mode Switched Successfully ");
     //     }
     // }
+}
+
+void ModeFsm::waitFor(int iter)
+{
 }

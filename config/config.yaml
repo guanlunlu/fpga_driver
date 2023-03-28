@@ -26,14 +26,14 @@ LF_Module:
   CAN_PORT: "MOD1CAN0"
   Motor_F:
     FW_Version: 3
-    CAN_ID: 8
+    CAN_ID: 19
     KP: 50
     KI: 0
     KD: 1.5
     Torque_Feedfoward: 0
   Motor_H:
     FW_Version: 3
-    CAN_ID: 9
+    CAN_ID: 20
     KP: 50
     KI: 0
     KD: 1.5

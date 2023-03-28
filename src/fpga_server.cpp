@@ -27,8 +27,6 @@ Corgi::Corgi()
     powerboard_state_.push_back(signal_switch_);
     powerboard_state_.push_back(power_switch_);
 
-    stop_ = false;
-
     behavior_ = Behavior::TCP_SLAVE;
 
     load_config_();
@@ -69,6 +67,7 @@ void Corgi::load_config_()
 
     /* initialize leg modules */
     modules_num_ = yaml_node_["Number_of_modules"].as<int>();
+
     for (int i = 0; i < 4; i++)
     {
         std::string label = yaml_node_["Modules_list"][i].as<std::string>();
@@ -236,13 +235,11 @@ void Corgi::mainLoop_()
 {
     fpga_.write_powerboard_(&powerboard_state_);
 
-    modules_list_[0].io_.CAN_recieve_feedback(&modules_list_[0].rxdata_buffer_[0], &modules_list_[0].rxdata_buffer_[1]);
-
-    for (auto &mod : modules_list_)
+    for (int i = 0; i < 4; i++)
     {
-        if (mod.enable_)
+        if (modules_list_[i].enable_)
         {
-            mod.io_.CAN_recieve_feedback(&mod.rxdata_buffer_[0], &mod.rxdata_buffer_[1]);
+            modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0], &modules_list_[i].rxdata_buffer_[1]);
         }
     }
 }
@@ -250,7 +247,7 @@ void Corgi::mainLoop_()
 void Corgi::canLoop_()
 {
     // modules_list_[0].io_.CAN_recieve_feedback(&modules_list_[0].rxdata_buffer_[0], &modules_list_[0].rxdata_buffer_[1]);
-    modules_list_[0].io_.CAN_send_command(modules_list_[0].txdata_buffer_[0], modules_list_[0].txdata_buffer_[1]);
+    // modules_list_[0].io_.CAN_send_command(modules_list_[0].txdata_buffer_[0], modules_list_[0].txdata_buffer_[1]);
 
     // if (modules_list_[0].io_.read_CAN_success_())
     // {
@@ -269,26 +266,32 @@ void Corgi::canLoop_()
     //     modules_list_[0].io_.CAN_send_command(modules_list_[0].txdata_buffer_[0], modules_list_[0].txdata_buffer_[1]);
     // }
 
-    for (auto &mod : modules_list_)
+    for (int i = 0; i < 4; i++)
     {
-        if (mod.enable_)
+        if (modules_list_[i].enable_)
         {
-            mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
+            if (modules_list_[i].rxdata_buffer_[0].mode_ == Mode::MOTOR && modules_list_[i].rxdata_buffer_[1].mode_ == Mode::MOTOR)
+            {
+                modules_list_[i].io_.CAN_send_command(modules_list_[i].txdata_buffer_[0], modules_list_[i].txdata_buffer_[1]);
+            }
         }
-        // mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
-
-        // if (mod.CAN_first_transmit_)
-        // {
-        //     // endwin();
-        //     mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
-        //     // mod.CAN_first_transmit_ = false;
-        // }
-        // else if (mod.io_.read_CAN_success_())
-        // {
-        //     mod.io_.CAN_recieve_feedback(&mod.rxdata_buffer_[0], &mod.rxdata_buffer_[1]);
-        //     mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
-        // }
     }
+    // if (mod.enable_)
+    // {
+    //     mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
+    // }
+
+    // if (mod.CAN_first_transmit_)
+    // {
+    //     // endwin();
+    //     mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
+    //     // mod.CAN_first_transmit_ = false;
+    // }
+    // else if (mod.io_.read_CAN_success_())
+    // {
+    //     mod.io_.CAN_recieve_feedback(&mod.rxdata_buffer_[0], &mod.rxdata_buffer_[1]);
+    //     mod.io_.CAN_send_command(mod.txdata_buffer_[0], mod.txdata_buffer_[1]);
+    // }
 }
 
 int main()
@@ -297,12 +300,6 @@ int main()
 
     important_message("[FPGA Server] : Launched");
     Corgi corgi;
-
-    // NodeHandler nh_;
-    // Subscriber cmd_sub_ = nh_.subscriber("/fpga_cmd");
-    // Publisher state_pub_ = nh_.publisher("/robot_state");
-    // boost::thread node_service(boost::bind(&boost::asio::io_service::run, &node_ios));
-    // corgi.interruptHandler(cmd_sub_, state_pub_);
 
     corgi.interruptHandler();
 

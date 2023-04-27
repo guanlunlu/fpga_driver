@@ -52,8 +52,8 @@ LegModule::LegModule(std::string _label, YAML::Node _config, NiFpga_Status _stat
 
 void LegModule::load_config()
 {
-    Motor motor_f;
-    Motor motor_h;
+    Motor motor_r;
+    Motor motor_l;
     CAN_timeout_us = config_["CAN_Timeout_us"].as<int>();
 
     // load configuration from yaml file
@@ -61,41 +61,47 @@ void LegModule::load_config()
     enable_ = config_[label_]["Enable"].as<int>();
     CAN_port_ = config_[label_]["CAN_PORT"].as<std::string>();
     // Motor F setup
-    motor_f.fw_version_ = config_[label_]["Motor_F"]["FW_Version"].as<int>();
-    motor_f.CAN_ID_ = config_[label_]["Motor_F"]["CAN_ID"].as<int>();
-    motor_f.kp_ = config_[label_]["Motor_F"]["KP"].as<double>();
-    motor_f.ki_ = config_[label_]["Motor_F"]["KI"].as<double>();
-    motor_f.kd_ = config_[label_]["Motor_F"]["KD"].as<double>();
-    motor_f.torque_ff_ = config_[label_]["Motor_F"]["Torque_Feedfoward"].as<int>();
+    motor_r.fw_version_ = config_[label_]["Motor_R"]["FW_Version"].as<int>();
+    motor_r.CAN_ID_ = config_[label_]["Motor_R"]["CAN_ID"].as<int>();
+    motor_r.kp_ = config_[label_]["Motor_R"]["KP"].as<double>();
+    motor_r.ki_ = config_[label_]["Motor_R"]["KI"].as<double>();
+    motor_r.kd_ = config_[label_]["Motor_R"]["KD"].as<double>();
+    motor_r.torque_ff_ = config_[label_]["Motor_R"]["Torque_Feedfoward"].as<int>();
+
+    linkR_bias = config_[label_]["Motor_R"]["Calibration_Bias"].as<int>();
+    motor_r.calibration_bias = 0;
 
     // Motor H setup
-    motor_h.fw_version_ = config_[label_]["Motor_H"]["FW_Version"].as<int>();
-    motor_h.CAN_ID_ = config_[label_]["Motor_H"]["CAN_ID"].as<int>();
-    motor_h.kp_ = config_[label_]["Motor_H"]["KP"].as<double>();
-    motor_h.ki_ = config_[label_]["Motor_H"]["KI"].as<double>();
-    motor_h.kd_ = config_[label_]["Motor_H"]["KD"].as<double>();
-    motor_h.torque_ff_ = config_[label_]["Motor_H"]["Torque_Feedfoward"].as<int>();
+    motor_l.fw_version_ = config_[label_]["Motor_L"]["FW_Version"].as<int>();
+    motor_l.CAN_ID_ = config_[label_]["Motor_L"]["CAN_ID"].as<int>();
+    motor_l.kp_ = config_[label_]["Motor_L"]["KP"].as<double>();
+    motor_l.ki_ = config_[label_]["Motor_L"]["KI"].as<double>();
+    motor_l.kd_ = config_[label_]["Motor_L"]["KD"].as<double>();
+    motor_l.torque_ff_ = config_[label_]["Motor_L"]["Torque_Feedfoward"].as<int>();
 
-    motors_list_.push_back(motor_f);
-    motors_list_.push_back(motor_h);
+    linkL_bias = config_[label_]["Motor_L"]["Calibration_Bias"].as<int>();
+    motor_l.calibration_bias = 0;
+
+    motors_list_.push_back(motor_r);
+    motors_list_.push_back(motor_l);
 
     std::cout << "CAN PORT: " << config_[label_]["CAN_PORT"].as<std::string>() << std::endl;
 
-    std::cout << "Motor_F: " << std::endl;
-    std::cout << std::setw(14) << "  FW_Version: " << std::setw(13) << motor_f.fw_version_ << std::endl;
-    std::cout << std::setw(14) << "  CAN_ID: " << std::setw(13) << motor_f.CAN_ID_ << std::endl;
-    std::cout << std::setw(14) << "  KP: " << std::setw(13) << motor_f.kp_ << std::endl;
-    std::cout << std::setw(14) << "  KI: " << std::setw(13) << motor_f.ki_ << std::endl;
-    std::cout << std::setw(14) << "  KD: " << std::setw(13) << motor_f.kd_ << std::endl;
-    std::cout << std::setw(14) << "  Torque_ff: " << std::setw(13) << motor_f.torque_ff_ << std::endl;
+    std::cout << "Motor_R: " << std::endl;
+    std::cout << std::setw(14) << "  FW_Version: " << std::setw(13) << motor_r.fw_version_ << std::endl;
+    std::cout << std::setw(14) << "  CAN_ID: " << std::setw(13) << motor_r.CAN_ID_ << std::endl;
+    std::cout << std::setw(14) << "  KP: " << std::setw(13) << motor_r.kp_ << std::endl;
+    std::cout << std::setw(14) << "  KI: " << std::setw(13) << motor_r.ki_ << std::endl;
+    std::cout << std::setw(14) << "  KD: " << std::setw(13) << motor_r.kd_ << std::endl;
+    std::cout << std::setw(14) << "  Torque_ff: " << std::setw(13) << motor_r.torque_ff_ << std::endl;
     std::cout << std::setw(14) << "---------------------------" << std::endl;
 
-    std::cout << "Motor_H: " << std::endl;
-    std::cout << std::setw(14) << "  FW_Version: " << std::setw(13) << motor_h.fw_version_ << std::endl;
-    std::cout << std::setw(14) << "  CAN_ID: " << std::setw(13) << motor_h.CAN_ID_ << std::endl;
-    std::cout << std::setw(14) << "  KP: " << std::setw(13) << motor_h.kp_ << std::endl;
-    std::cout << std::setw(14) << "  KI: " << std::setw(13) << motor_h.ki_ << std::endl;
-    std::cout << std::setw(14) << "  KD: " << std::setw(13) << motor_h.kd_ << std::endl;
-    std::cout << std::setw(14) << "  Torque_ff: " << std::setw(13) << motor_h.torque_ff_ << std::endl;
+    std::cout << "Motor_L: " << std::endl;
+    std::cout << std::setw(14) << "  FW_Version: " << std::setw(13) << motor_l.fw_version_ << std::endl;
+    std::cout << std::setw(14) << "  CAN_ID: " << std::setw(13) << motor_l.CAN_ID_ << std::endl;
+    std::cout << std::setw(14) << "  KP: " << std::setw(13) << motor_l.kp_ << std::endl;
+    std::cout << std::setw(14) << "  KI: " << std::setw(13) << motor_l.ki_ << std::endl;
+    std::cout << std::setw(14) << "  KD: " << std::setw(13) << motor_l.kd_ << std::endl;
+    std::cout << std::setw(14) << "  Torque_ff: " << std::setw(13) << motor_l.torque_ff_ << std::endl;
     std::cout << std::setw(14) << "---------------------------" << std::endl;
 }

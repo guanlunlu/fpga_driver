@@ -6,18 +6,17 @@
 #include <msg.hpp>
 #include <string>
 #include <vector>
-#include <brlos/NodeHandler.hpp>
-#include <brlos/parameters_parser.hpp>
+#include <NodeHandler.hpp>
 #include <mutex>
+#include "motor_msg.hpp"
 
 #include "boost/bind.hpp"
 #include "boost/thread.hpp"
 
-#define CONFIG_PATH "/home/admin/corgi_ws/src/fpga_server/config/config.yaml"
+#define CONFIG_PATH "/home/admin/fpga_driver/config/config.yaml"
 
 volatile sig_atomic_t sys_stop;
 void inthand(int signum);
-void cmdCallback(FpgaCmdMsg cmd_msg);
 
 class Corgi
 {
@@ -29,7 +28,6 @@ public:
   int modules_num_;
 
   FpgaHandler fpga_;
-  Behavior behavior_;
   Console console_;
 
   ModeFsm fsm_;
@@ -45,10 +43,8 @@ public:
   bool power_switch_;
   bool stop_;
 
-  void interruptHandler(Subscriber &cmd_sub_, Publisher &state_pub_);
-  void interruptHandler();
+  void interruptHandler(std::vector<core::Subscriber> &cmd_sub_, std::vector<core::Publisher> &state_pub_);
 
-  void mainLoop_(Subscriber &cmd_sub_, Publisher &state_pub_);
-  void mainLoop_();
+  void mainLoop_(std::vector<core::Subscriber> &cmd_sub_, std::vector<core::Publisher> &state_pub_);
   void canLoop_();
 };

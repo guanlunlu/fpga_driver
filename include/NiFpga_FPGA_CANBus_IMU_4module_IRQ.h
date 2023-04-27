@@ -6,7 +6,7 @@
 #define __NiFpga_FPGA_CANBus_IMU_4module_IRQ_h__
 
 #ifndef NiFpga_Version
-   #define NiFpga_Version 190
+#define NiFpga_Version 190
 #endif
 
 #include "NiFpga.h"
@@ -18,726 +18,725 @@
  *
  *    static const char* const Bitfile = "C:\\" NiFpga_FPGA_CANBus_IMU_4module_IRQ_Bitfile;
  */
-#define NiFpga_FPGA_CANBus_IMU_4module_IRQ_Bitfile "/home/admin/corgi_ws/src/fpga_server/fpga_bitfile/NiFpga_FPGA_CANBus_IMU_4module_IRQ.lvbitx"
+#define NiFpga_FPGA_CANBus_IMU_4module_IRQ_Bitfile "/home/admin/fpga_driver/fpga_bitfile/NiFpga_FPGA_CANBus_IMU_4module_IRQ_0331.lvbitx"
 
 /**
  * The signature of the FPGA bitfile.
  */
-static const char* const NiFpga_FPGA_CANBus_IMU_4module_IRQ_Signature = "992A8E0E185E7E901E2EA217C211D623";
+static const char *const NiFpga_FPGA_CANBus_IMU_4module_IRQ_Signature = "2DD5F7D97A8E99BF98E3632E28325E95";
 
 #if NiFpga_Cpp
 extern "C"
 {
 #endif
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_CLOCK = 0x1803E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_CLOCKON = 0x1804A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_CS = 0x1804E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_ChecksumOK = 0x1803A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_MISO = 0x1805E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_MOSI = 0x18052,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0Complete = 0x18012,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0ID1RXTimedout = 0x180F2,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0ID1TXTimedout = 0x18106,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0ID2RXTimedout = 0x1810E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0ID2TXTimedout = 0x1811E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0TXFault = 0x18126,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0success = 0x1800A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1Complete = 0x1807E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1ID1RXTimedout = 0x1815A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1ID1TXTimedout = 0x18162,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1ID2RXTimedout = 0x18176,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1ID2TXTimedout = 0x18186,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1TXFault = 0x1819A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1success = 0x18086,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0Complete = 0x18092,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0ID1RXTimedout = 0x181BE,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0ID1TXTimedout = 0x181C6,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0ID2RXTimedout = 0x181DA,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0ID2TXTimedout = 0x181EA,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0TXFault = 0x181F6,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0success = 0x1809A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1Complete = 0x180A6,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1ID1RXTimedout = 0x18222,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1ID1TXTimedout = 0x1822A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1ID2RXTimedout = 0x1823E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1ID2TXTimedout = 0x1824E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1TXFault = 0x1825A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1success = 0x180AE,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_RXfinish = 0x1802A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Rpi_RXfinish = 0x180CA,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_CLOCK = 0x1803E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_CLOCKON = 0x1804A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_CS = 0x1804E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_ChecksumOK = 0x1803A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_MISO = 0x1805E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_MOSI = 0x18052,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0Complete = 0x18012,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0ID1RXTimedout = 0x180F2,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0ID1TXTimedout = 0x18106,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0ID2RXTimedout = 0x1810E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0ID2TXTimedout = 0x1811E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0TXFault = 0x18126,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN0success = 0x1800A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1Complete = 0x1807E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1ID1RXTimedout = 0x1815A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1ID1TXTimedout = 0x18162,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1ID2RXTimedout = 0x18176,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1ID2TXTimedout = 0x18186,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1TXFault = 0x1819A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod1CAN1success = 0x18086,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0Complete = 0x18092,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0ID1RXTimedout = 0x181BE,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0ID1TXTimedout = 0x181C6,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0ID2RXTimedout = 0x181DA,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0ID2TXTimedout = 0x181EA,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0TXFault = 0x181F6,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN0success = 0x1809A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1Complete = 0x180A6,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1ID1RXTimedout = 0x18222,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1ID1TXTimedout = 0x1822A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1ID2RXTimedout = 0x1823E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1ID2TXTimedout = 0x1824E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1TXFault = 0x1825A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Mod2CAN1success = 0x180AE,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_RXfinish = 0x1802A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool_Rpi_RXfinish = 0x180CA,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorBool;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN0CommState = 0x1813A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN0ECCRegister = 0x18132,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN0ReceiveErrorCounter = 0x18136,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN1CommState = 0x1819E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN1ECCRegister = 0x181A6,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN1ReceiveErrorCounter = 0x181A2,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN0CommState = 0x181FA,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN0ECCRegister = 0x18202,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN0ReceiveErrorCounter = 0x181FE,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN1CommState = 0x1825E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN1ECCRegister = 0x18266,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN1ReceiveErrorCounter = 0x18262,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN0CommState = 0x1813A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN0ECCRegister = 0x18132,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN0ReceiveErrorCounter = 0x18136,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN1CommState = 0x1819E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN1ECCRegister = 0x181A6,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod1CAN1ReceiveErrorCounter = 0x181A2,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN0CommState = 0x181FA,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN0ECCRegister = 0x18202,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN0ReceiveErrorCounter = 0x181FE,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN1CommState = 0x1825E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN1ECCRegister = 0x18266,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8_Mod2CAN1ReceiveErrorCounter = 0x18262,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU8;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16_Mod1CAN0CompleteCounter = 0x1800E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16_Mod1CAN1CompleteCounter = 0x18082,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16_Mod2CAN0CompleteCounter = 0x18096,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16_Mod2CAN1CompleteCounter = 0x180AA,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16_Mod1CAN0CompleteCounter = 0x1800E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16_Mod1CAN1CompleteCounter = 0x18082,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16_Mod2CAN0CompleteCounter = 0x18096,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16_Mod2CAN1CompleteCounter = 0x180AA,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI16;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU16_measureddata = 0x1806A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU16_state9 = 0x18046,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU16;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU16_measureddata = 0x1806A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU16_state9 = 0x18046,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU16;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ0_cnt = 0x180D4,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ1_cnt = 0x180E0,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_readwritebits = 0x18060,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ0_cnt = 0x180D4,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ1_cnt = 0x180E0,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_readwritebits = 0x18060,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0BusError = 0x18128,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0ID1TX2RXTime = 0x180FC,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0ID2TX2RXTime = 0x18118,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0RXCounter = 0x1813C,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0TXError = 0x1812C,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1BusError = 0x181AC,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1ID1TX2RXTime = 0x1815C,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1ID2TX2RXTime = 0x18178,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1RXCounter = 0x18194,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1TXError = 0x181A8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0BusError = 0x18208,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0ID1TX2RXTime = 0x181C0,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0ID2TX2RXTime = 0x181DC,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0RXCounter = 0x181F0,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0TXError = 0x18204,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1BusError = 0x1826C,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1ID1TX2RXTime = 0x18224,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1ID2TX2RXTime = 0x18240,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1RXCounter = 0x18254,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1TXError = 0x18268,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_mainlooptime = 0x18040,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0BusError = 0x18128,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0ID1TX2RXTime = 0x180FC,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0ID2TX2RXTime = 0x18118,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0RXCounter = 0x1813C,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN0TXError = 0x1812C,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1BusError = 0x181AC,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1ID1TX2RXTime = 0x1815C,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1ID2TX2RXTime = 0x18178,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1RXCounter = 0x18194,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod1CAN1TXError = 0x181A8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0BusError = 0x18208,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0ID1TX2RXTime = 0x181C0,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0ID2TX2RXTime = 0x181DC,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0RXCounter = 0x181F0,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN0TXError = 0x18204,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1BusError = 0x1826C,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1ID1TX2RXTime = 0x18224,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1ID2TX2RXTime = 0x18240,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1RXCounter = 0x18254,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_Mod2CAN1TXError = 0x18268,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32_mainlooptime = 0x18040,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorU32;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Digital = 0x18022,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_IRQ0_wait_until_cleared = 0x180DE,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_IRQ1_wait_until_cleared = 0x180EA,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_MOD1CAN0Transmit = 0x18002,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_MOD1CAN1Transmit = 0x1808A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_MOD2CAN0Transmit = 0x1809E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_MOD2CAN1Transmit = 0x180B2,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Power = 0x1801A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Signal = 0x1801E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_VICONtrigger = 0x18016,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_startIMU = 0x18056,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_stop = 0x18006,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Digital = 0x18022,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_IRQ0_wait_until_cleared = 0x180DE,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_IRQ1_wait_until_cleared = 0x180EA,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_MOD1CAN0Transmit = 0x18002,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_MOD1CAN1Transmit = 0x1808A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_MOD2CAN0Transmit = 0x1809E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_MOD2CAN1Transmit = 0x180B2,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Power = 0x1801A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Signal = 0x1801E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_VICONtrigger = 0x18016,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_startIMU = 0x18056,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_stop = 0x18006,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU8_Tail = 0x180CE,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU8;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU8_Tail = 0x180CE,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU8;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_IRQ0_period_us = 0x180D8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_IRQ1_period_us = 0x180E4,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN0 = 0x18070,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN0ID1 = 0x180F8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN0ID2 = 0x18114,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN0RXTimoutus = 0x18148,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN1 = 0x18074,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN1ID1 = 0x18164,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN1ID2 = 0x1817C,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN1RXTimoutus = 0x18188,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN0 = 0x180B4,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN0ID1 = 0x181C8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN0ID2 = 0x181E0,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN0RXTimoutus = 0x18210,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN1 = 0x180B8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN1ID1 = 0x1822C,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN1ID2 = 0x18244,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN1RXTimoutus = 0x18274,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_TXPerioduSec = 0x180BC,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_IRQ0_period_us = 0x180D8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_IRQ1_period_us = 0x180E4,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN0 = 0x18070,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN0ID1 = 0x180F8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN0ID2 = 0x18114,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN0RXTimoutus = 0x18148,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN1 = 0x18074,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN1ID1 = 0x18164,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN1ID2 = 0x1817C,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod1CAN1RXTimoutus = 0x18188,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN0 = 0x180B4,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN0ID1 = 0x181C8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN0ID2 = 0x181E0,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN0RXTimoutus = 0x18210,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN1 = 0x180B8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN1ID1 = 0x1822C,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN1ID2 = 0x18244,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_Mod2CAN1RXTimoutus = 0x18274,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32_TXPerioduSec = 0x180BC,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlU32;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayBool_outputarray7 = 0x1805A,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayBool;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayBool_outputarray7 = 0x1805A,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayBool;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayBoolSize_outputarray7 = 16,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayBoolSize;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayBoolSize_outputarray7 = 16,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayBoolSize;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_DataArray = 0x18034,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_DataRX = 0x1802C,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod1CAN0ID1RXData = 0x180EC,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod1CAN0ID2RXData = 0x18108,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod1CAN1ID1RXData = 0x18154,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod1CAN1ID2RXData = 0x18170,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod2CAN0ID1RXData = 0x181B8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod2CAN0ID2RXData = 0x181D4,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod2CAN1ID1RXData = 0x1821C,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod2CAN1ID2RXData = 0x18238,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Rpi_DataArray = 0x180D0,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Rpi_DataRX = 0x180C4,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_DataArray = 0x18034,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_DataRX = 0x1802C,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod1CAN0ID1RXData = 0x180EC,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod1CAN0ID2RXData = 0x18108,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod1CAN1ID1RXData = 0x18154,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod1CAN1ID2RXData = 0x18170,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod2CAN0ID1RXData = 0x181B8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod2CAN0ID2RXData = 0x181D4,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod2CAN1ID1RXData = 0x1821C,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Mod2CAN1ID2RXData = 0x18238,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Rpi_DataArray = 0x180D0,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8_Rpi_DataRX = 0x180C4,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_DataArray = 49,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_DataRX = 64,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod1CAN0ID1RXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod1CAN0ID2RXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod1CAN1ID1RXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod1CAN1ID2RXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod2CAN0ID1RXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod2CAN0ID2RXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod2CAN1ID1RXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod2CAN1ID2RXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Rpi_DataArray = 72,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Rpi_DataRX = 72,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_DataArray = 49,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_DataRX = 64,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod1CAN0ID1RXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod1CAN0ID2RXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod1CAN1ID1RXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod1CAN1ID2RXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod2CAN0ID1RXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod2CAN0ID2RXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod2CAN1ID1RXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Mod2CAN1ID2RXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Rpi_DataArray = 72,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size_Rpi_DataRX = 72,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU8Size;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayI16_IMU = 0x18064,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayI16;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayI16_IMU = 0x18064,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayI16;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayI16Size_IMU = 9,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayI16Size;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayI16Size_IMU = 9,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayI16Size;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16_Data = 0x18030,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16_Data = 0x18030,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16Size_Data = 24,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16Size;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16Size_Data = 24,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16Size;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool_Mod1CAN0Select = 0x1806E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool_Mod1CAN1Select = 0x1807A,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool_Mod2CAN0Select = 0x1808E,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool_Mod2CAN1Select = 0x180A2,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool_Mod1CAN0Select = 0x1806E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool_Mod1CAN1Select = 0x1807A,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool_Mod2CAN0Select = 0x1808E,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool_Mod2CAN1Select = 0x180A2,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBool;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize_Mod1CAN0Select = 2,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize_Mod1CAN1Select = 2,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize_Mod2CAN0Select = 2,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize_Mod2CAN1Select = 2,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize_Mod1CAN0Select = 2,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize_Mod1CAN1Select = 2,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize_Mod2CAN0Select = 2,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize_Mod2CAN1Select = 2,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayBoolSize;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_DataTx = 0x18024,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod1CAN0ID1TXData = 0x180F4,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod1CAN0ID2TXData = 0x18110,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod1CAN1ID1TXData = 0x18168,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod1CAN1ID2TXData = 0x18180,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod2CAN0ID1TXData = 0x181CC,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod2CAN0ID2TXData = 0x181E4,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod2CAN1ID1TXData = 0x18230,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod2CAN1ID2TXData = 0x18248,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Rpi_DataTx = 0x180C0,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_DataTx = 0x18024,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod1CAN0ID1TXData = 0x180F4,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod1CAN0ID2TXData = 0x18110,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod1CAN1ID1TXData = 0x18168,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod1CAN1ID2TXData = 0x18180,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod2CAN0ID1TXData = 0x181CC,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod2CAN0ID2TXData = 0x181E4,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod2CAN1ID1TXData = 0x18230,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Mod2CAN1ID2TXData = 0x18248,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8_Rpi_DataTx = 0x180C0,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8;
 
-typedef enum
-{
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_DataTx = 12,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod1CAN0ID1TXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod1CAN0ID2TXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod1CAN1ID1TXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod1CAN1ID2TXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod2CAN0ID1TXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod2CAN0ID2TXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod2CAN1ID1TXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod2CAN1ID2TXData = 8,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Rpi_DataTx = 72,
-} NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size;
+   typedef enum
+   {
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_DataTx = 12,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod1CAN0ID1TXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod1CAN0ID2TXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod1CAN1ID1TXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod1CAN1ID2TXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod2CAN0ID1TXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod2CAN0ID2TXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod2CAN1ID1TXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Mod2CAN1ID2TXData = 8,
+      NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size_Rpi_DataTx = 72,
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlArrayU8Size;
 
 #if !NiFpga_VxWorks
 
-/* Indicator: Mod1CAN0ID1RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN0ID1RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Resource = 0x18100;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type* const source);
-
-/* Indicator: Mod1CAN0ID2RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN0ID2RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Resource = 0x18120;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type* const source);
-
-/* Indicator: Mod1CAN0RXError */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN0RXError */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Resource = 0x18144;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_PackedSizeInBytes = 5;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type{
-   NiFpga_Bool status;
-   int32_t code;
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type* const source);
-
-/* Indicator: Mod1CAN0RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN0RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Resource = 0x18140;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type* const source);
-
-/* Indicator: Mod1CAN0TransmitError */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN0TransmitError */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Resource = 0x1814C;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_PackedSizeInBytes = 5;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type{
-   NiFpga_Bool status;
-   int32_t code;
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type* const source);
-
-/* Indicator: Mod1CAN1ID1RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN1ID1RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Resource = 0x18150;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type* const source);
-
-/* Indicator: Mod1CAN1ID2RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN1ID2RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Resource = 0x1816C;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type* const source);
-
-/* Indicator: Mod1CAN1RXError */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN1RXError */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Resource = 0x181B0;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_PackedSizeInBytes = 5;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type{
-   NiFpga_Bool status;
-   int32_t code;
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type* const source);
-
-/* Indicator: Mod1CAN1RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN1RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Resource = 0x18190;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type* const source);
-
-/* Indicator: Mod1CAN1TransmitError */
-/* Use NiFpga_ReadArrayU8() to access Mod1CAN1TransmitError */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Resource = 0x1818C;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_PackedSizeInBytes = 5;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type{
-   NiFpga_Bool status;
-   int32_t code;
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type* const source);
-
-/* Indicator: Mod2CAN0ID1RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN0ID1RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Resource = 0x181B4;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type* const source);
-
-/* Indicator: Mod2CAN0ID2RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN0ID2RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Resource = 0x181D0;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type* const source);
-
-/* Indicator: Mod2CAN0RXError */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN0RXError */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Resource = 0x1820C;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_PackedSizeInBytes = 5;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type{
-   NiFpga_Bool status;
-   int32_t code;
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type* const source);
-
-/* Indicator: Mod2CAN0RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN0RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Resource = 0x181EC;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type* const source);
-
-/* Indicator: Mod2CAN0TransmitError */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN0TransmitError */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Resource = 0x18214;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_PackedSizeInBytes = 5;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type{
-   NiFpga_Bool status;
-   int32_t code;
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type* const source);
-
-/* Indicator: Mod2CAN1ID1RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN1ID1RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Resource = 0x18218;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type* const source);
-
-/* Indicator: Mod2CAN1ID2RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN1ID2RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Resource = 0x18234;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type* const source);
-
-/* Indicator: Mod2CAN1RXError */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN1RXError */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Resource = 0x18270;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_PackedSizeInBytes = 5;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type{
-   NiFpga_Bool status;
-   int32_t code;
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type* const source);
-
-/* Indicator: Mod2CAN1RXFrame */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN1RXFrame */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Resource = 0x18250;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_PackedSizeInBytes = 24;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type{
-   uint32_t timestamphigh;
-   uint32_t timestamplow;
-   uint32_t identifier;
-   uint8_t type;
-   uint8_t infoA;
-   uint8_t infoB;
-   uint8_t datalength;
-   uint8_t data[8];
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type* const source);
-
-/* Indicator: Mod2CAN1TransmitError */
-/* Use NiFpga_ReadArrayU8() to access Mod2CAN1TransmitError */
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Resource = 0x18278;
-const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_PackedSizeInBytes = 5;
-
-typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type{
-   NiFpga_Bool status;
-   int32_t code;
-}NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type;
-
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type* const destination);
-
-void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type* const source);
+   /* Indicator: Mod1CAN0ID1RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN0ID1RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Resource = 0x18100;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type *const source);
+
+   /* Indicator: Mod1CAN0ID2RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN0ID2RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Resource = 0x18120;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type *const source);
+
+   /* Indicator: Mod1CAN0RXError */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN0RXError */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Resource = 0x18144;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_PackedSizeInBytes = 5;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type
+   {
+      NiFpga_Bool status;
+      int32_t code;
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type *const source);
+
+   /* Indicator: Mod1CAN0RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN0RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Resource = 0x18140;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type *const source);
+
+   /* Indicator: Mod1CAN0TransmitError */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN0TransmitError */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Resource = 0x1814C;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_PackedSizeInBytes = 5;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type
+   {
+      NiFpga_Bool status;
+      int32_t code;
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type *const source);
+
+   /* Indicator: Mod1CAN1ID1RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN1ID1RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Resource = 0x18150;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type *const source);
+
+   /* Indicator: Mod1CAN1ID2RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN1ID2RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Resource = 0x1816C;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type *const source);
+
+   /* Indicator: Mod1CAN1RXError */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN1RXError */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Resource = 0x181B0;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_PackedSizeInBytes = 5;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type
+   {
+      NiFpga_Bool status;
+      int32_t code;
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type *const source);
+
+   /* Indicator: Mod1CAN1RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN1RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Resource = 0x18190;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type *const source);
+
+   /* Indicator: Mod1CAN1TransmitError */
+   /* Use NiFpga_ReadArrayU8() to access Mod1CAN1TransmitError */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Resource = 0x1818C;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_PackedSizeInBytes = 5;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type
+   {
+      NiFpga_Bool status;
+      int32_t code;
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type *const source);
+
+   /* Indicator: Mod2CAN0ID1RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN0ID1RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Resource = 0x181B4;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type *const source);
+
+   /* Indicator: Mod2CAN0ID2RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN0ID2RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Resource = 0x181D0;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type *const source);
+
+   /* Indicator: Mod2CAN0RXError */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN0RXError */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Resource = 0x1820C;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_PackedSizeInBytes = 5;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type
+   {
+      NiFpga_Bool status;
+      int32_t code;
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type *const source);
+
+   /* Indicator: Mod2CAN0RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN0RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Resource = 0x181EC;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type *const source);
+
+   /* Indicator: Mod2CAN0TransmitError */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN0TransmitError */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Resource = 0x18214;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_PackedSizeInBytes = 5;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type
+   {
+      NiFpga_Bool status;
+      int32_t code;
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type *const source);
+
+   /* Indicator: Mod2CAN1ID1RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN1ID1RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Resource = 0x18218;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type *const source);
+
+   /* Indicator: Mod2CAN1ID2RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN1ID2RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Resource = 0x18234;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type *const source);
+
+   /* Indicator: Mod2CAN1RXError */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN1RXError */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Resource = 0x18270;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_PackedSizeInBytes = 5;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type
+   {
+      NiFpga_Bool status;
+      int32_t code;
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type *const source);
+
+   /* Indicator: Mod2CAN1RXFrame */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN1RXFrame */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Resource = 0x18250;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_PackedSizeInBytes = 24;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type
+   {
+      uint32_t timestamphigh;
+      uint32_t timestamplow;
+      uint32_t identifier;
+      uint8_t type;
+      uint8_t infoA;
+      uint8_t infoB;
+      uint8_t datalength;
+      uint8_t data[8];
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type *const source);
+
+   /* Indicator: Mod2CAN1TransmitError */
+   /* Use NiFpga_ReadArrayU8() to access Mod2CAN1TransmitError */
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Resource = 0x18278;
+   const uint32_t NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_PackedSizeInBytes = 5;
+
+   typedef struct NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type
+   {
+      NiFpga_Bool status;
+      int32_t code;
+   } NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type;
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_UnpackCluster(
+       const uint8_t *const packedData,
+       NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type *const destination);
+
+   void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_PackCluster(
+       uint8_t *const packedData,
+       const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type *const source);
 
 #endif /* !NiFpga_VxWorks */
-
 
 #if NiFpga_Cpp
 }

@@ -23,7 +23,6 @@ public:
 
   void runFsm();
   void switchMode(Mode next_mode);
-  void waitFor(int iter);
 };
 
 #endif

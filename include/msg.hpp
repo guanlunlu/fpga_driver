@@ -24,6 +24,8 @@ typedef struct Motor
     double position_fb_;
     double current_fb_;
     double velocity_fb_;
+
+    double calibration_bias;
 } Motor;
 
 // transmitted to SBRIO
@@ -50,13 +52,13 @@ typedef struct CAN_rxdata
 
 class Module
 {
-  public:
+public:
     std::vector<CAN_txdata> txdata_;
 };
 
 class FpgaCmdMsg
 {
-  public:
+public:
     bool power_on_ = false;
     bool digital_on_ = false;
     bool signal_on_ = true;
@@ -67,7 +69,7 @@ class FpgaCmdMsg
     std::vector<Module> modules_;
 
     template <class Archive>
-    void serialize(Archive& ar)
+    void serialize(Archive &ar)
     {
         ar(power_on_, digital_on_, signal_on_, stop_);
     }

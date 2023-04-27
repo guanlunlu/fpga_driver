@@ -1,13 +1,10 @@
 # TCP node communication setup
-Master_IP: "169.254.105.68"
-Master_port: 8888
-Local_IP: "169.254.254.89"
+Master_IP: "127.0.0.1"
+Master_port: 9999
+Local_IP: "127.0.0.1"
 
 Command_topic: "/fpga/command"
 Publish_topic: "/fpga/state"
-
-# function mode : "SET_THETA, TCP_SLAVE, CUSTOM_1, CUSTOM_2, CUSTOM_3"
-Behavior_mode: "SET_THETA"
 
 # Interrupt Setup, Triggered By FPGA IRQ
 # IRQ 0
@@ -15,25 +12,27 @@ Behavior_mode: "SET_THETA"
 MainLoop_period_us: 1000
 # IRQ 1
 # Loop Period (type int) of the loop handling CAN transceiving, at least 1000 us
-CanLoop_period_us: 1000
+CANLoop_period_us: 1000
 
 # CAN Bus timeout
 CAN_Timeout_us: 500
 
-# MOD A
+# MOD A Bias represented in radian
 LF_Module:
-  Enable: 1
+  Enable: 0
   CAN_PORT: "MOD1CAN0"
-  Motor_F:
+  Motor_R:
     FW_Version: 3
-    CAN_ID: 19
+    CAN_ID: 20
+    Calibration_Bias: 0
     KP: 50
     KI: 0
     KD: 1.5
     Torque_Feedfoward: 0
-  Motor_H:
+  Motor_L:
     FW_Version: 3
-    CAN_ID: 20
+    CAN_ID: 19
+    Calibration_Bias: 0
     KP: 50
     KI: 0
     KD: 1.5
@@ -43,16 +42,18 @@ LF_Module:
 RF_Module:
   Enable: 1
   CAN_PORT: "MOD1CAN1"
-  Motor_F:
+  Motor_R:
     FW_Version: 3
-    CAN_ID: 11
+    CAN_ID: 17
+    Calibration_Bias: -0.815419
     KP: 50
     KI: 0
     KD: 1.5
     Torque_Feedfoward: 0
-  Motor_H:
+  Motor_L:
     FW_Version: 3
-    CAN_ID: 17
+    CAN_ID: 11
+    Calibration_Bias: -0.0129432
     KP: 50
     KI: 0
     KD: 1.5
@@ -60,18 +61,20 @@ RF_Module:
 
 # MOD C
 RH_Module:
-  Enable: 1
+  Enable: 0
   CAN_PORT: "MOD2CAN0"
-  Motor_F:
+  Motor_R:
     FW_Version: 3
     CAN_ID: 16
+    Calibration_Bias: 0
     KP: 50
     KI: 0
     KD: 1.5
     Torque_Feedfoward: 0
-  Motor_H:
+  Motor_L:
     FW_Version: 3
     CAN_ID: 15
+    Calibration_Bias: 0
     KP: 50
     KI: 0
     KD: 1.5
@@ -79,18 +82,20 @@ RH_Module:
 
 # MOD D
 LH_Module:
-  Enable: 1
+  Enable: 0
   CAN_PORT: "MOD2CAN1"
-  Motor_F:
+  Motor_R:
     FW_Version: 3
     CAN_ID: 14
+    Calibration_Bias: 0
     KP: 50
     KI: 0
     KD: 1.5
     Torque_Feedfoward: 0
-  Motor_H:
+  Motor_L:
     FW_Version: 3
     CAN_ID: 13
+    Calibration_Bias: 0
     KP: 50
     KI: 0
     KD: 1.5

@@ -252,15 +252,27 @@ void ModuleIO::CAN_send_command(CAN_txdata txdata_id1, CAN_txdata txdata_id2)
 {
     uint8_t txmsg_id1[8];
     uint8_t txmsg_id2[8];
-    CAN_encode(txmsg_id1, txdata_id1);
-    // std::cout << "txmsg_id1 ";
-    // for (int i = 0; i < 8; i++)
-    // {
-    //     // std::cout << txmsg_id1[i];
-    //     printf("%#04x ", txmsg_id1[i]);
-    // }
-    // std::cout << "\n";
-    CAN_encode(txmsg_id2, txdata_id2);
+    CAN_txdata txdata1_biased;
+    CAN_txdata txdata2_biased;
+
+    txdata1_biased.position_ = txdata_id1.position_ + motors_list_[0].calibration_bias;
+    txdata1_biased.torque_ = txdata_id1.torque_;
+    txdata1_biased.KP_ = txdata_id1.KP_;
+    txdata1_biased.KI_ = txdata_id1.KI_;
+    txdata1_biased.KD_ = txdata_id1.KD_;
+
+    txdata2_biased.position_ = txdata_id2.position_ + motors_list_[1].calibration_bias;
+    txdata2_biased.torque_ = txdata_id2.torque_;
+    txdata2_biased.KP_ = txdata_id2.KP_;
+    txdata2_biased.KI_ = txdata_id2.KI_;
+    txdata2_biased.KD_ = txdata_id2.KD_;
+
+    CAN_encode(txmsg_id1, txdata1_biased);
+    CAN_encode(txmsg_id2, txdata2_biased);
+
+    // CAN_encode(txmsg_id1, txdata_id1);
+    // CAN_encode(txmsg_id2, txdata_id2);
+
     write_tx_data_(txmsg_id1, txmsg_id2);
     write_CAN_transmit_(1);
 }
@@ -272,6 +284,9 @@ void ModuleIO::CAN_recieve_feedback(CAN_rxdata *rxdata_id1, CAN_rxdata *rxdata_i
     read_rx_data_(rxmsg_id1, rxmsg_id2);
     CAN_decode(rxmsg_id1, rxdata_id1);
     CAN_decode(rxmsg_id2, rxdata_id2);
+
+    rxdata_id1->position_ -= motors_list_[0].calibration_bias;
+    rxdata_id2->position_ -= motors_list_[1].calibration_bias;
 }
 
 // pack CAN data
@@ -298,6 +313,7 @@ void ModuleIO::CAN_encode(uint8_t (&txmsg)[8], CAN_txdata txdata)
 void ModuleIO::CAN_decode(uint8_t (&rxmsg)[8], CAN_rxdata *rxdata)
 {
     int pos_raw, vel_raw, torque_raw, ver_raw, cal_raw, mode_raw;
+
     // CAN bus ID, 8-bit
     // Position Measurement, 16-bit
     // Velocity Measurement, 12-bit
@@ -305,6 +321,7 @@ void ModuleIO::CAN_decode(uint8_t (&rxmsg)[8], CAN_rxdata *rxdata)
     // Version, 4-bit
     // Hall Calibrate status, 4-bit
     // Mode, 8-bit
+
     rxdata->CAN_id_ = (int)rxmsg[0];
     pos_raw = ((int)(rxmsg[1]) << 8) | rxmsg[2];
     vel_raw = (((int)(rxmsg[3]) << 4)) | ((rxmsg[4] & 0xF0) >> 4);

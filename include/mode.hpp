@@ -2,7 +2,7 @@
 #define __MODE_H
 
 #define _REST_MODE 0
-#define _HALL_CALIBRATE 1  // hall sensor calibration
+#define _HALL_CALIBRATE 1 // hall sensor calibration
 #define _MOTOR_MODE 2
 #define _SET_ZERO 3
 

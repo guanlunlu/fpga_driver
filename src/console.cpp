@@ -485,8 +485,8 @@ void Panel::infoDisplay()
 {
     int y_org = 2;
 
-    // Motor_F
-    mvwprintw(win_, 1, 1, "[F] Motor_F-----------------------------------------------");
+    // Motor_R
+    mvwprintw(win_, 1, 1, "[F] Motor_R-----------------------------------------------");
     mvwprintw(win_, 2, 1, "[C] [CAN] ID: %9d", md_ptr_->motors_list_[0].CAN_ID_);
     mvwprintw(win_, 3, 1, "    [tx] TIMEDOUT: %4d", md_ptr_->CAN_tx_timedout_[0]);
     mvwprintw(win_, y_org + 2, 1, "[A] [tx] Pos:  %5.5f", md_ptr_->txdata_buffer_[0].position_);
@@ -504,7 +504,7 @@ void Panel::infoDisplay()
     mvwprintw(win_, y_org + 7, 30, "[rx] Cal:   %7d", md_ptr_->rxdata_buffer_[0].calibrate_finish_);
 
     // Motor H
-    mvwprintw(win_, 10, 1, "[H] Motor_H-----------------------------------------------");
+    mvwprintw(win_, 10, 1, "[H] Motor_L-----------------------------------------------");
     mvwprintw(win_, 11, 1, "[C] [CAN] ID: %9d", md_ptr_->motors_list_[1].CAN_ID_);
     mvwprintw(win_, 12, 1, "    [tx] TIMEDOUT: %4d", md_ptr_->CAN_tx_timedout_[1]);
     mvwprintw(win_, y_org + 11, 1, "[A] [tx] Pos:  %5.5f", md_ptr_->txdata_buffer_[1].position_);

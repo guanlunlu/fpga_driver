@@ -31,6 +31,16 @@
 },
 {
   "directory": "/home/guanlunlu/fpga_driver/build",
+  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o -c /home/guanlunlu/fpga_driver/src/theta_error.cpp",
+  "file": "/home/guanlunlu/fpga_driver/src/theta_error.cpp"
+},
+{
+  "directory": "/home/guanlunlu/fpga_driver/build",
+  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.o -c /home/guanlunlu/fpga_driver/src/angle_convert.cpp",
+  "file": "/home/guanlunlu/fpga_driver/src/angle_convert.cpp"
+},
+{
+  "directory": "/home/guanlunlu/fpga_driver/build",
   "command": "/usr/bin/gcc -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -std=c99 -O3 -DNDEBUG -o CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o -c /home/guanlunlu/fpga_driver/src/NiFpga.c",
   "file": "/home/guanlunlu/fpga_driver/src/NiFpga.c"
 },

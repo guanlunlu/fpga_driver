@@ -177,6 +177,30 @@ src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.s
 .PHONY : src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.s
 
+src/angle_convert.o: src/angle_convert.cpp.o
+.PHONY : src/angle_convert.o
+
+# target to build an object file
+src/angle_convert.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.o
+.PHONY : src/angle_convert.cpp.o
+
+src/angle_convert.i: src/angle_convert.cpp.i
+.PHONY : src/angle_convert.i
+
+# target to preprocess a source file
+src/angle_convert.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.i
+.PHONY : src/angle_convert.cpp.i
+
+src/angle_convert.s: src/angle_convert.cpp.s
+.PHONY : src/angle_convert.s
+
+# target to generate assembly for a file
+src/angle_convert.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.s
+.PHONY : src/angle_convert.cpp.s
+
 src/color.o: src/color.cpp.o
 .PHONY : src/color.o
 
@@ -321,6 +345,30 @@ src/leg_module.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.s
 .PHONY : src/leg_module.cpp.s
 
+src/theta_error.o: src/theta_error.cpp.o
+.PHONY : src/theta_error.o
+
+# target to build an object file
+src/theta_error.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o
+.PHONY : src/theta_error.cpp.o
+
+src/theta_error.i: src/theta_error.cpp.i
+.PHONY : src/theta_error.i
+
+# target to preprocess a source file
+src/theta_error.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.i
+.PHONY : src/theta_error.cpp.i
+
+src/theta_error.s: src/theta_error.cpp.s
+.PHONY : src/theta_error.s
+
+# target to generate assembly for a file
+src/theta_error.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.s
+.PHONY : src/theta_error.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -336,6 +384,9 @@ help:
 	@echo "... src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.o"
 	@echo "... src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.i"
 	@echo "... src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.s"
+	@echo "... src/angle_convert.o"
+	@echo "... src/angle_convert.i"
+	@echo "... src/angle_convert.s"
 	@echo "... src/color.o"
 	@echo "... src/color.i"
 	@echo "... src/color.s"
@@ -354,6 +405,9 @@ help:
 	@echo "... src/leg_module.o"
 	@echo "... src/leg_module.i"
 	@echo "... src/leg_module.s"
+	@echo "... src/theta_error.o"
+	@echo "... src/theta_error.i"
+	@echo "... src/theta_error.s"
 .PHONY : help
 
 

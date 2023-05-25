@@ -3,7 +3,7 @@
 #include <curses.h>
 
 ModuleIO::ModuleIO(NiFpga_Status _status, NiFpga_Session _fpga_session, std::string CAN_port_,
-                   std::vector<Motor> motors_list)
+                   std::vector<Motor> *motors_list)
 {
     status_ = _status;
     fpga_session_ = _fpga_session;
@@ -217,7 +217,7 @@ NiFpga_Bool ModuleIO::read_rx_id2_timeout_()
 
 void ModuleIO::CAN_setup(int timeout_us)
 {
-    write_CAN_id_(motors_list_[0].CAN_ID_, motors_list_[1].CAN_ID_);
+    write_CAN_id_(motors_list_->at(0).CAN_ID_, motors_list_->at(1).CAN_ID_);
 
     /* select two port to transceive */
     NiFpga_Bool _bool_arr[2] = {1, 1};
@@ -255,17 +255,20 @@ void ModuleIO::CAN_send_command(CAN_txdata txdata_id1, CAN_txdata txdata_id2)
     CAN_txdata txdata1_biased;
     CAN_txdata txdata2_biased;
 
-    txdata1_biased.position_ = txdata_id1.position_ + motors_list_[0].calibration_bias;
+    txdata1_biased.position_ = txdata_id1.position_ + motorR_bias;
     txdata1_biased.torque_ = txdata_id1.torque_;
     txdata1_biased.KP_ = txdata_id1.KP_;
     txdata1_biased.KI_ = txdata_id1.KI_;
     txdata1_biased.KD_ = txdata_id1.KD_;
 
-    txdata2_biased.position_ = txdata_id2.position_ + motors_list_[1].calibration_bias;
+    txdata2_biased.position_ = txdata_id2.position_ + motorL_bias;
     txdata2_biased.torque_ = txdata_id2.torque_;
     txdata2_biased.KP_ = txdata_id2.KP_;
     txdata2_biased.KI_ = txdata_id2.KI_;
     txdata2_biased.KD_ = txdata_id2.KD_;
+
+    // std::cout << "R bias : " << motorR_bias << std::endl;
+    // std::cout << "L bias : " << motorL_bias << std::endl;
 
     CAN_encode(txmsg_id1, txdata1_biased);
     CAN_encode(txmsg_id2, txdata2_biased);
@@ -285,8 +288,10 @@ void ModuleIO::CAN_recieve_feedback(CAN_rxdata *rxdata_id1, CAN_rxdata *rxdata_i
     CAN_decode(rxmsg_id1, rxdata_id1);
     CAN_decode(rxmsg_id2, rxdata_id2);
 
-    rxdata_id1->position_ -= motors_list_[0].calibration_bias;
-    rxdata_id2->position_ -= motors_list_[1].calibration_bias;
+    // std::cout << "CAN_recieve_feedback" << std::endl;
+
+    rxdata_id1->position_ -= motorR_bias;
+    rxdata_id2->position_ -= motorL_bias;
 }
 
 // pack CAN data
@@ -371,6 +376,12 @@ float ModuleIO::uint_to_float(int x_int, float x_min, float x_max, int bits)
     return ((float)x_int) * span / ((float)((1 << bits) - 1)) + offset;
 }
 
+void ModuleIO::set_calibration_bias(double mtrR_bias, double mtrL_bias)
+{
+    motorR_bias = mtrR_bias;
+    motorL_bias = mtrL_bias;
+}
+
 FpgaHandler::FpgaHandler()
 {
     status_ = NiFpga_Initialize();
@@ -386,6 +397,15 @@ FpgaHandler::FpgaHandler()
     w_pb_digital_ = NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Digital;
     w_pb_signal_ = NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Signal;
     w_pb_power_ = NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Power;
+
+    r_powerboard_data_ = NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16_Data;
+    size_powerboard_data_ = NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16Size_Data;
+
+    for (int i = 0; i < 12; i++)
+    {
+        powerboard_V_list_[i] = 0;
+        powerboard_I_list_[i] = 0;
+    }
 }
 
 FpgaHandler::~FpgaHandler()
@@ -418,4 +438,24 @@ void FpgaHandler::write_powerboard_(std::vector<bool> *powerboard_state_)
     NiFpga_MergeStatus(&status_, NiFpga_WriteBool(session_, w_pb_digital_, powerboard_state_->at(0)));
     NiFpga_MergeStatus(&status_, NiFpga_WriteBool(session_, w_pb_signal_, powerboard_state_->at(1)));
     NiFpga_MergeStatus(&status_, NiFpga_WriteBool(session_, w_pb_power_, powerboard_state_->at(2)));
+}
+
+void FpgaHandler::read_powerboard_data_()
+{
+    uint16_t rx_arr[24];
+    // uint16_t *rx_arr = new uint16_t[24];
+    NiFpga_MergeStatus(&status_, NiFpga_ReadArrayU16(session_, NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16_Data, rx_arr, NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16Size_Data));
+
+    for (int i = 0; i < 24; i++)
+    {
+        if (i % 2 == 0)
+        {
+            powerboard_I_list_[i / 2] = rx_arr[i] * powerboard_Ifactor[i / 2];
+            // printf("Ifactor = %f\n", powerboard_Ifactor[i / 2]);
+        }
+        if (i % 2 == 1)
+        {
+            powerboard_V_list_[(i - 1) / 2] = rx_arr[i] * powerboard_Vfactor[(i - 1) / 2];
+        }
+    }
 }

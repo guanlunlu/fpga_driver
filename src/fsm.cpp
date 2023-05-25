@@ -1,6 +1,6 @@
 #include <fsm.hpp>
 
-ModeFsm::ModeFsm(std::vector<LegModule> &_modules)
+ModeFsm::ModeFsm(std::vector<LegModule> *_modules)
 {
     workingMode_ = Mode::REST;
     prev_workingMode_ = Mode::REST;
@@ -43,137 +43,185 @@ void ModeFsm::runFsm()
             if_switch_mode_printed_ = true;
         } */
 
-        // Left Link rotate 28 deg
-        CAN_txdata txdata_pairAC[2];
-        // Right Link rotate -28 deg
-        CAN_txdata txdata_pairBD[2];
+        CAN_txdata txdata_zero[2];
+        txdata_zero[0].position_ = 0;
+        txdata_zero[0].torque_ = 0;
+        txdata_zero[0].KP_ = 5;
+        txdata_zero[0].KI_ = 0;
+        txdata_zero[0].KD_ = 1.5;
+        txdata_zero[1].position_ = 0 * M_PI / 180.0;
+        txdata_zero[1].torque_ = 0;
+        txdata_zero[1].KP_ = 5;
+        txdata_zero[1].KI_ = 0;
+        txdata_zero[1].KD_ = 1.5;
 
-        txdata_pairAC[0].position_ = 0;
-        txdata_pairAC[0].torque_ = 0;
-        txdata_pairAC[0].KP_ = 10;
-        txdata_pairAC[0].KI_ = 0;
-        txdata_pairAC[0].KD_ = 1;
+        int module_cal_finished = 1;
 
-        txdata_pairAC[1].position_ = 45.5 * M_PI / 180.0;
-        txdata_pairAC[1].torque_ = 0;
-        txdata_pairAC[1].KP_ = 30;
-        txdata_pairAC[1].KI_ = 0;
-        txdata_pairAC[1].KD_ = 1.5;
-
-        txdata_pairBD[0].position_ = -45.5 * M_PI / 180.0;
-        txdata_pairBD[0].torque_ = 0;
-        txdata_pairBD[0].KP_ = 30;
-        txdata_pairBD[0].KI_ = 0;
-        txdata_pairBD[0].KD_ = 1.5;
-
-        txdata_pairBD[1].position_ = 0;
-        txdata_pairBD[1].torque_ = 0;
-        txdata_pairBD[1].KP_ = 10;
-        txdata_pairBD[1].KI_ = 0;
-        txdata_pairBD[1].KD_ = 1;
-
-        int module_enabled = 0;
-        int module_calibrated = 0;
-        int module_setpose = 0;
-
-        for (int i = 0; i < 4; i++)
+        while (1)
         {
-            if (modules_list_[i].enable_)
-            {
-                module_enabled++;
-            }
-        }
-
-        /* while (1)
-        {
-            if (module_calibrated == module_enabled)
-                break;
-            else
-                module_calibrated = 0;
-
+            module_cal_finished = 1;
             for (int i = 0; i < 4; i++)
             {
-                if (modules_list_[i].enable_)
+                if (modules_list_->at(i).enable_)
                 {
-                    modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0], &modules_list_[i].rxdata_buffer_[1]);
-                }
+                    CAN_txdata idle_txdata_;
+                    idle_txdata_.position_ = 0;
+                    idle_txdata_.torque_ = 0;
+                    idle_txdata_.KP_ = 0;
+                    idle_txdata_.KI_ = 0;
+                    idle_txdata_.KD_ = 0;
 
-                if (modules_list_[i].rxdata_buffer_[0].calibrate_finish_ == true && modules_list_[i].rxdata_buffer_[1].calibrate_finish_ == true)
-                {
-                    module_calibrated++;
+                    // modules_list_->at(i).CAN_timeoutCheck();
+
+                    modules_list_->at(i).io_.CAN_send_command(idle_txdata_, idle_txdata_);
+
+                    modules_list_->at(i).io_.CAN_recieve_feedback(&modules_list_->at(i).rxdata_buffer_[0], &modules_list_->at(i).rxdata_buffer_[1]);
+
+                    int mod1_finished = 0;
+                    int mod2_finished = 0;
+
+                    if (modules_list_->at(i).rxdata_buffer_[0].calibrate_finish_ == 2)
+                        mod1_finished = 1;
+                    if (modules_list_->at(i).rxdata_buffer_[1].calibrate_finish_ == 2)
+                        mod2_finished = 1;
+
+                    module_cal_finished *= mod1_finished;
+                    module_cal_finished *= mod2_finished;
                 }
             }
-        } */
-
-        usleep(5 * 1000 * 1000);
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (modules_list_[i].enable_)
-                modules_list_[i].io_.CAN_set_mode(Mode::MOTOR);
-        }
-        usleep(0.1 * 1000 * 1000);
-
-        /* while (1)
-        {
-            if (module_setpose == module_enabled)
+            if (module_cal_finished == 1)
                 break;
-            else
-                module_setpose = 0;
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (modules_list_[i].enable_)
-                {
-                    modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0], &modules_list_[i].rxdata_buffer_[1]);
-
-                    if (i == 0 || i == 2)
-                    {
-                        modules_list_[i].io_.CAN_send_command(txdata_pairAC[0], txdata_pairAC[1]);
-                    }
-                    if (i == 1 || i == 3)
-                    {
-                        modules_list_[i].io_.CAN_send_command(txdata_pairBD[0], txdata_pairBD[1]);
-                    }
-
-                    if (fabs(modules_list_[i].rxdata_buffer_[0].position_ - modules_list_[i].txdata_buffer_[0].position_) < 0.05 &&
-                        fabs(modules_list_[i].rxdata_buffer_[1].position_ - modules_list_[i].txdata_buffer_[1].position_) < 0.05)
-                    {
-                        module_setpose++;
-                    }
-                }
-            }
             usleep(0.01 * 1000 * 1000);
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (modules_list_->at(i).enable_)
+            {
+                modules_list_->at(i).CAN_rx_timedout_[0] = false;
+                modules_list_->at(i).CAN_rx_timedout_[1] = false;
+                modules_list_->at(i).CAN_tx_timedout_[0] = false;
+                modules_list_->at(i).CAN_tx_timedout_[1] = false;
+                modules_list_->at(i).io_.motorR_bias = modules_list_->at(i).linkR_bias;
+                modules_list_->at(i).io_.motorL_bias = modules_list_->at(i).linkL_bias;
+                modules_list_->at(i).io_.CAN_set_mode(Mode::MOTOR);
+            }
+        }
+
+        /* usleep(0.1 * 1000 * 1000);
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (modules_list_->at(i).enable_)
+            {
+                modules_list_->at(i).io_.CAN_set_mode(Mode::MOTOR);
+            }
+        }
+
+        usleep(0.1 * 1000 * 1000); */
+
+        double dt_ = 0.01;  // second
+        double vel_ = 0.25; // rad/s
+        double command[4][2];
+        double dir_[4][2];
+        double tolerance = 0.05;
+        std::ofstream LOGFILE;
+        LOGFILE.open("/home/admin/fpga_driver/log/log_fsm.txt");
+
+        for (int i = 0; i < 4; i++)
+        {
+            // LOGFILE << "Module " << i << std::endl;
+            if (modules_list_->at(i).enable_)
+            {
+                modules_list_->at(i).io_.CAN_recieve_feedback(&modules_list_->at(i).rxdata_buffer_[0], &modules_list_->at(i).rxdata_buffer_[1]);
+
+                command[i][0] = modules_list_->at(i).rxdata_buffer_[0].position_;
+                if (theta_error(modules_list_->at(i).rxdata_buffer_[0].position_, txdata_zero[0].position_) > 0)
+                    dir_[i][0] = 1;
+                else
+                    dir_[i][0] = -1;
+
+                command[i][1] = modules_list_->at(i).rxdata_buffer_[1].position_;
+                if (theta_error(modules_list_->at(i).rxdata_buffer_[1].position_, txdata_zero[1].position_) > 0)
+                    dir_[i][1] = 1;
+                else
+                    dir_[i][1] = -1;
+                LOGFILE << "Start Position 0: " << command[i][0] << " Start Position 1: " << command[i][1] << std::endl;
+                LOGFILE << "DIR 0: " << dir_[i][0] << ", DIR 1: " << dir_[i][1] << std::endl;
+            }
+        }
+
+        // LOGFILE << "Start Moving ..." << std::endl;
+        while (1)
+        {
+            int finished = 1;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (modules_list_->at(i).enable_)
+                {
+                    // LOGFILE << "Module " << i << std::endl;
+                    modules_list_->at(i).io_.CAN_recieve_feedback(&modules_list_->at(i).rxdata_buffer_[0], &modules_list_->at(i).rxdata_buffer_[1]);
+
+                    CAN_txdata txdata_[2];
+
+                    for (int j = 0; j < 2; j++)
+                    {
+                        /* LOGFILE << "Motor " << j << std::endl;
+                        LOGFILE << "Feedback Pose " << modules_list_->at(i).rxdata_buffer_[j].position_ << std::endl; */
+
+                        double errj = 0;
+                        errj = theta_error(command[i][j], txdata_zero[0].position_);
+                        LOGFILE << "Command[i][j] = " << command[i][j] << std::endl;
+                        LOGFILE << "txdata_zero[0].position_ = " << txdata_zero[0].position_ << std::endl;
+                        LOGFILE << "Error " << j << " = " << errj << std::endl;
+                        txdata_[j].position_ = 0;
+                        txdata_[j].torque_ = 0;
+                        txdata_[j].KP_ = 0;
+                        txdata_[j].KI_ = 0;
+                        txdata_[j].KD_ = 0;
+
+                        if (fabs(errj) < tolerance)
+                        {
+                            txdata_[j].position_ = 0;
+                            // LOGFILE << "Finished" << std::endl;
+                            finished *= 1;
+                        }
+                        else
+                        {
+                            command[i][j] += dir_[i][j] * vel_ * dt_;
+                            // LOGFILE << "Command = " << command[i][j] << std::endl;
+                            // LOGFILE << "Dcmd = " << dir_[i][j] * vel_ * dt_ << std::endl;
+
+                            txdata_[j].position_ = command[i][j];
+                            txdata_[j].torque_ = 0;
+                            txdata_[j].KP_ = 50;
+                            txdata_[j].KI_ = 0;
+                            txdata_[j].KD_ = 1.5;
+                            finished *= 0;
+                        }
+                        // LOGFILE << "---" << std::endl;
+                    }
+                    modules_list_->at(i).io_.CAN_send_command(txdata_[0], txdata_[1]);
+                }
+            }
+
+            if (finished)
+                break;
+
+            usleep(dt_ * 1000 * 1000);
+        }
+
+        /* for (int i = 0; i < 4; i++)
+        {
+            if (modules_list_->at(i).enable_)
+            {
+                LOGFILE << "mod " << i << " rx timeout" << modules_list_->at(i).CAN_rx_timedout_[0] << modules_list_->at(i).CAN_rx_timedout_[1] << std::endl;
+                LOGFILE << "mod " << i << " tx timeout" << modules_list_->at(i).CAN_tx_timedout_[0] << modules_list_->at(i).CAN_tx_timedout_[1] << std::endl;
+            }
         } */
 
-        for (int i = 0; i < 4; i++)
-        {
-            if (modules_list_[i].enable_)
-            {
-                modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0], &modules_list_[i].rxdata_buffer_[1]);
-
-                if (i == 0 || i == 2)
-                {
-                    modules_list_[i].io_.CAN_send_command(txdata_pairAC[0], txdata_pairAC[1]);
-                }
-                if (i == 1 || i == 3)
-                {
-                    modules_list_[i].io_.CAN_send_command(txdata_pairBD[0], txdata_pairBD[1]);
-                }
-            }
-        }
-        usleep(3 * 1000 * 1000);
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (modules_list_[i].enable_)
-            {
-                modules_list_[i].io_.CAN_set_mode(Mode::SET_ZERO);
-            }
-        }
-        usleep(1 * 1000 * 1000);
-
-        switchMode(Mode::REST);
+        switchMode(Mode::MOTOR);
     }
     break;
 
@@ -189,43 +237,59 @@ void ModeFsm::runFsm()
     }
 }
 
-void ModeFsm::switchMode(Mode next_mode)
+bool ModeFsm::switchMode(Mode next_mode)
 {
 
     int mode_switched_cnt = 0;
     int module_enabled = 0;
+    bool success = false;
 
     for (int i = 0; i < 4; i++)
     {
-        if (modules_list_[i].enable_)
+        if (modules_list_->at(i).enable_)
         {
             module_enabled++;
         }
     }
 
+    double time_elapsed = 0;
+
     while (1)
     {
         if (mode_switched_cnt == module_enabled)
+        {
+            success = true;
             break;
+        }
+        else if (time_elapsed > 1)
+        {
+            /* Timeout */
+            success = false;
+            break;
+        }
         else
             mode_switched_cnt = 0;
 
         for (int i = 0; i < 4; i++)
         {
-            if (modules_list_[i].enable_)
+            if (modules_list_->at(i).enable_)
             {
-                modules_list_[i].io_.CAN_set_mode(next_mode);
+                modules_list_->at(i).io_.CAN_set_mode(next_mode);
 
-                modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0], &modules_list_[i].rxdata_buffer_[1]);
+                modules_list_->at(i).io_.CAN_recieve_feedback(&modules_list_->at(i).rxdata_buffer_[0], &modules_list_->at(i).rxdata_buffer_[1]);
 
-                if (modules_list_[i].rxdata_buffer_[0].mode_ == next_mode && modules_list_[i].rxdata_buffer_[1].mode_ == next_mode)
+                if (modules_list_->at(i).rxdata_buffer_[0].mode_ == next_mode && modules_list_->at(i).rxdata_buffer_[1].mode_ == next_mode)
                 {
                     mode_switched_cnt++;
                 }
             }
         }
+
+        time_elapsed += 0.01;
+        usleep(0.01 * 1000 * 1000);
     }
 
     prev_workingMode_ = workingMode_;
     workingMode_ = next_mode;
+    return success;
 }

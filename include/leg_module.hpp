@@ -30,6 +30,9 @@ public:
 
   bool CAN_tx_timedout_[2];
   bool CAN_rx_timedout_[2];
+  bool CAN_mtr_timedout[2];
+  bool CAN_module_timedout;
+
   CAN_txdata txdata_buffer_[2];
   CAN_rxdata rxdata_buffer_[2];
 
@@ -38,6 +41,7 @@ public:
 
   // ModuleIO
   void load_config();
+  void CAN_timeoutCheck();
 };
 
 #endif

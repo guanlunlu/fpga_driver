@@ -67,6 +67,106 @@ CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o: ../src/
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h
 
+CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.o: ../src/angle_convert.cpp \
+  /usr/include/x86_64-linux-gnu/stdc-predef.h \
+  ../include/angle_convert.hpp \
+  /usr/include/c++/11/math.h \
+  /usr/include/c++/11/cmath \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+  /usr/include/x86_64-linux-gnu/features.h \
+  /usr/include/features-time64.h \
+  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+  /usr/include/x86_64-linux-gnu/bits/timesize.h \
+  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+  /usr/include/x86_64-linux-gnu/bits/long-double.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
+  /usr/include/c++/11/pstl/pstl_config.h \
+  /usr/include/c++/11/bits/cpp_type_traits.h \
+  /usr/include/c++/11/ext/type_traits.h \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/include/x86_64-linux-gnu/bits/types.h \
+  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+  /usr/include/x86_64-linux-gnu/bits/time64.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/c++/11/bits/std_abs.h \
+  /usr/include/stdlib.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endianness.h \
+  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+  /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/sys/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
+  /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/c++/11/bits/specfun.h \
+  /usr/include/c++/11/bits/stl_algobase.h \
+  /usr/include/c++/11/bits/functexcept.h \
+  /usr/include/c++/11/bits/exception_defines.h \
+  /usr/include/c++/11/ext/numeric_traits.h \
+  /usr/include/c++/11/bits/stl_pair.h \
+  /usr/include/c++/11/bits/move.h \
+  /usr/include/c++/11/type_traits \
+  /usr/include/c++/11/bits/stl_iterator_base_types.h \
+  /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/11/bits/concept_check.h \
+  /usr/include/c++/11/debug/assertions.h \
+  /usr/include/c++/11/bits/stl_iterator.h \
+  /usr/include/c++/11/bits/ptr_traits.h \
+  /usr/include/c++/11/debug/debug.h \
+  /usr/include/c++/11/bits/predefined_ops.h \
+  /usr/include/c++/11/limits \
+  /usr/include/c++/11/tr1/gamma.tcc \
+  /usr/include/c++/11/tr1/special_function_util.h \
+  /usr/include/c++/11/tr1/bessel_function.tcc \
+  /usr/include/c++/11/tr1/beta_function.tcc \
+  /usr/include/c++/11/tr1/ell_integral.tcc \
+  /usr/include/c++/11/tr1/exp_integral.tcc \
+  /usr/include/c++/11/tr1/hypergeometric.tcc \
+  /usr/include/c++/11/tr1/legendre_function.tcc \
+  /usr/include/c++/11/tr1/modified_bessel_func.tcc \
+  /usr/include/c++/11/tr1/poly_hermite.tcc \
+  /usr/include/c++/11/tr1/poly_laguerre.tcc \
+  /usr/include/c++/11/tr1/riemann_zeta.tcc
+
 CMakeFiles/fpga_srv_main.dir/src/color.cpp.o: ../src/color.cpp \
   /usr/include/x86_64-linux-gnu/stdc-predef.h \
   ../include/color.hpp \
@@ -677,6 +777,11 @@ CMakeFiles/fpga_srv_main.dir/src/console.cpp.o: ../src/console.cpp \
   /usr/include/c++/11/bits/locale_conv.h \
   /usr/include/c++/11/bits/quoted_string.h \
   ../include/fsm.hpp \
+  ../include/theta_error.hpp \
+  /usr/include/c++/11/fstream \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+  /usr/include/c++/11/bits/fstream.tcc \
   /usr/include/c++/11/thread \
   /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/bits/this_thread_sleep.h \
@@ -1471,6 +1576,11 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/include/c++/11/bits/locale_conv.h \
   /usr/include/c++/11/bits/quoted_string.h \
   ../include/fsm.hpp \
+  ../include/theta_error.hpp \
+  /usr/include/c++/11/fstream \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+  /usr/include/c++/11/bits/fstream.tcc \
   /usr/include/c++/11/thread \
   /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/bits/this_thread_sleep.h \
@@ -2850,6 +2960,7 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/base_msg.hpp \
   /usr/local/include/motor_msg.hpp \
   /usr/local/include/std_msg.hpp \
+  ../include/case_enum.hpp \
   /usr/local/include/boost/thread.hpp \
   /usr/local/include/boost/thread/thread.hpp \
   /usr/local/include/boost/thread/thread_only.hpp \
@@ -3505,7 +3616,12 @@ CMakeFiles/fpga_srv_main.dir/src/fsm.cpp.o: ../src/fsm.cpp \
   /usr/include/c++/11/bits/codecvt.h \
   /usr/include/c++/11/bits/locale_facets_nonio.tcc \
   /usr/include/c++/11/bits/locale_conv.h \
-  /usr/include/c++/11/bits/quoted_string.h
+  /usr/include/c++/11/bits/quoted_string.h \
+  ../include/theta_error.hpp \
+  /usr/include/c++/11/fstream \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+  /usr/include/c++/11/bits/fstream.tcc
 
 CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
   /usr/include/x86_64-linux-gnu/stdc-predef.h \
@@ -3928,6 +4044,108 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
   /usr/include/c++/11/bits/locale_conv.h \
   /usr/include/c++/11/bits/quoted_string.h
 
+CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
+  /usr/include/x86_64-linux-gnu/stdc-predef.h \
+  ../include/theta_error.hpp \
+  /usr/include/c++/11/math.h \
+  /usr/include/c++/11/cmath \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+  /usr/include/x86_64-linux-gnu/features.h \
+  /usr/include/features-time64.h \
+  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+  /usr/include/x86_64-linux-gnu/bits/timesize.h \
+  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+  /usr/include/x86_64-linux-gnu/bits/long-double.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
+  /usr/include/c++/11/pstl/pstl_config.h \
+  /usr/include/c++/11/bits/cpp_type_traits.h \
+  /usr/include/c++/11/ext/type_traits.h \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/include/x86_64-linux-gnu/bits/types.h \
+  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+  /usr/include/x86_64-linux-gnu/bits/time64.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/c++/11/bits/std_abs.h \
+  /usr/include/stdlib.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endianness.h \
+  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+  /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/sys/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
+  /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/c++/11/bits/specfun.h \
+  /usr/include/c++/11/bits/stl_algobase.h \
+  /usr/include/c++/11/bits/functexcept.h \
+  /usr/include/c++/11/bits/exception_defines.h \
+  /usr/include/c++/11/ext/numeric_traits.h \
+  /usr/include/c++/11/bits/stl_pair.h \
+  /usr/include/c++/11/bits/move.h \
+  /usr/include/c++/11/type_traits \
+  /usr/include/c++/11/bits/stl_iterator_base_types.h \
+  /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/11/bits/concept_check.h \
+  /usr/include/c++/11/debug/assertions.h \
+  /usr/include/c++/11/bits/stl_iterator.h \
+  /usr/include/c++/11/bits/ptr_traits.h \
+  /usr/include/c++/11/debug/debug.h \
+  /usr/include/c++/11/bits/predefined_ops.h \
+  /usr/include/c++/11/limits \
+  /usr/include/c++/11/tr1/gamma.tcc \
+  /usr/include/c++/11/tr1/special_function_util.h \
+  /usr/include/c++/11/tr1/bessel_function.tcc \
+  /usr/include/c++/11/tr1/beta_function.tcc \
+  /usr/include/c++/11/tr1/ell_integral.tcc \
+  /usr/include/c++/11/tr1/exp_integral.tcc \
+  /usr/include/c++/11/tr1/hypergeometric.tcc \
+  /usr/include/c++/11/tr1/legendre_function.tcc \
+  /usr/include/c++/11/tr1/modified_bessel_func.tcc \
+  /usr/include/c++/11/tr1/poly_hermite.tcc \
+  /usr/include/c++/11/tr1/poly_laguerre.tcc \
+  /usr/include/c++/11/tr1/riemann_zeta.tcc
+
+
+../src/theta_error.cpp:
 
 ../src/leg_module.cpp:
 
@@ -4217,8 +4435,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/type_traits/is_assignable.hpp:
 
-/usr/local/include/boost/type_traits/has_trivial_move_assign.hpp:
-
 /usr/local/include/boost/type_traits/is_nothrow_move_assignable.hpp:
 
 /usr/local/include/boost/integer/common_factor_ct.hpp:
@@ -4434,8 +4650,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/local/include/boost/mpl/sequence_tag_fwd.hpp:
 
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/list.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/preprocessed/plain/list20.hpp:
 
 /usr/local/include/boost/mpl/list/aux_/preprocessed/plain/list10.hpp:
 
@@ -5123,15 +5337,19 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/predef/architecture/parisc.h:
 
-/usr/local/include/boost/ratio/config.hpp:
+/usr/local/include/boost/predef/architecture/mips.h:
 
-/usr/include/asm-generic/sockios.h:
+/usr/local/include/boost/mpl/vector/aux_/back.hpp:
 
-/usr/include/c++/11/bits/stl_tempbuf.h:
+/usr/local/include/boost/predef/architecture/m68k.h:
 
-/usr/include/x86_64-linux-gnu/asm/posix_types.h:
+/usr/local/include/boost/predef/architecture/ia64.h:
 
-/usr/local/include/boost/asio/executor.hpp:
+/usr/local/include/boost/move/utility.hpp:
+
+/usr/local/include/boost/mpl/iterator_range.hpp:
+
+/usr/local/include/boost/predef/architecture/blackfin.h:
 
 /usr/include/linux/posix_types.h:
 
@@ -5185,14 +5403,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/system/api_config.hpp:
 
-/usr/local/include/boost/range/detail/msvc_has_iterator_workaround.hpp:
-
-/usr/local/include/boost/current_function.hpp:
-
-/usr/local/include/boost/mpl/aux_/adl_barrier.hpp:
-
-/usr/local/include/boost/system/error_code.hpp:
-
 /usr/local/include/boost/asio/detail/scheduler_operation.hpp:
 
 /usr/include/c++/11/iostream:
@@ -5217,21 +5427,13 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
 
-/usr/include/x86_64-linux-gnu/bits/locale.h:
-
 ../src/color.cpp:
+
+/usr/include/x86_64-linux-gnu/bits/locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/eventfd.h:
 
 /usr/local/include/boost/asio/handler_invoke_hook.hpp:
-
-/usr/local/include/boost/swap.hpp:
-
-/usr/local/include/boost/core/no_exceptions_support.hpp:
-
-/usr/include/c++/11/bits/ios_base.h:
-
-/usr/local/include/boost/asio/system_executor.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
@@ -5304,6 +5506,12 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/local/include/boost/mpl/vector/aux_/push_back.hpp:
 
 /usr/include/c++/11/thread:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h:
+
+/usr/local/include/boost/mpl/list/aux_/preprocessed/plain/list20.hpp:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h:
 
 /usr/include/c++/11/bits/stl_uninitialized.h:
 
@@ -5481,8 +5689,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/visit_each.hpp:
 
-/usr/local/include/boost/mpl/if.hpp:
-
 /usr/local/include/cereal/types/common.hpp:
 
 /usr/local/include/boost/system/detail/generic_category.hpp:
@@ -5535,6 +5741,8 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/config/detail/posix_features.hpp:
 
+/usr/include/c++/11/fstream:
+
 /usr/local/include/boost/preprocessor/control/deduce_d.hpp:
 
 /usr/local/include/boost/config/detail/select_platform_config.hpp:
@@ -5558,6 +5766,10 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/local/include/boost/mpl/bind_fwd.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+
+/usr/local/include/boost/predef/architecture/arm.h:
+
+/usr/include/c++/11/bits/functexcept.h:
 
 /usr/include/x86_64-linux-gnu/bits/confname.h:
 
@@ -5663,6 +5875,8 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/asio/ip/impl/network_v4.ipp:
 
+../include/case_enum.hpp:
+
 /usr/local/include/yaml-cpp/node/type.h:
 
 /usr/local/include/boost/asio/generic/detail/impl/endpoint.ipp:
@@ -5735,11 +5949,11 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/c++/11/bits/list.tcc:
 
+/usr/local/include/boost/core/enable_if.hpp:
+
 /usr/local/include/boost/thread/pthread/mutex.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
-
-/usr/local/include/boost/core/enable_if.hpp:
 
 /usr/local/include/NodeHandler.hpp:
 
@@ -5753,67 +5967,13 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/c++/11/sstream:
 
-/usr/local/include/boost/range/detail/sfinae.hpp:
+/usr/local/include/boost/tuple/tuple.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+/usr/include/asm-generic/errno-base.h:
 
-/usr/include/c++/11/cxxabi.h:
+/usr/include/c++/11/bits/stringfwd.h:
 
-/usr/local/include/cereal/specialize.hpp:
-
-/usr/local/include/boost/asio/impl/system_executor.hpp:
-
-/usr/include/c++/11/ext/new_allocator.h:
-
-/usr/local/include/boost/asio/is_write_buffered.hpp:
-
-/usr/local/include/boost/asio/detail/impl/signal_set_service.ipp:
-
-/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
-
-/usr/local/include/boost/exception/detail/type_info.hpp:
-
-/usr/include/c++/11/bits/std_function.h:
-
-/usr/local/include/boost/mpl/aux_/config/workaround.hpp:
-
-/usr/local/include/boost/bind/bind_cc.hpp:
-
-/usr/include/x86_64-linux-gnu/asm/posix_types_64.h:
-
-/usr/local/include/cereal/types/utility.hpp:
-
-/usr/local/include/boost/date_time/gregorian/greg_duration.hpp:
-
-/usr/local/include/yaml-cpp/emittermanip.h:
-
-/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
-
-/usr/include/pthread.h:
-
-/usr/local/include/boost/predef/os/unix.h:
-
-/usr/local/include/boost/preprocessor/repetition/enum_params.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/dlfcn.h:
-
-/usr/include/c++/11/ext/concurrence.h:
-
-/usr/include/c++/11/bits/shared_ptr_base.h:
-
-/usr/local/include/boost/mpl/pair_view.hpp:
-
-/usr/local/include/yaml-cpp/node/detail/impl.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
-
-/usr/include/c++/11/bits/allocated_ptr.h:
-
-/usr/local/include/boost/asio/basic_deadline_timer.hpp:
-
-/usr/local/include/boost/config/detail/select_stdlib_config.hpp:
-
-/usr/include/c++/11/bits/stl_iterator_base_types.h:
+/usr/include/c++/11/tr1/hypergeometric.tcc:
 
 /usr/local/include/boost/atomic/detail/extra_ops_emulated.hpp:
 
@@ -5821,145 +5981,41 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/mpl/aux_/preprocessor/enum.hpp:
 
-/usr/include/c++/11/tr1/hypergeometric.tcc:
+/usr/include/c++/11/tr1/exp_integral.tcc:
 
-/usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
+/usr/local/include/boost/asio/ip/resolver_base.hpp:
 
-/usr/local/include/boost/mpl/sequence_tag.hpp:
+/usr/include/c++/11/tr1/ell_integral.tcc:
 
-/usr/local/include/boost/asio/ip/basic_resolver_results.hpp:
+/usr/local/include/boost/move/default_delete.hpp:
 
-/usr/include/c++/11/bits/exception_ptr.h:
+/usr/include/c++/11/bits/std_mutex.h:
 
-/usr/include/c++/11/bits/charconv.h:
+/usr/local/include/boost/asio/detail/memory.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
+/usr/include/c++/11/bits/stl_iterator_base_types.h:
 
-/usr/include/math.h:
+/usr/local/include/boost/config/detail/select_stdlib_config.hpp:
 
-/usr/include/c++/11/ext/alloc_traits.h:
+/usr/local/include/boost/concept/detail/general.hpp:
 
-/usr/local/include/boost/type_traits/is_same.hpp:
+/usr/local/include/boost/predef/library/std/vacpp.h:
 
-/usr/local/include/boost/type_traits/has_plus.hpp:
+/usr/local/include/boost/asio/detail/pop_options.hpp:
 
-/usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
+/usr/local/include/cereal/external/rapidxml/rapidxml_print.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/siginfo-arch.h:
+/usr/include/c++/11/bit:
 
-/usr/include/x86_64-linux-gnu/bits/time.h:
+/usr/local/include/boost/mpl/advance_fwd.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/select.h:
+/usr/local/include/boost/asio/detail/reactive_socket_recvmsg_op.hpp:
 
-/usr/local/include/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_long_long.hpp:
+/usr/local/include/boost/type_traits/has_trivial_move_assign.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+../include/theta_error.hpp:
 
-/usr/local/include/boost/mpl/minus.hpp:
-
-/usr/local/include/boost/mpl/arg_fwd.hpp:
-
-/usr/include/features-time64.h:
-
-/usr/include/c++/11/system_error:
-
-/usr/local/include/boost/preprocessor/cat.hpp:
-
-/usr/local/include/boost/atomic/detail/type_traits/integral_constant.hpp:
-
-/usr/local/include/boost/asio/detached.hpp:
-
-/usr/local/include/boost/type_traits/is_destructible.hpp:
-
-/usr/include/linux/falloc.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
-
-/usr/local/include/boost/regex/config/cwchar.hpp:
-
-/usr/local/include/boost/asio/detail/event.hpp:
-
-/usr/include/unistd.h:
-
-/usr/local/include/cereal/external/rapidjson/prettywriter.h:
-
-/usr/local/include/boost/system/detail/system_category_posix.hpp:
-
-/usr/include/c++/11/bits/stl_algobase.h:
-
-/usr/local/include/boost/predef/os/amigaos.h:
-
-/usr/local/include/boost/asio/detail/scoped_ptr.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
-
-/usr/include/c++/11/bits/postypes.h:
-
-/usr/local/include/boost/regex/config.hpp:
-
-/usr/local/include/boost/mpl/vector/vector10.hpp:
-
-/usr/local/include/boost/config/detail/suffix.hpp:
-
-/usr/local/include/boost/predef/library/std/dinkumware.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
-
-/usr/local/include/boost/range/rend.hpp:
-
-/usr/include/netdb.h:
-
-/usr/local/include/boost/bind/bind.hpp:
-
-../include/color.hpp:
-
-/usr/include/x86_64-linux-gnu/sys/types.h:
-
-/usr/local/include/boost/config/no_tr1/complex.hpp:
-
-/usr/include/c++/11/bits/invoke.h:
-
-/usr/local/include/boost/variant/static_visitor.hpp:
-
-/usr/local/include/boost/asio/detail/scheduler.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
-
-/usr/include/x86_64-linux-gnu/bits/stat.h:
-
-/usr/local/include/boost/predef/platform.h:
-
-/usr/local/include/boost/asio/basic_datagram_socket.hpp:
-
-/usr/local/include/boost/asio/basic_signal_set.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/siginfo-consts-arch.h:
-
-/usr/local/include/boost/concept_check.hpp:
-
-/usr/local/include/boost/type_traits/is_base_of.hpp:
-
-/usr/local/include/boost/asio/ip/impl/basic_endpoint.hpp:
-
-/usr/local/include/boost/mpl/bool.hpp:
-
-/usr/include/c++/11/tr1/special_function_util.h:
-
-/usr/local/include/boost/asio/system_context.hpp:
-
-/usr/local/include/boost/optional/optional_fwd.hpp:
-
-/usr/local/include/boost/type_traits/is_convertible.hpp:
-
-/usr/local/include/boost/asio/detail/thread_context.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/sigstack.h:
-
-/usr/include/c++/11/ext/numeric_traits.h:
-
-/usr/local/include/boost/asio/ip/basic_resolver_query.hpp:
-
-/usr/local/include/boost/asio/detail/scheduler_thread_info.hpp:
+../src/angle_convert.cpp:
 
 /usr/include/c++/11/climits:
 
@@ -5995,77 +6051,49 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/c++/11/exception:
 
-/usr/include/c++/11/locale:
+/usr/local/include/boost/bind/bind_cc.hpp:
 
-/usr/local/include/boost/mpl/aux_/find_if_pred.hpp:
+/usr/local/include/yaml-cpp/emitter.h:
 
-/usr/local/include/boost/predef/compiler/gcc.h:
+/usr/local/include/boost/static_assert.hpp:
 
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/less.hpp:
+/usr/include/c++/11/ext/numeric_traits.h:
 
-/usr/local/include/boost/function/function1.hpp:
+/usr/local/include/boost/optional/optional_fwd.hpp:
 
-../src/NiFpga.c:
+/usr/local/include/boost/type_traits/is_convertible.hpp:
 
-/usr/local/include/boost/bind/storage.hpp:
+/usr/local/include/boost/asio/detail/thread_context.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/termios-struct.h:
+/usr/include/x86_64-linux-gnu/bits/sigstack.h:
 
-/usr/local/include/boost/thread/pthread/thread_heap_alloc.hpp:
+/usr/local/include/boost/asio/ip/basic_resolver_query.hpp:
 
-/usr/include/ctype.h:
+/usr/include/c++/11/bits/atomic_base.h:
 
-/usr/include/c++/11/bits/std_thread.h:
+/usr/local/include/boost/asio/ip/detail/impl/endpoint.ipp:
 
-/usr/local/include/boost/date_time/gregorian/greg_month.hpp:
+/usr/local/include/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_long_long.hpp:
 
-/usr/local/include/boost/atomic/detail/type_traits/is_trivially_copyable.hpp:
+/usr/local/include/boost/type_traits/type_identity.hpp:
 
-/usr/include/c++/11/bits/stream_iterator.h:
+/usr/include/alloca.h:
 
-/usr/include/c++/11/bits/cpp_type_traits.h:
+/usr/include/c++/11/cxxabi.h:
 
-/usr/local/include/boost/variant/detail/enable_recursive.hpp:
+/usr/local/include/cereal/specialize.hpp:
 
-/usr/local/include/boost/mpl/aux_/has_size.hpp:
+/usr/local/include/boost/asio/impl/system_executor.hpp:
 
-/usr/include/endian.h:
+/usr/include/c++/11/ext/new_allocator.h:
 
-/usr/include/c++/11/bits/stl_iterator_base_funcs.h:
+/usr/local/include/boost/asio/is_write_buffered.hpp:
 
-/usr/include/c++/11/bits/cxxabi_forced.h:
+/usr/include/x86_64-linux-gnu/bits/siginfo-arch.h:
 
-/usr/local/include/boost/asio/detail/impl/service_registry.hpp:
+/usr/include/x86_64-linux-gnu/bits/time.h:
 
-/usr/local/include/boost/preprocessor/empty.hpp:
-
-/usr/local/include/boost/asio/detail/memory.hpp:
-
-/usr/local/include/boost/move/default_delete.hpp:
-
-/usr/include/c++/11/bits/std_mutex.h:
-
-/usr/local/include/boost/concept/detail/general.hpp:
-
-/usr/local/include/boost/predef/library/std/vacpp.h:
-
-/usr/local/include/boost/asio/detail/pop_options.hpp:
-
-/usr/local/include/cereal/external/rapidxml/rapidxml_print.hpp:
-
-/usr/include/c++/11/bit:
-
-/usr/local/include/boost/mpl/advance_fwd.hpp:
-
-/usr/local/include/boost/asio/detail/reactive_socket_recvmsg_op.hpp:
-
-/usr/local/include/boost/range/functions.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
-
-/usr/local/include/boost/type_traits/detail/has_binary_operator.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+/usr/include/x86_64-linux-gnu/bits/select.h:
 
 /usr/include/x86_64-linux-gnu/asm/socket.h:
 
@@ -6075,17 +6103,117 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
 
-/usr/local/include/boost/mpl/always.hpp:
+/usr/local/include/boost/mpl/pair_view.hpp:
 
-/usr/include/c++/11/iterator:
+/usr/local/include/yaml-cpp/node/detail/impl.h:
 
-/usr/local/include/boost/asio/detail/io_object_impl.hpp:
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
-/usr/local/include/boost/predef.h:
+/usr/include/c++/11/bits/allocated_ptr.h:
 
-/usr/include/x86_64-linux-gnu/bits/floatn.h:
+/usr/local/include/boost/asio/basic_deadline_timer.hpp:
 
-/usr/local/include/boost/asio/detail/string_view.hpp:
+/usr/local/include/boost/asio/detail/impl/signal_set_service.ipp:
+
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
+/usr/local/include/boost/exception/detail/type_info.hpp:
+
+/usr/include/c++/11/bits/std_function.h:
+
+/usr/local/include/boost/mpl/aux_/config/workaround.hpp:
+
+/usr/local/include/boost/preprocessor/iteration/detail/iter/forward1.hpp:
+
+/usr/local/include/cereal/external/rapidxml/rapidxml.hpp:
+
+/usr/include/c++/11/ext/aligned_buffer.h:
+
+/usr/local/include/boost/program_options/detail/parsers.hpp:
+
+/usr/local/include/boost/asio/buffers_iterator.hpp:
+
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+/usr/local/include/boost/mpl/minus.hpp:
+
+/usr/local/include/boost/mpl/arg_fwd.hpp:
+
+/usr/include/features-time64.h:
+
+/usr/include/c++/11/system_error:
+
+/usr/local/include/boost/preprocessor/cat.hpp:
+
+/usr/local/include/boost/atomic/detail/type_traits/integral_constant.hpp:
+
+/usr/local/include/boost/asio/detached.hpp:
+
+/usr/local/include/boost/asio/detail/posix_mutex.hpp:
+
+/usr/include/c++/11/math.h:
+
+/usr/local/include/boost/atomic/detail/float_sizes.hpp:
+
+/usr/local/include/boost/mpl/aux_/config/forwarding.hpp:
+
+/usr/local/include/boost/asio/ip/address_v4_iterator.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
+
+/usr/local/include/boost/asio/detail/executor_op.hpp:
+
+/usr/include/c++/11/bits/shared_ptr_base.h:
+
+../include/can_packet.h:
+
+/usr/include/c++/11/tr1/beta_function.tcc:
+
+/usr/local/include/boost/asio/ip/bad_address_cast.hpp:
+
+/usr/local/include/boost/asio/detail/future.hpp:
+
+/usr/local/include/boost/predef/library/c/_prefix.h:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
+
+/usr/local/include/boost/move/detail/std_ns_begin.hpp:
+
+/usr/include/poll.h:
+
+/usr/local/include/boost/type_traits/detail/has_binary_operator.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+
+/usr/local/include/boost/asio/error.hpp:
+
+/usr/include/c++/11/bits/stl_heap.h:
+
+/usr/local/include/boost/range/detail/sfinae.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+
+/usr/local/include/boost/range/functions.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
+
+/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+
+../include/angle_convert.hpp:
+
+/usr/local/include/boost/asio/impl/thread_pool.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/local/include/boost/asio/basic_socket_iostream.hpp:
+
+/usr/local/include/boost/mpl/at.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
 /usr/local/include/boost/mpl/aux_/preprocessor/repeat.hpp:
 
@@ -6093,21 +6221,65 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/c++/11/bits/range_access.h:
 
-/usr/local/include/boost/mpl/at.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
-
 ../src/fpga_handler.cpp:
 
 /usr/local/include/boost/asio/detail/wait_op.hpp:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
+
+/usr/local/include/cereal/types/vector.hpp:
 
 /usr/local/include/boost/mem_fn.hpp:
 
 /usr/local/include/yaml-cpp/dll.h:
 
+/usr/local/include/boost/concept/detail/concept_def.hpp:
+
+/usr/local/include/boost/predef/architecture/convex.h:
+
+/usr/include/c++/11/bits/predefined_ops.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
+
+/usr/include/math.h:
+
+/usr/local/include/boost/mpl/sequence_tag.hpp:
+
+/usr/local/include/boost/asio/ip/basic_resolver_results.hpp:
+
+/usr/include/c++/11/bits/exception_ptr.h:
+
+/usr/include/c++/11/bits/charconv.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/siginfo-consts-arch.h:
+
+/usr/local/include/boost/concept_check.hpp:
+
+/usr/local/include/boost/type_traits/is_base_of.hpp:
+
+/usr/local/include/boost/asio/ip/impl/basic_endpoint.hpp:
+
+/usr/local/include/boost/mpl/bool.hpp:
+
+/usr/include/c++/11/tr1/special_function_util.h:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+
+/usr/include/c++/11/bits/postypes.h:
+
+/usr/local/include/boost/predef/os/amigaos.h:
+
+/usr/local/include/boost/asio/detail/scoped_ptr.hpp:
+
+/usr/local/include/boost/regex/config.hpp:
 
 /usr/local/include/yaml-cpp/node/parse.h:
 
@@ -6121,18 +6293,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/asio/ip/detail/endpoint.hpp:
 
-/usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
-
-/usr/local/include/boost/mpl/aux_/numeric_op.hpp:
-
-/usr/local/include/boost/asio/detail/impl/reactive_serial_port_service.ipp:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
-
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
-
-/usr/include/x86_64-linux-gnu/stdc-predef.h:
-
 /usr/local/include/boost/thread/thread_only.hpp:
 
 /usr/local/include/boost/mpl/size_t.hpp:
@@ -6141,31 +6301,97 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/c++/11/limits:
 
+/usr/include/x86_64-linux-gnu/stdc-predef.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
+
+/usr/local/include/boost/mpl/aux_/numeric_op.hpp:
+
+/usr/local/include/boost/date_time/time_resolution_traits.hpp:
+
+/usr/local/include/yaml-cpp/node/iterator.h:
+
+/usr/local/include/boost/asio/detail/impl/reactive_serial_port_service.ipp:
+
+/usr/include/locale.h:
+
+/usr/local/include/boost/asio/detail/signal_handler.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+
+/usr/local/include/boost/regex/config/cwchar.hpp:
+
+/usr/local/include/boost/asio/detail/event.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
 
+/usr/local/include/boost/range/detail/msvc_has_iterator_workaround.hpp:
+
+/usr/local/include/boost/current_function.hpp:
+
+/usr/local/include/boost/mpl/aux_/adl_barrier.hpp:
+
+/usr/local/include/boost/system/error_code.hpp:
+
+/usr/local/include/boost/swap.hpp:
+
+/usr/local/include/boost/core/no_exceptions_support.hpp:
+
+/usr/local/include/boost/asio/system_executor.hpp:
+
+/usr/include/c++/11/bits/ios_base.h:
+
 ../include/leg_module.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
+/usr/local/include/boost/range/rend.hpp:
 
-../include/NiFpga_FPGA_CANBus_IMU_4module_IRQ.h:
+/usr/include/netdb.h:
 
-/usr/local/include/boost/move/utility.hpp:
+/usr/local/include/boost/bind/bind.hpp:
 
-/usr/local/include/boost/mpl/iterator_range.hpp:
+../include/color.hpp:
 
-/usr/local/include/boost/predef/architecture/blackfin.h:
+/usr/local/include/boost/mpl/vector/vector10.hpp:
 
-/usr/local/include/cereal/external/rapidjson/rapidjson.h:
+/usr/local/include/boost/config/detail/suffix.hpp:
 
-/usr/include/x86_64-linux-gnu/sys/socket.h:
+/usr/local/include/boost/predef/library/std/dinkumware.h:
 
-/usr/local/include/boost/predef/os/irix.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
 
-/usr/include/c++/11/bits/stl_function.h:
+/usr/include/unistd.h:
 
-/usr/include/c++/11/bits/stringfwd.h:
+/usr/local/include/cereal/external/rapidjson/prettywriter.h:
+
+/usr/local/include/boost/system/detail/system_category_posix.hpp:
+
+/usr/include/c++/11/bits/stl_algobase.h:
+
+/usr/include/x86_64-linux-gnu/bits/select2.h:
+
+/usr/include/c++/11/cwchar:
+
+/usr/local/include/boost/atomic/atomic_ref.hpp:
+
+/usr/local/include/boost/type_traits/is_rvalue_reference.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/termios-c_oflag.h:
+
+/usr/local/include/boost/asio/detail/global.hpp:
+
+/usr/local/include/boost/mpl/if.hpp:
+
+/usr/include/c++/11/bits/fstream.tcc:
+
+/usr/local/include/boost/atomic/detail/extra_ops_generic.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
+
+../include/NiFpga.h:
+
+/usr/local/include/boost/numeric/conversion/detail/converter.hpp:
 
 /usr/include/c++/11/typeindex:
 
@@ -6191,21 +6417,7 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/fcntl.h:
 
-/usr/local/include/boost/bind/mem_fn_cc.hpp:
-
-/usr/include/c++/11/tr1/legendre_function.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
-
 /usr/include/c++/11/unordered_set:
-
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
-
-/usr/local/include/boost/asio/impl/thread_pool.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
-
-/usr/local/include/boost/asio/basic_socket_iostream.hpp:
 
 /usr/include/c++/11/bits/stl_bvector.h:
 
@@ -6217,31 +6429,21 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/asio/detail/executor_function.hpp:
 
+/usr/local/include/boost/preprocessor/comma_if.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
 /usr/local/include/boost/thread/csbl/memory/config.hpp:
 
 /usr/local/include/boost/preprocessor/list/fold_right.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h:
 
 /usr/local/include/boost/mpl/aux_/nested_type_wknd.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/local/include/boost/date_time/date_duration_types.hpp:
-
-/usr/include/wchar.h:
-
-/usr/local/include/yaml-cpp/stlemitter.h:
-
-/usr/local/include/boost/asio/read.hpp:
-
-/usr/include/c++/11/bits/ostream_insert.h:
-
-/usr/local/include/boost/asio/local/detail/endpoint.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
-
-/usr/local/include/boost/preprocessor/tuple/detail/is_single_return.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
 
 /usr/local/include/boost/exception/current_exception_cast.hpp:
 
@@ -6260,18 +6462,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/local/include/boost/asio/io_service.hpp:
 
 /usr/local/include/boost/preprocessor/repetition/repeat.hpp:
-
-/usr/include/c++/11/iosfwd:
-
-/usr/local/include/boost/date_time/microsec_time_clock.hpp:
-
-/usr/local/include/boost/thread/csbl/memory/unique_ptr.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/begin_end.hpp:
-
-/usr/include/c++/11/initializer_list:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
 
 /usr/local/include/boost/none_t.hpp:
 
@@ -6303,9 +6493,79 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/stdio.h:
 
-/usr/local/include/boost/asio/detail/signal_handler.hpp:
+/usr/include/wchar.h:
 
-/usr/include/locale.h:
+/usr/include/c++/11/debug/assertions.h:
+
+/usr/local/include/boost/date_time/compiler_config.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/socket.h:
+
+/usr/local/include/yaml-cpp/node/impl.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+
+/usr/local/include/boost/predef/compiler/mpw.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h:
+
+/usr/local/include/boost/atomic/detail/fp_ops_emulated.hpp:
+
+/usr/local/include/boost/asio/executor_work_guard.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+
+/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+
+/usr/include/c++/11/bits/stl_construct.h:
+
+/usr/local/include/boost/asio.hpp:
+
+/usr/include/c++/11/cstring:
+
+/usr/local/include/boost/asio/detail/impl/null_event.ipp:
+
+/usr/local/include/boost/array.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
+/usr/local/include/boost/mpl/aux_/iter_apply.hpp:
+
+/usr/include/c++/11/backward/auto_ptr.h:
+
+/usr/include/c++/11/bits/stl_tempbuf.h:
+
+/usr/local/include/boost/ratio/config.hpp:
+
+/usr/include/asm-generic/sockios.h:
+
+/usr/local/include/boost/utility/base_from_member.hpp:
+
+/usr/local/include/boost/asio/impl/error.ipp:
+
+/usr/local/include/boost/thread/exceptions.hpp:
+
+/usr/include/c++/11/cfloat:
+
+/usr/local/include/boost/asio/detail/reactive_descriptor_service.hpp:
+
+/usr/local/include/boost/smart_ptr/detail/sp_has_sync.hpp:
+
+/usr/include/c++/11/bits/functional_hash.h:
+
+/usr/local/include/boost/smart_ptr/detail/spinlock_std_atomic.hpp:
+
+../src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c:
+
+/usr/local/include/boost/range/distance.hpp:
+
+/usr/include/c++/11/bits/stl_map.h:
+
+/usr/local/include/boost/asio/co_spawn.hpp:
 
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/or.hpp:
 
@@ -6323,11 +6583,29 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/asio/detail/handler_cont_helpers.hpp:
 
-/usr/local/include/yaml-cpp/parser.h:
+/usr/local/include/boost/predef/compiler/edg.h:
 
-/usr/include/c++/11/debug/assertions.h:
+/usr/include/x86_64-linux-gnu/bits/environments.h:
 
-/usr/local/include/boost/date_time/compiler_config.hpp:
+/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
+
+/usr/local/include/boost/thread/futures/future_error_code.hpp:
+
+/usr/local/include/boost/mpl/apply_wrap.hpp:
+
+/usr/local/include/boost/predef/hardware/simd/ppc/versions.h:
+
+/usr/local/include/boost/predef/compiler/ibm.h:
+
+/usr/local/include/boost/config/compiler/gcc.hpp:
+
+/usr/local/include/boost/mpl/tag.hpp:
+
+/usr/include/c++/11/pstl/glue_memory_defs.h:
+
+/usr/include/linux/stat.h:
+
+/usr/include/c++/11/pstl/pstl_config.h:
 
 /usr/local/include/boost/type_traits/is_volatile.hpp:
 
@@ -6347,8 +6625,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/asio/ip/impl/network_v6.ipp:
 
-/usr/include/c++/11/pstl/pstl_config.h:
-
 /usr/local/include/cereal/details/polymorphic_impl_fwd.hpp:
 
 /usr/local/include/boost/atomic/detail/extra_fp_ops_generic.hpp:
@@ -6356,6 +6632,86 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/local/include/boost/move/detail/std_ns_end.hpp:
 
 /usr/include/c++/11/type_traits:
+
+/usr/include/c++/11/bits/std_thread.h:
+
+/usr/local/include/boost/date_time/gregorian/greg_month.hpp:
+
+/usr/include/c++/11/bits/stl_iterator_base_funcs.h:
+
+/usr/local/include/boost/mpl/remove_if.hpp:
+
+/usr/local/include/boost/asio/detail/handler_invoke_helpers.hpp:
+
+/usr/include/c++/11/bits/streambuf.tcc:
+
+/usr/include/c++/11/bits/cxxabi_forced.h:
+
+/usr/local/include/boost/asio/detail/impl/service_registry.hpp:
+
+/usr/local/include/boost/preprocessor/empty.hpp:
+
+/usr/local/include/boost/atomic/detail/type_traits/is_trivially_copyable.hpp:
+
+/usr/include/c++/11/bits/stream_iterator.h:
+
+/usr/include/c++/11/bits/cpp_type_traits.h:
+
+/usr/local/include/boost/variant/detail/enable_recursive.hpp:
+
+/usr/local/include/boost/mpl/aux_/has_size.hpp:
+
+/usr/include/endian.h:
+
+/usr/local/include/boost/mpl/identity.hpp:
+
+/usr/local/include/boost/preprocessor/inc.hpp:
+
+/usr/include/pthread.h:
+
+/usr/local/include/boost/predef/os/unix.h:
+
+/usr/local/include/boost/preprocessor/repetition/enum_params.hpp:
+
+/usr/local/include/cereal/external/rapidjson/ostreamwrapper.h:
+
+/usr/local/include/boost/predef/library/c/gnu.h:
+
+/usr/local/include/boost/numeric/conversion/detail/int_float_mixture.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+
+/usr/include/c++/11/tr1/bessel_function.tcc:
+
+/usr/local/include/boost/thread/detail/make_tuple_indices.hpp:
+
+/usr/local/include/boost/asio/local/detail/impl/endpoint.ipp:
+
+/usr/include/string.h:
+
+/usr/include/x86_64-linux-gnu/bits/dlfcn.h:
+
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
+
+/usr/local/include/boost/mpl/sizeof.hpp:
+
+/usr/include/c++/11/bits/atomic_lockfree_defines.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
+/usr/local/include/boost/program_options/version.hpp:
+
+/usr/local/include/boost/predef/os/bsd.h:
+
+/usr/include/x86_64-linux-gnu/bits/socket_type.h:
+
+/usr/include/curses.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+/usr/local/include/boost/asio/detail/impl/scheduler.ipp:
 
 /usr/local/include/boost/type_traits/is_reference.hpp:
 
@@ -6369,77 +6725,215 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/asio/generic/basic_endpoint.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+/usr/include/arpa/inet.h:
 
-/usr/local/include/boost/tuple/tuple.hpp:
+/usr/include/c++/11/tr1/gamma.tcc:
 
-/usr/include/asm-generic/errno-base.h:
+/usr/local/include/boost/asio/detail/impl/buffer_sequence_adapter.ipp:
 
-/usr/local/include/boost/program_options.hpp:
+/usr/include/c++/11/bits/locale_classes.h:
 
-/usr/include/asm-generic/posix_types.h:
+../include/NiFpga_FPGA_CANBus_IMU_4module_IRQ.h:
 
-/usr/local/include/boost/asio/detail/global.hpp:
+/usr/local/include/boost/asio/detail/service_registry.hpp:
 
-/usr/local/include/boost/atomic/detail/extra_ops_generic.hpp:
+/usr/local/include/boost/type_traits/is_array.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
+/usr/local/include/boost/checked_delete.hpp:
 
-../include/NiFpga.h:
+/usr/local/include/boost/mpl/aux_/arg_typedef.hpp:
 
-/usr/local/include/boost/numeric/conversion/detail/converter.hpp:
+/usr/local/include/boost/preprocessor/tuple/elem.hpp:
 
-/usr/local/include/boost/predef/hardware/simd/ppc/versions.h:
+/usr/local/include/boost/cstdint.hpp:
 
-/usr/local/include/boost/predef/compiler/ibm.h:
+/usr/local/include/boost/asio/detail/thread_info_base.hpp:
 
-/usr/local/include/boost/config/compiler/gcc.hpp:
+/usr/local/include/boost/asio/bind_executor.hpp:
 
-/usr/local/include/boost/mpl/tag.hpp:
+/usr/local/include/boost/asio/posix/basic_stream_descriptor.hpp:
 
-/usr/include/c++/11/pstl/glue_memory_defs.h:
+/usr/local/include/boost/predef/architecture/alpha.h:
 
-/usr/include/linux/stat.h:
+/usr/include/c++/11/bits/char_traits.h:
 
-/usr/include/c++/11/bits/functional_hash.h:
+/usr/include/c++/11/bits/concept_check.h:
 
-/usr/local/include/boost/smart_ptr/detail/spinlock_std_atomic.hpp:
+/usr/local/include/yaml-cpp/parser.h:
 
-../src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c:
+/usr/include/c++/11/bits/ptr_traits.h:
 
-/usr/local/include/boost/range/distance.hpp:
+/usr/local/include/boost/atomic/detail/type_traits/alignment_of.hpp:
 
-/usr/include/c++/11/bits/stl_map.h:
+/usr/include/c++/11/bits/node_handle.h:
 
-/usr/local/include/boost/asio/co_spawn.hpp:
+/usr/local/include/boost/mpl/vector.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h:
+/usr/include/c++/11/bits/stl_multiset.h:
 
-/usr/local/include/boost/predef/compiler/visualc.h:
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
-/usr/include/asm-generic/bitsperlong.h:
+/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
 
-/usr/local/include/boost/predef/compiler/edg.h:
+/usr/local/include/yaml-cpp/stlemitter.h:
 
-/usr/include/x86_64-linux-gnu/bits/environments.h:
+/usr/local/include/boost/asio/read.hpp:
 
-/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
+/usr/include/c++/11/bits/locale_classes.tcc:
 
-/usr/local/include/boost/thread/futures/future_error_code.hpp:
+/usr/include/c++/11/bits/cxxabi_init_exception.h:
 
-/usr/local/include/boost/mpl/apply_wrap.hpp:
+/usr/include/x86_64-linux-gnu/bits/termios-c_cflag.h:
 
-/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+/usr/local/include/boost/type_traits/is_destructible.hpp:
 
-/usr/local/include/yaml-cpp/emitter.h:
+/usr/include/linux/falloc.h:
 
-/usr/local/include/boost/static_assert.hpp:
+/usr/local/include/boost/variant/static_visitor.hpp:
 
-/usr/include/c++/11/bits/atomic_base.h:
+/usr/local/include/boost/asio/detail/scheduler.hpp:
 
-/usr/local/include/boost/asio/ip/detail/impl/endpoint.ipp:
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+/usr/include/x86_64-linux-gnu/bits/stat.h:
+
+/usr/local/include/boost/predef/platform.h:
+
+/usr/local/include/boost/asio/basic_datagram_socket.hpp:
+
+/usr/local/include/boost/asio/basic_signal_set.hpp:
+
+/usr/local/include/boost/asio/detail/scoped_lock.hpp:
+
+/usr/local/include/boost/mpl/aux_/contains_impl.hpp:
+
+/usr/local/include/boost/asio/detail/config.hpp:
+
+/usr/include/c++/11/bits/locale_facets.h:
+
+/usr/local/include/boost/preprocessor/list/fold_left.hpp:
+
+/usr/local/include/boost/type_traits/is_member_function_pointer.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+
+/usr/include/c++/11/bits/exception.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
+
+/usr/local/include/boost/asio/system_context.hpp:
+
+/usr/local/include/boost/asio/detail/scheduler_thread_info.hpp:
+
+/usr/include/c++/11/locale:
+
+/usr/local/include/boost/mpl/aux_/find_if_pred.hpp:
+
+/usr/local/include/boost/predef/compiler/gcc.h:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/less.hpp:
+
+/usr/local/include/boost/function/function1.hpp:
+
+../src/NiFpga.c:
+
+/usr/local/include/boost/bind/storage.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/termios-struct.h:
+
+/usr/local/include/boost/thread/pthread/thread_heap_alloc.hpp:
+
+/usr/include/ctype.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/local/include/boost/preprocessor/tuple/detail/is_single_return.hpp:
+
+/usr/include/c++/11/bits/ostream_insert.h:
+
+/usr/local/include/boost/asio/local/detail/endpoint.hpp:
+
+/usr/local/include/boost/predef/library/std/roguewave.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
+
+/usr/local/include/yaml-cpp/node/detail/node_ref.h:
+
+/usr/local/include/cereal/external/rapidjson/rapidjson.h:
+
+/usr/include/x86_64-linux-gnu/sys/socket.h:
+
+/usr/local/include/boost/asio/detail/signal_set_service.hpp:
+
+/usr/include/c++/11/tr1/poly_hermite.tcc:
+
+/usr/include/c++/11/bits/memoryfwd.h:
+
+/usr/local/include/boost/predef/os/irix.h:
+
+/usr/include/c++/11/bits/stl_function.h:
+
+/usr/local/include/boost/mpl/always.hpp:
+
+/usr/include/c++/11/iterator:
+
+/usr/local/include/boost/asio/detail/io_object_impl.hpp:
+
+/usr/local/include/boost/predef.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn.h:
+
+/usr/local/include/boost/asio/detail/string_view.hpp:
+
+/usr/include/c++/11/iosfwd:
+
+/usr/local/include/boost/date_time/microsec_time_clock.hpp:
+
+/usr/local/include/boost/thread/csbl/memory/unique_ptr.hpp:
+
+/usr/local/include/boost/mpl/vector/aux_/begin_end.hpp:
+
+/usr/include/c++/11/initializer_list:
+
+/usr/include/c++/11/ext/concurrence.h:
+
+/usr/include/c++/11/ext/alloc_traits.h:
+
+/usr/include/c++/11/bits/erase_if.h:
+
+/usr/local/include/boost/preprocessor/array/elem.hpp:
+
+/usr/local/include/boost/type_traits/is_same.hpp:
+
+/usr/local/include/boost/thread/tss.hpp:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/local/include/cereal/types/utility.hpp:
+
+/usr/local/include/boost/date_time/gregorian/greg_duration.hpp:
+
+/usr/local/include/yaml-cpp/emittermanip.h:
+
+/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
+
+/usr/local/include/boost/bind/mem_fn_cc.hpp:
+
+/usr/include/c++/11/tr1/legendre_function.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/local/include/boost/config/no_tr1/complex.hpp:
+
+/usr/include/c++/11/bits/invoke.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
 /usr/local/include/boost/predef/compiler/comeau.h:
 
@@ -6457,7 +6951,21 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/errno.h:
 
-/usr/include/c++/11/tr1/exp_integral.tcc:
+/usr/local/include/boost/preprocessor/repetition/enum_binary_params.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
+
+/usr/include/netinet/tcp.h:
+
+/usr/include/x86_64-linux-gnu/bits/signum-generic.h:
+
+/usr/include/c++/11/cstdlib:
+
+/usr/include/c++/11/string_view:
+
+/usr/local/include/boost/mpl/aux_/config/adl.hpp:
 
 /usr/include/c++/11/bits/move.h:
 
@@ -6468,82 +6976,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/include/c++/11/bits/string_view.tcc:
 
 /usr/local/include/boost/asio/basic_streambuf.hpp:
-
-/usr/local/include/boost/asio/detail/executor_op.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
-
-/usr/local/include/boost/program_options/version.hpp:
-
-/usr/local/include/boost/predef/os/bsd.h:
-
-/usr/include/x86_64-linux-gnu/bits/socket_type.h:
-
-/usr/include/curses.h:
-
-/usr/local/include/boost/asio/detail/impl/scheduler.ipp:
-
-/usr/include/x86_64-linux-gnu/bits/waitflags.h:
-
-/usr/local/include/boost/asio/detail/posix_mutex.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/termios-c_cflag.h:
-
-/usr/include/c++/11/math.h:
-
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
-
-/usr/local/include/boost/preprocessor/comma_if.hpp:
-
-/usr/local/include/boost/atomic/detail/float_sizes.hpp:
-
-/usr/local/include/boost/mpl/aux_/config/forwarding.hpp:
-
-/usr/local/include/boost/preprocessor/array/elem.hpp:
-
-/usr/include/c++/11/bits/erase_if.h:
-
-/usr/include/c++/11/bits/ptr_traits.h:
-
-/usr/local/include/boost/preprocessor/iteration/detail/iter/forward1.hpp:
-
-/usr/local/include/cereal/external/rapidxml/rapidxml.hpp:
-
-/usr/include/c++/11/ext/aligned_buffer.h:
-
-/usr/include/c++/11/bits/cxxabi_init_exception.h:
-
-/usr/include/c++/11/bits/locale_classes.tcc:
-
-/usr/local/include/boost/program_options/detail/parsers.hpp:
-
-/usr/local/include/boost/asio/buffers_iterator.hpp:
-
-/usr/include/c++/11/bits/stl_construct.h:
-
-/usr/include/c++/11/cwchar:
-
-/usr/local/include/boost/atomic/atomic_ref.hpp:
-
-/usr/local/include/boost/type_traits/is_rvalue_reference.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/termios-c_oflag.h:
-
-/usr/include/x86_64-linux-gnu/bits/select2.h:
-
-/usr/local/include/boost/preprocessor/inc.hpp:
-
-/usr/local/include/boost/mpl/identity.hpp:
-
-/usr/local/include/boost/type_traits/type_identity.hpp:
-
-/usr/include/alloca.h:
-
-/usr/local/include/boost/asio/error.hpp:
-
-/usr/include/c++/11/bits/stl_heap.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
@@ -6560,42 +6992,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/local/include/boost/mpl/int.hpp:
 
 /usr/local/include/boost/mpl/void.hpp:
-
-/usr/local/include/boost/thread/tss.hpp:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/local/include/boost/mpl/remove_if.hpp:
-
-/usr/include/c++/11/bits/streambuf.tcc:
-
-/usr/local/include/boost/asio/detail/handler_invoke_helpers.hpp:
-
-/usr/local/include/yaml-cpp/node/iterator.h:
-
-/usr/local/include/boost/date_time/time_resolution_traits.hpp:
-
-/usr/local/include/boost/asio/ip/resolver_base.hpp:
-
-/usr/include/c++/11/tr1/ell_integral.tcc:
-
-/usr/local/include/cereal/types/vector.hpp:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
-
-/usr/local/include/boost/predef/library/std/roguewave.h:
-
-/usr/local/include/yaml-cpp/node/detail/node_ref.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
-
-/usr/local/include/boost/move/detail/std_ns_begin.hpp:
-
-/usr/include/poll.h:
-
-/usr/local/include/boost/predef/library/c/_prefix.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
 /usr/local/include/boost/thread/shared_mutex.hpp:
 
@@ -6637,42 +7033,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/c++/11/bits/nested_exception.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h:
-
-/usr/local/include/boost/atomic/detail/fp_ops_emulated.hpp:
-
-/usr/local/include/boost/asio/executor_work_guard.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/socket.h:
-
-/usr/local/include/yaml-cpp/node/impl.h:
-
-/usr/include/x86_64-linux-gnu/bits/wchar2.h:
-
-/usr/local/include/boost/predef/compiler/mpw.h:
-
-/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
-
-/usr/include/c++/11/bits/locale_classes.h:
-
-/usr/include/arpa/inet.h:
-
-/usr/include/c++/11/tr1/gamma.tcc:
-
-/usr/local/include/boost/asio/detail/impl/buffer_sequence_adapter.ipp:
-
-/usr/local/include/boost/atomic/detail/type_traits/alignment_of.hpp:
-
-/usr/include/c++/11/bits/node_handle.h:
-
-/usr/local/include/boost/mpl/vector.hpp:
-
-/usr/include/c++/11/bits/stl_multiset.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
-
 /usr/include/c++/11/ios:
 
 /usr/local/include/boost/mpl/aux_/advance_forward.hpp:
@@ -6684,52 +7044,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/include/c++/11/utility:
 
 /usr/include/c++/11/stdexcept:
-
-/usr/include/string.h:
-
-/usr/include/c++/11/tr1/bessel_function.tcc:
-
-/usr/local/include/boost/thread/detail/make_tuple_indices.hpp:
-
-/usr/local/include/boost/asio/local/detail/impl/endpoint.ipp:
-
-/usr/local/include/boost/mpl/sizeof.hpp:
-
-/usr/include/c++/11/bits/atomic_lockfree_defines.h:
-
-/usr/local/include/boost/asio/detail/scoped_lock.hpp:
-
-/usr/local/include/boost/type_traits/is_member_function_pointer.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
-
-/usr/include/c++/11/bits/exception.h:
-
-/usr/local/include/boost/mpl/aux_/contains_impl.hpp:
-
-/usr/local/include/boost/asio/detail/config.hpp:
-
-/usr/include/c++/11/bits/locale_facets.h:
-
-/usr/local/include/boost/preprocessor/list/fold_left.hpp:
-
-/usr/include/c++/11/bits/memoryfwd.h:
-
-/usr/local/include/boost/asio/detail/signal_set_service.hpp:
-
-/usr/include/c++/11/tr1/poly_hermite.tcc:
-
-/usr/local/include/boost/utility/base_from_member.hpp:
-
-/usr/local/include/boost/asio/impl/error.ipp:
-
-/usr/local/include/boost/thread/exceptions.hpp:
-
-/usr/include/c++/11/cfloat:
-
-/usr/local/include/boost/asio/detail/reactive_descriptor_service.hpp:
-
-/usr/local/include/boost/smart_ptr/detail/sp_has_sync.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
 
@@ -6747,16 +7061,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/include/c++/11/bits/align.h:
 
-/usr/local/include/boost/mpl/aux_/iter_apply.hpp:
-
-/usr/include/c++/11/backward/auto_ptr.h:
-
-/usr/local/include/boost/array.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
-
 /usr/local/include/boost/mpl/less.hpp:
 
 /usr/local/include/boost/asio/detail/throw_exception.hpp:
@@ -6771,8 +7075,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/preprocessor/tuple/rem.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
-
 /usr/include/c++/11/bits/vector.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
@@ -6780,70 +7082,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/local/include/boost/asio/detail/cstddef.hpp:
 
 /usr/local/include/boost/asio/detail/buffered_stream_storage.hpp:
-
-/usr/include/x86_64-linux-gnu/asm/sockios.h:
-
-/usr/local/include/boost/asio.hpp:
-
-/usr/include/c++/11/cstring:
-
-/usr/local/include/boost/asio/detail/impl/null_event.ipp:
-
-/usr/local/include/cereal/external/rapidjson/ostreamwrapper.h:
-
-/usr/local/include/boost/predef/library/c/gnu.h:
-
-/usr/local/include/boost/numeric/conversion/detail/int_float_mixture.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/math-vector.h:
-
-/usr/include/x86_64-linux-gnu/bits/signum-generic.h:
-
-/usr/include/c++/11/cstdlib:
-
-/usr/include/c++/11/string_view:
-
-/usr/local/include/boost/mpl/aux_/config/adl.hpp:
-
-/usr/local/include/boost/preprocessor/repetition/enum_binary_params.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
-
-/usr/include/netinet/tcp.h:
-
-/usr/local/include/boost/asio/detail/service_registry.hpp:
-
-/usr/local/include/boost/type_traits/is_array.hpp:
-
-/usr/local/include/boost/checked_delete.hpp:
-
-/usr/local/include/boost/mpl/aux_/arg_typedef.hpp:
-
-/usr/local/include/boost/preprocessor/tuple/elem.hpp:
-
-/usr/local/include/boost/cstdint.hpp:
-
-/usr/local/include/boost/asio/detail/thread_info_base.hpp:
-
-/usr/local/include/boost/asio/bind_executor.hpp:
-
-/usr/local/include/boost/asio/posix/basic_stream_descriptor.hpp:
-
-../include/can_packet.h:
-
-/usr/include/c++/11/tr1/beta_function.tcc:
-
-/usr/local/include/boost/asio/ip/bad_address_cast.hpp:
-
-/usr/local/include/boost/asio/detail/future.hpp:
-
-/usr/local/include/boost/asio/ip/address_v4_iterator.hpp:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
 /usr/include/c++/11/cstdint:
 
@@ -6896,6 +7134,26 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/include/c++/11/iomanip:
 
 /usr/include/c++/11/bits/shared_ptr_atomic.h:
+
+/usr/include/x86_64-linux-gnu/asm/posix_types.h:
+
+/usr/local/include/boost/asio/executor.hpp:
+
+/usr/include/x86_64-linux-gnu/asm/posix_types_64.h:
+
+/usr/local/include/boost/program_options.hpp:
+
+/usr/include/asm-generic/posix_types.h:
+
+/usr/local/include/boost/type_traits/has_plus.hpp:
+
+/usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
+
+/usr/local/include/boost/predef/compiler/visualc.h:
+
+/usr/include/asm-generic/bitsperlong.h:
+
+/usr/include/x86_64-linux-gnu/asm/sockios.h:
 
 /usr/local/include/boost/lexical_cast/detail/lcast_char_constants.hpp:
 
@@ -6952,8 +7210,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/local/include/yaml-cpp/emitterdef.h:
 
 /usr/local/include/boost/asio/detail/impl/posix_thread.ipp:
-
-/usr/local/include/boost/predef/architecture/ia64.h:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
 
@@ -7238,10 +7494,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/include/c++/11/bits/shared_ptr.h:
 
 /usr/local/include/boost/date_time/posix_time/posix_time_types.hpp:
-
-/usr/include/c++/11/bits/functexcept.h:
-
-/usr/local/include/boost/predef/architecture/arm.h:
 
 /usr/local/include/boost/asio/impl/write_at.hpp:
 
@@ -7735,12 +7987,6 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 
 /usr/local/include/boost/asio/impl/serial_port_base.ipp:
 
-/usr/include/c++/11/bits/char_traits.h:
-
-/usr/include/c++/11/bits/concept_check.h:
-
-/usr/local/include/boost/predef/architecture/alpha.h:
-
 /usr/local/include/boost/variant/detail/hash_variant.hpp:
 
 /usr/local/include/boost/predef/library/std/cxx.h:
@@ -7982,15 +8228,3 @@ CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o: ../src/leg_module.cpp \
 /usr/local/include/boost/range/const_iterator.hpp:
 
 /usr/local/include/boost/predef/language/stdcpp.h:
-
-/usr/local/include/boost/concept/detail/concept_def.hpp:
-
-/usr/include/c++/11/bits/predefined_ops.h:
-
-/usr/local/include/boost/predef/architecture/convex.h:
-
-/usr/local/include/boost/mpl/vector/aux_/back.hpp:
-
-/usr/local/include/boost/predef/architecture/m68k.h:
-
-/usr/local/include/boost/predef/architecture/mips.h:

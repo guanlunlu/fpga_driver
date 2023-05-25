@@ -5,9 +5,12 @@
 using namespace std;
 
 mutex cons_mtx_;
+int refresh_flag;
 
-void Console::init(vector<LegModule> *mods_, std::vector<bool> *pb_state_ptr_, ModeFsm *fsm_ptr_, std::mutex *mtx_ptr_)
+void Console::init(FpgaHandler *fpga, vector<LegModule> *mods_, std::vector<bool> *pb_state_ptr_, ModeFsm *fsm_ptr_, std::mutex *mtx_ptr_)
 {
+    fpga_ = fpga;
+
     modA_ptr_ = &mods_->at(0);
     modB_ptr_ = &mods_->at(1);
     modC_ptr_ = &mods_->at(2);
@@ -35,6 +38,7 @@ void Console::init(vector<LegModule> *mods_, std::vector<bool> *pb_state_ptr_, M
 
     if_resetPanel = false;
     t_frontend_ = thread(&Console::refreshWindow, this);
+    refresh_flag = 1;
 }
 
 void Console::refreshWindow()
@@ -43,8 +47,8 @@ void Console::refreshWindow()
 
     int refresh_period_ = (int)(1 / frontend_rate_) * 1000000;
     LegModule *lm_null = 0;
-    Panel p_power_("[P] Power Board ", "power", lm_null, 1, 1, power_cons_h, 40, true);
-    Panel p_cmain_("[F] FPGA Server ", "c_main", lm_null, 1, 9, 8, 40, true);
+    Panel p_power_("[P] Power Board ", "power", lm_null, 1, 9, 60, 40, true);
+    Panel p_cmain_("[F] FPGA Server ", "c_main", lm_null, 1, 1, 8, 40, true);
 
     Panel p_modA_("[A] LF_Module ", "module", modA_ptr_, 41, 1, (term_max_y_ - 2) / 2 - 1, 60, true);
     Panel p_modD_("[D] LH_Module ", "module", modD_ptr_, 41, (term_max_y_) / 2, (term_max_y_ - 2) / 2 - 1, 60, true);
@@ -56,13 +60,13 @@ void Console::refreshWindow()
 
     p_power_.powerboard_state_ = powerboard_state_;
     p_cmain_.fsm_ = fsm_;
-    refresh();
+    // refresh();
 
     while (1)
     {
         cons_mtx_.lock();
 
-        p_power_.infoDisplay(powerboard_state_->at(0), powerboard_state_->at(1), powerboard_state_->at(2));
+        p_power_.infoDisplay(fpga_, powerboard_state_->at(0), powerboard_state_->at(1), powerboard_state_->at(2));
         p_cmain_.infoDisplay(Behavior::TCP_SLAVE, fsm_->workingMode_);
         p_modA_.infoDisplay();
         p_modB_.infoDisplay();
@@ -102,12 +106,26 @@ void InputPanel::inputHandler(WINDOW *win_, std::mutex &input_mutex)
             {
                 reset_input_window(win_);
             }
+            if (ch == 'e')
+            {
+                endwin();
+                std::cout << "Normal Mode" << std::endl;
+                // refresh();
+                refresh_flag = 0;
+            }
+            if (ch == 'E')
+            {
+                refresh_flag = 1;
+                refresh();
+            }
 
         } while (ch != ':');
 
         string input_buf;
         keypad(win_, true);
 
+        // if (refresh_flag != 1)
+        // {
         do
         {
             /* char char_ = 0;
@@ -166,8 +184,9 @@ void InputPanel::inputHandler(WINDOW *win_, std::mutex &input_mutex)
 
         reset_input_window(win_);
         commandDecode(input_buf);
-        refresh();
     }
+    // refresh();
+    // }
 }
 
 void InputPanel::reset_input_window(WINDOW *win)
@@ -183,6 +202,8 @@ void InputPanel::commandDecode(string buf)
     bool pb_selected = false;
     bool lm_selected = false;
     bool f_selected = false;
+
+    bool switchFSM_success = true;
     LegModule *md_ptr_;
 
     vector<string> bufs;
@@ -288,19 +309,19 @@ void InputPanel::commandDecode(string buf)
             {
                 if (bufs[2] == "R")
                 {
-                    fsm_->switchMode(Mode::REST);
+                    switchFSM_success = fsm_->switchMode(Mode::REST);
                 }
                 else if (bufs[2] == "M")
                 {
-                    fsm_->switchMode(Mode::MOTOR);
+                    switchFSM_success = fsm_->switchMode(Mode::MOTOR);
                 }
                 else if (bufs[2] == "S")
                 {
-                    fsm_->switchMode(Mode::SET_ZERO);
+                    switchFSM_success = fsm_->switchMode(Mode::SET_ZERO);
                 }
                 else if (bufs[2] == "H")
                 {
-                    fsm_->switchMode(Mode::HALL_CALIBRATE);
+                    switchFSM_success = fsm_->switchMode(Mode::HALL_CALIBRATE);
                 }
                 else
                 {
@@ -422,6 +443,10 @@ void InputPanel::commandDecode(string buf)
     {
         mvwprintw(win_, 0, 1, "Syntax Error !");
     }
+    else if (!switchFSM_success)
+    {
+        mvwprintw(win_, 0, 1, "Switch Mode Timeout !");
+    }
     else
     {
         mvwprintw(win_, 0, 1, "Command Send !");
@@ -523,12 +548,36 @@ void Panel::infoDisplay()
     wrefresh(win_);
 }
 
-void Panel::infoDisplay(bool digital_switch, bool signal_switch, bool power_switch)
+/* void Panel::infoDisplay(bool digital_switch, bool signal_switch, bool power_switch)
 {
     mvwprintw(win_, 2, 1, "HARDWARE POWER SWITCH-----------------");
     mvwprintw(win_, 3, 1, "[D] Digital:   %4d", digital_switch);
     mvwprintw(win_, 4, 1, "[S] Signal:    %4d", signal_switch);
     mvwprintw(win_, 5, 1, "[P] Power:     %4d", power_switch);
+    if(refresh_flag == 1){wrefresh(win_);}
+} */
+
+void Panel::infoDisplay(FpgaHandler *fpga_, bool digital_switch, bool signal_switch, bool power_switch)
+{
+    mvwprintw(win_, 2, 1, "HARDWARE POWER SWITCH ----------------");
+    mvwprintw(win_, 3, 1, "[D] Digital:   %4d", digital_switch);
+    mvwprintw(win_, 4, 1, "[S] Signal:    %4d", signal_switch);
+    mvwprintw(win_, 5, 1, "[P] Power:     %4d", power_switch);
+
+    mvwprintw(win_, 6, 1, "Voltage Current ADC ------------------");
+    mvwprintw(win_, 7, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[0], fpga_->powerboard_I_list_[0]);
+    mvwprintw(win_, 8, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[1], fpga_->powerboard_I_list_[1]);
+    mvwprintw(win_, 9, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[2], fpga_->powerboard_I_list_[2]);
+    mvwprintw(win_, 10, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[3], fpga_->powerboard_I_list_[3]);
+    mvwprintw(win_, 11, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[4], fpga_->powerboard_I_list_[4]);
+    mvwprintw(win_, 12, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[5], fpga_->powerboard_I_list_[5]);
+    mvwprintw(win_, 13, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[6], fpga_->powerboard_I_list_[6]);
+    mvwprintw(win_, 14, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[7], fpga_->powerboard_I_list_[7]);
+    mvwprintw(win_, 15, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[8], fpga_->powerboard_I_list_[8]);
+    mvwprintw(win_, 16, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[9], fpga_->powerboard_I_list_[9]);
+    mvwprintw(win_, 17, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[10], fpga_->powerboard_I_list_[10]);
+    mvwprintw(win_, 18, 1, "Voltage: %5.5f, Current: %5.5f", fpga_->powerboard_V_list_[11], fpga_->powerboard_I_list_[11]);
+
     wrefresh(win_);
 }
 

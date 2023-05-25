@@ -13,6 +13,11 @@ LegModule::LegModule(std::string _label, YAML::Node _config, NiFpga_Status _stat
     CAN_rx_timedout_[0] = false;
     CAN_rx_timedout_[1] = false;
 
+    CAN_mtr_timedout[0] = false;
+    CAN_mtr_timedout[1] = false;
+
+    CAN_module_timedout = false;
+
     txdata_buffer_[0].position_ = 0;
     txdata_buffer_[0].torque_ = 0;
     txdata_buffer_[0].KP_ = motors_list_[0].kp_;
@@ -43,7 +48,7 @@ LegModule::LegModule(std::string _label, YAML::Node _config, NiFpga_Status _stat
     rxdata_buffer_[1].CAN_id_ = 0;
     rxdata_buffer_[1].version_ = 0;
 
-    io_ = ModuleIO(_status, _fpga_session, CAN_port_, motors_list_);
+    io_ = ModuleIO(_status, _fpga_session, CAN_port_, &motors_list_);
     CAN_first_transmit_ = true;
 
     /* setup motors' CAN ID, port selection and timeout_us */
@@ -66,9 +71,9 @@ void LegModule::load_config()
     motor_r.kp_ = config_[label_]["Motor_R"]["KP"].as<double>();
     motor_r.ki_ = config_[label_]["Motor_R"]["KI"].as<double>();
     motor_r.kd_ = config_[label_]["Motor_R"]["KD"].as<double>();
-    motor_r.torque_ff_ = config_[label_]["Motor_R"]["Torque_Feedfoward"].as<int>();
+    motor_r.torque_ff_ = config_[label_]["Motor_R"]["Torque_Feedfoward"].as<double>();
 
-    linkR_bias = config_[label_]["Motor_R"]["Calibration_Bias"].as<int>();
+    linkR_bias = config_[label_]["Motor_R"]["Calibration_Bias"].as<double>();
     motor_r.calibration_bias = 0;
 
     // Motor H setup
@@ -77,9 +82,9 @@ void LegModule::load_config()
     motor_l.kp_ = config_[label_]["Motor_L"]["KP"].as<double>();
     motor_l.ki_ = config_[label_]["Motor_L"]["KI"].as<double>();
     motor_l.kd_ = config_[label_]["Motor_L"]["KD"].as<double>();
-    motor_l.torque_ff_ = config_[label_]["Motor_L"]["Torque_Feedfoward"].as<int>();
+    motor_l.torque_ff_ = config_[label_]["Motor_L"]["Torque_Feedfoward"].as<double>();
 
-    linkL_bias = config_[label_]["Motor_L"]["Calibration_Bias"].as<int>();
+    linkL_bias = config_[label_]["Motor_L"]["Calibration_Bias"].as<double>();
     motor_l.calibration_bias = 0;
 
     motors_list_.push_back(motor_r);
@@ -94,6 +99,7 @@ void LegModule::load_config()
     std::cout << std::setw(14) << "  KI: " << std::setw(13) << motor_r.ki_ << std::endl;
     std::cout << std::setw(14) << "  KD: " << std::setw(13) << motor_r.kd_ << std::endl;
     std::cout << std::setw(14) << "  Torque_ff: " << std::setw(13) << motor_r.torque_ff_ << std::endl;
+    std::cout << std::setw(14) << "  Bias: " << std::setw(13) << linkR_bias << std::endl;
     std::cout << std::setw(14) << "---------------------------" << std::endl;
 
     std::cout << "Motor_L: " << std::endl;
@@ -103,5 +109,20 @@ void LegModule::load_config()
     std::cout << std::setw(14) << "  KI: " << std::setw(13) << motor_l.ki_ << std::endl;
     std::cout << std::setw(14) << "  KD: " << std::setw(13) << motor_l.kd_ << std::endl;
     std::cout << std::setw(14) << "  Torque_ff: " << std::setw(13) << motor_l.torque_ff_ << std::endl;
+    std::cout << std::setw(14) << "  Bias: " << std::setw(13) << linkL_bias << std::endl;
     std::cout << std::setw(14) << "---------------------------" << std::endl;
+}
+
+void LegModule::CAN_timeoutCheck()
+{
+    CAN_rx_timedout_[0] = io_.read_rx_id1_timeout_();
+    CAN_rx_timedout_[1] = io_.read_rx_id2_timeout_();
+
+    CAN_tx_timedout_[0] = io_.read_tx_id1_timeout_();
+    CAN_tx_timedout_[1] = io_.read_tx_id2_timeout_();
+
+    CAN_mtr_timedout[0] = CAN_rx_timedout_[0] || CAN_tx_timedout_[0];
+    CAN_mtr_timedout[1] = CAN_rx_timedout_[1] || CAN_tx_timedout_[1];
+
+    CAN_module_timedout = CAN_mtr_timedout[0] || CAN_mtr_timedout[1];
 }

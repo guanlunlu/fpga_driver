@@ -17,7 +17,7 @@ class ModuleIO
 {
 public:
   ModuleIO(NiFpga_Status status_, NiFpga_Session fpga_session_, std::string CAN_port_,
-           std::vector<Motor> motors_list);
+           std::vector<Motor> *motors_list);
 
   ModuleIO()
   {
@@ -25,7 +25,7 @@ public:
 
   NiFpga_Status status_;
   NiFpga_Session fpga_session_;
-  std::vector<Motor> motors_list_;
+  std::vector<Motor> *motors_list_;
 
   int CAN_timeout_us_;
 
@@ -79,6 +79,10 @@ public:
   void CAN_encode(uint8_t (&txmsg)[8], CAN_txdata txdata);
   void CAN_decode(uint8_t (&rxmsg)[8], CAN_rxdata *rxdata);
 
+  void set_calibration_bias(double mtrR_bias, double mtrL_bias);
+  double motorR_bias;
+  double motorL_bias;
+
   // data conversion for CAN-bus
   int float_to_uint(float x, float x_min, float x_max, int bits);
   float uint_to_float(int x_int, float x_min, float x_max, int bits);
@@ -90,8 +94,6 @@ public:
   FpgaHandler();
   ~FpgaHandler();
 
-  void setIrqPeriod(int main_loop_period, int can_loop_period);
-
   NiFpga_Session session_;
   NiFpga_Status status_;
   // Fpga interrupt request
@@ -102,7 +104,19 @@ public:
   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool w_pb_signal_;
   NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool w_pb_power_;
 
+  NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16 r_powerboard_data_;
+  NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16Size size_powerboard_data_;
+
+  void setIrqPeriod(int main_loop_period, int can_loop_period);
   void write_powerboard_(std::vector<bool> *powerboard_state_);
+
+  void read_powerboard_data_();
+
+  double powerboard_Ifactor[12];
+  double powerboard_Vfactor[12];
+
+  double powerboard_I_list_[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  double powerboard_V_list_[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };
 
 #endif

@@ -23,6 +23,8 @@ public:
   bool if_switch_mode_msg_sent_;
   bool if_switch_mode_printed_;
 
+  bool hall_calibrated;
+
   void runFsm();
   bool switchMode(Mode next_mode);
 };

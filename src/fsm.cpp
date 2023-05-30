@@ -8,6 +8,7 @@ ModeFsm::ModeFsm(std::vector<LegModule> *_modules)
     modules_list_ = _modules;
     if_switch_mode_msg_sent_ = false;
     if_switch_mode_printed_ = false;
+    hall_calibrated = true;
     runFsm();
 }
 
@@ -212,15 +213,7 @@ void ModeFsm::runFsm()
             usleep(dt_ * 1000 * 1000);
         }
 
-        /* for (int i = 0; i < 4; i++)
-        {
-            if (modules_list_->at(i).enable_)
-            {
-                LOGFILE << "mod " << i << " rx timeout" << modules_list_->at(i).CAN_rx_timedout_[0] << modules_list_->at(i).CAN_rx_timedout_[1] << std::endl;
-                LOGFILE << "mod " << i << " tx timeout" << modules_list_->at(i).CAN_tx_timedout_[0] << modules_list_->at(i).CAN_tx_timedout_[1] << std::endl;
-            }
-        } */
-
+        hall_calibrated = true;
         switchMode(Mode::MOTOR);
     }
     break;
@@ -243,6 +236,8 @@ bool ModeFsm::switchMode(Mode next_mode)
     int mode_switched_cnt = 0;
     int module_enabled = 0;
     bool success = false;
+    std::ofstream log_;
+    log_.open("/home/admin/fpga_driver2/log/log_fsm.txt");
 
     for (int i = 0; i < 4; i++)
     {
@@ -254,11 +249,25 @@ bool ModeFsm::switchMode(Mode next_mode)
 
     double time_elapsed = 0;
 
+    // log_ << "next_mode == Mode::HALL_CALIBRATE: " << (next_mode == Mode::HALL_CALIBRATE) << std::endl;
+    // log_ << "hall_calibrate_enable_: " << hall_calibrate_enable_ << std::endl;
+
     while (1)
     {
+        // log_ << "loop next_mode == Mode::HALL_CALIBRATE: " << (next_mode == Mode::HALL_CALIBRATE) << std::endl;
+        // log_ << "loop hall_calibrate_enable_: " << hall_calibrate_enable_ << std::endl;
+
+        // if (next_mode == Mode::HALL_CALIBRATE && hall_calibrate_enable_ == false)
+        // {
+        // log_ << "aaa" << std::endl;
+        // success = false;
+        // break;
+        // }
+
         if (mode_switched_cnt == module_enabled)
         {
             success = true;
+            // hall_calibrate_enable_ = false;
             break;
         }
         else if (time_elapsed > 1)
@@ -291,5 +300,6 @@ bool ModeFsm::switchMode(Mode next_mode)
 
     prev_workingMode_ = workingMode_;
     workingMode_ = next_mode;
+
     return success;
 }

@@ -1155,10 +1155,9 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_handler.cpp.o: ../src/fpga_handler.cpp \
 
 CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/include/x86_64-linux-gnu/stdc-predef.h \
-  ../include/fpga_server.hpp \
-  ../include/console.hpp \
-  ../include/leg_module.hpp \
-  /usr/include/c++/11/iostream \
+  ../include/angle_convert.hpp \
+  /usr/include/c++/11/math.h \
+  /usr/include/c++/11/cmath \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
   /usr/include/x86_64-linux-gnu/features.h \
@@ -1171,46 +1170,67 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
   /usr/include/c++/11/pstl/pstl_config.h \
-  /usr/include/c++/11/ostream \
-  /usr/include/c++/11/ios \
-  /usr/include/c++/11/iosfwd \
-  /usr/include/c++/11/bits/stringfwd.h \
-  /usr/include/c++/11/bits/memoryfwd.h \
-  /usr/include/c++/11/bits/postypes.h \
-  /usr/include/c++/11/cwchar \
-  /usr/include/wchar.h \
-  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
-  /usr/include/x86_64-linux-gnu/bits/floatn.h \
-  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
-  /usr/include/x86_64-linux-gnu/bits/wchar.h \
-  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
-  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
-  /usr/include/c++/11/exception \
-  /usr/include/c++/11/bits/exception.h \
-  /usr/include/c++/11/bits/exception_ptr.h \
-  /usr/include/c++/11/bits/exception_defines.h \
-  /usr/include/c++/11/bits/cxxabi_init_exception.h \
-  /usr/include/c++/11/typeinfo \
-  /usr/include/c++/11/bits/hash_bytes.h \
-  /usr/include/c++/11/new \
-  /usr/include/c++/11/bits/move.h \
-  /usr/include/c++/11/type_traits \
-  /usr/include/c++/11/bits/nested_exception.h \
-  /usr/include/c++/11/bits/char_traits.h \
-  /usr/include/c++/11/bits/stl_algobase.h \
-  /usr/include/c++/11/bits/functexcept.h \
   /usr/include/c++/11/bits/cpp_type_traits.h \
   /usr/include/c++/11/ext/type_traits.h \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/include/x86_64-linux-gnu/bits/types.h \
+  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+  /usr/include/x86_64-linux-gnu/bits/time64.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+  /usr/include/c++/11/bits/std_abs.h \
+  /usr/include/stdlib.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endianness.h \
+  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+  /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/sys/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
+  /usr/include/alloca.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/c++/11/bits/specfun.h \
+  /usr/include/c++/11/bits/stl_algobase.h \
+  /usr/include/c++/11/bits/functexcept.h \
+  /usr/include/c++/11/bits/exception_defines.h \
   /usr/include/c++/11/ext/numeric_traits.h \
   /usr/include/c++/11/bits/stl_pair.h \
+  /usr/include/c++/11/bits/move.h \
+  /usr/include/c++/11/type_traits \
   /usr/include/c++/11/bits/stl_iterator_base_types.h \
   /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/11/bits/concept_check.h \
@@ -1219,13 +1239,52 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/include/c++/11/bits/ptr_traits.h \
   /usr/include/c++/11/debug/debug.h \
   /usr/include/c++/11/bits/predefined_ops.h \
+  /usr/include/c++/11/limits \
+  /usr/include/c++/11/tr1/gamma.tcc \
+  /usr/include/c++/11/tr1/special_function_util.h \
+  /usr/include/c++/11/tr1/bessel_function.tcc \
+  /usr/include/c++/11/tr1/beta_function.tcc \
+  /usr/include/c++/11/tr1/ell_integral.tcc \
+  /usr/include/c++/11/tr1/exp_integral.tcc \
+  /usr/include/c++/11/tr1/hypergeometric.tcc \
+  /usr/include/c++/11/tr1/legendre_function.tcc \
+  /usr/include/c++/11/tr1/modified_bessel_func.tcc \
+  /usr/include/c++/11/tr1/poly_hermite.tcc \
+  /usr/include/c++/11/tr1/poly_laguerre.tcc \
+  /usr/include/c++/11/tr1/riemann_zeta.tcc \
+  ../include/case_enum.hpp \
+  ../include/fpga_server.hpp \
+  ../include/console.hpp \
+  ../include/leg_module.hpp \
+  /usr/include/c++/11/iostream \
+  /usr/include/c++/11/ostream \
+  /usr/include/c++/11/ios \
+  /usr/include/c++/11/iosfwd \
+  /usr/include/c++/11/bits/stringfwd.h \
+  /usr/include/c++/11/bits/memoryfwd.h \
+  /usr/include/c++/11/bits/postypes.h \
+  /usr/include/c++/11/cwchar \
+  /usr/include/wchar.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
+  /usr/include/c++/11/exception \
+  /usr/include/c++/11/bits/exception.h \
+  /usr/include/c++/11/bits/exception_ptr.h \
+  /usr/include/c++/11/bits/cxxabi_init_exception.h \
+  /usr/include/c++/11/typeinfo \
+  /usr/include/c++/11/bits/hash_bytes.h \
+  /usr/include/c++/11/new \
+  /usr/include/c++/11/bits/nested_exception.h \
+  /usr/include/c++/11/bits/char_traits.h \
   /usr/include/c++/11/cstdint \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h \
   /usr/include/stdint.h \
-  /usr/include/x86_64-linux-gnu/bits/types.h \
-  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
-  /usr/include/x86_64-linux-gnu/bits/time64.h \
-  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
   /usr/include/c++/11/bits/localefwd.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
@@ -1234,36 +1293,21 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/include/x86_64-linux-gnu/bits/locale.h \
   /usr/include/c++/11/cctype \
   /usr/include/ctype.h \
-  /usr/include/x86_64-linux-gnu/bits/endian.h \
-  /usr/include/x86_64-linux-gnu/bits/endianness.h \
   /usr/include/c++/11/bits/ios_base.h \
   /usr/include/c++/11/ext/atomicity.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h \
   /usr/include/pthread.h \
   /usr/include/sched.h \
-  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
   /usr/include/x86_64-linux-gnu/bits/sched.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
   /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
   /usr/include/time.h \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/timex.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
-  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
-  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
-  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
-  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
-  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
-  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
-  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
-  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/setjmp.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h \
@@ -1288,22 +1332,6 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/include/c++/11/bits/string_view.tcc \
   /usr/include/c++/11/ext/string_conversions.h \
   /usr/include/c++/11/cstdlib \
-  /usr/include/stdlib.h \
-  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
-  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
-  /usr/include/x86_64-linux-gnu/sys/types.h \
-  /usr/include/endian.h \
-  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
-  /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
-  /usr/include/x86_64-linux-gnu/sys/select.h \
-  /usr/include/x86_64-linux-gnu/bits/select.h \
-  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
-  /usr/include/x86_64-linux-gnu/bits/select2.h \
-  /usr/include/alloca.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
-  /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
   /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
@@ -1347,32 +1375,6 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
-  /usr/include/c++/11/math.h \
-  /usr/include/c++/11/cmath \
-  /usr/include/math.h \
-  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
-  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
-  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
-  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
-  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
-  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
-  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
-  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
-  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
-  /usr/include/c++/11/bits/specfun.h \
-  /usr/include/c++/11/limits \
-  /usr/include/c++/11/tr1/gamma.tcc \
-  /usr/include/c++/11/tr1/special_function_util.h \
-  /usr/include/c++/11/tr1/bessel_function.tcc \
-  /usr/include/c++/11/tr1/beta_function.tcc \
-  /usr/include/c++/11/tr1/ell_integral.tcc \
-  /usr/include/c++/11/tr1/exp_integral.tcc \
-  /usr/include/c++/11/tr1/hypergeometric.tcc \
-  /usr/include/c++/11/tr1/legendre_function.tcc \
-  /usr/include/c++/11/tr1/modified_bessel_func.tcc \
-  /usr/include/c++/11/tr1/poly_hermite.tcc \
-  /usr/include/c++/11/tr1/poly_laguerre.tcc \
-  /usr/include/c++/11/tr1/riemann_zeta.tcc \
   /usr/local/include/yaml-cpp/yaml.h \
   /usr/local/include/yaml-cpp/parser.h \
   /usr/include/c++/11/memory \
@@ -1594,6 +1596,8 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/include/ncurses_dll.h \
   /usr/include/unctrl.h \
   /usr/include/curses.h \
+  ../include/case_enum.hpp \
+  ../include/angle_convert.hpp \
   /usr/local/include/NodeHandler.hpp \
   /usr/local/include/boost/asio.hpp \
   /usr/local/include/boost/asio/associated_allocator.hpp \
@@ -2416,551 +2420,20 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/asio/write_at.hpp \
   /usr/local/include/boost/asio/impl/write_at.hpp \
   /usr/local/include/boost/bind.hpp \
-  /usr/local/include/base_msg.hpp \
-  /usr/local/include/cereal/archives/binary.hpp \
-  /usr/local/include/cereal/archives/xml.hpp \
+  /usr/local/include/cereal/types/polymorphic.hpp \
+  /usr/local/include/cereal/types/memory.hpp \
   /usr/local/include/cereal/details/util.hpp \
   /usr/include/c++/11/cxxabi.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h \
-  /usr/local/include/cereal/external/rapidxml/rapidxml.hpp \
-  /usr/local/include/cereal/external/rapidxml/rapidxml_print.hpp \
-  /usr/local/include/cereal/external/rapidxml/rapidxml.hpp \
-  /usr/local/include/cereal/external/base64.hpp \
+  /usr/local/include/cereal/details/polymorphic_impl.hpp \
+  /usr/local/include/cereal/types/string.hpp \
   /usr/include/c++/11/stack \
   /usr/include/c++/11/deque \
   /usr/include/c++/11/bits/stl_deque.h \
   /usr/include/c++/11/bits/deque.tcc \
   /usr/include/c++/11/bits/stl_stack.h \
-  /usr/local/include/cereal/archives/json.hpp \
-  /usr/local/include/cereal/external/rapidjson/prettywriter.h \
-  /usr/local/include/cereal/external/rapidjson/writer.h \
-  /usr/local/include/cereal/external/rapidjson/stream.h \
-  /usr/local/include/cereal/external/rapidjson/rapidjson.h \
-  /usr/include/inttypes.h \
-  /usr/local/include/cereal/external/rapidjson/encodings.h \
-  /usr/local/include/cereal/external/rapidjson/internal/meta.h \
-  /usr/local/include/cereal/external/rapidjson/rapidjson.h \
-  /usr/local/include/cereal/external/rapidjson/internal/stack.h \
-  /usr/local/include/cereal/external/rapidjson/allocators.h \
-  /usr/local/include/cereal/external/rapidjson/internal/swap.h \
-  /usr/local/include/cereal/external/rapidjson/internal/strfunc.h \
-  /usr/local/include/cereal/external/rapidjson/stream.h \
-  /usr/local/include/cereal/external/rapidjson/internal/dtoa.h \
-  /usr/local/include/cereal/external/rapidjson/internal/itoa.h \
-  /usr/local/include/cereal/external/rapidjson/internal/diyfp.h \
-  /usr/local/include/cereal/external/rapidjson/internal/ieee754.h \
-  /usr/local/include/cereal/external/rapidjson/internal/itoa.h \
-  /usr/local/include/cereal/external/rapidjson/stringbuffer.h \
-  /usr/local/include/cereal/external/rapidjson/ostreamwrapper.h \
-  /usr/local/include/cereal/external/rapidjson/istreamwrapper.h \
-  /usr/local/include/cereal/external/rapidjson/document.h \
-  /usr/local/include/cereal/external/rapidjson/reader.h \
-  /usr/local/include/cereal/external/rapidjson/allocators.h \
-  /usr/local/include/cereal/external/rapidjson/encodedstream.h \
-  /usr/local/include/cereal/external/rapidjson/memorystream.h \
-  /usr/local/include/cereal/external/rapidjson/internal/strtod.h \
-  /usr/local/include/cereal/external/rapidjson/internal/biginteger.h \
-  /usr/local/include/cereal/external/rapidjson/internal/pow10.h \
-  /usr/local/include/cereal/external/rapidjson/error/error.h \
-  /usr/local/include/cereal/external/rapidjson/rapidjson.h \
-  /usr/local/include/cereal/types/polymorphic.hpp \
-  /usr/local/include/cereal/types/memory.hpp \
-  /usr/local/include/cereal/details/polymorphic_impl.hpp \
-  /usr/local/include/cereal/types/string.hpp \
-  /usr/local/include/utils.hpp \
-  /usr/local/include/boost/program_options.hpp \
-  /usr/local/include/boost/program_options/options_description.hpp \
-  /usr/local/include/boost/program_options/config.hpp \
-  /usr/local/include/boost/program_options/errors.hpp \
-  /usr/local/include/boost/program_options/value_semantic.hpp \
-  /usr/local/include/boost/any.hpp \
-  /usr/local/include/boost/type_index.hpp \
-  /usr/local/include/boost/type_index/stl_type_index.hpp \
-  /usr/local/include/boost/type_index/type_index_facade.hpp \
-  /usr/local/include/boost/container_hash/hash_fwd.hpp \
-  /usr/local/include/boost/core/demangle.hpp \
-  /usr/local/include/boost/type_traits/is_const.hpp \
-  /usr/local/include/boost/type_traits/is_reference.hpp \
-  /usr/local/include/boost/type_traits/is_lvalue_reference.hpp \
-  /usr/local/include/boost/type_traits/is_rvalue_reference.hpp \
-  /usr/local/include/boost/type_traits/is_volatile.hpp \
-  /usr/local/include/boost/type_traits/remove_reference.hpp \
-  /usr/local/include/boost/type_traits/decay.hpp \
-  /usr/local/include/boost/type_traits/is_array.hpp \
-  /usr/local/include/boost/type_traits/is_function.hpp \
-  /usr/local/include/boost/type_traits/detail/is_function_cxx_11.hpp \
-  /usr/local/include/boost/type_traits/remove_bounds.hpp \
-  /usr/local/include/boost/type_traits/remove_extent.hpp \
-  /usr/local/include/boost/type_traits/add_pointer.hpp \
-  /usr/local/include/boost/type_traits/add_reference.hpp \
-  /usr/local/include/boost/utility/enable_if.hpp \
-  /usr/local/include/boost/function/function1.hpp \
-  /usr/local/include/boost/function/detail/maybe_include.hpp \
-  /usr/local/include/boost/function/function_template.hpp \
-  /usr/local/include/boost/function/detail/prologue.hpp \
-  /usr/local/include/boost/config/no_tr1/functional.hpp \
-  /usr/local/include/boost/function/function_base.hpp \
-  /usr/local/include/boost/integer.hpp \
-  /usr/local/include/boost/integer_fwd.hpp \
-  /usr/local/include/boost/integer_traits.hpp \
-  /usr/local/include/boost/type_traits/has_trivial_copy.hpp \
-  /usr/local/include/boost/type_traits/is_pod.hpp \
-  /usr/local/include/boost/type_traits/is_void.hpp \
-  /usr/local/include/boost/type_traits/is_scalar.hpp \
-  /usr/local/include/boost/type_traits/is_enum.hpp \
-  /usr/local/include/boost/type_traits/is_pointer.hpp \
-  /usr/local/include/boost/type_traits/is_member_pointer.hpp \
-  /usr/local/include/boost/type_traits/is_member_function_pointer.hpp \
-  /usr/local/include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
-  /usr/local/include/boost/type_traits/is_copy_constructible.hpp \
-  /usr/local/include/boost/type_traits/is_constructible.hpp \
-  /usr/local/include/boost/type_traits/is_destructible.hpp \
-  /usr/local/include/boost/type_traits/is_complete.hpp \
-  /usr/local/include/boost/type_traits/declval.hpp \
-  /usr/local/include/boost/type_traits/add_rvalue_reference.hpp \
-  /usr/local/include/boost/type_traits/detail/yes_no_type.hpp \
-  /usr/local/include/boost/type_traits/is_default_constructible.hpp \
-  /usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
-  /usr/local/include/boost/type_traits/composite_traits.hpp \
-  /usr/local/include/boost/type_traits/is_union.hpp \
-  /usr/local/include/boost/type_traits/alignment_of.hpp \
-  /usr/local/include/boost/type_traits/enable_if.hpp \
-  /usr/local/include/boost/function_equal.hpp \
-  /usr/local/include/boost/function/function_fwd.hpp \
-  /usr/local/include/boost/preprocessor/enum.hpp \
-  /usr/local/include/boost/preprocessor/repetition/enum.hpp \
-  /usr/local/include/boost/preprocessor/enum_params.hpp \
-  /usr/local/include/boost/core/no_exceptions_support.hpp \
-  /usr/local/include/boost/lexical_cast.hpp \
-  /usr/local/include/boost/range/iterator_range_core.hpp \
-  /usr/local/include/boost/iterator/iterator_traits.hpp \
-  /usr/local/include/boost/iterator/iterator_facade.hpp \
-  /usr/local/include/boost/iterator/interoperable.hpp \
-  /usr/local/include/boost/mpl/or.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/or.hpp \
-  /usr/local/include/boost/type_traits/is_convertible.hpp \
-  /usr/local/include/boost/type_traits/is_abstract.hpp \
-  /usr/local/include/boost/type_traits/add_lvalue_reference.hpp \
-  /usr/local/include/boost/iterator/detail/config_def.hpp \
-  /usr/local/include/boost/iterator/detail/config_undef.hpp \
-  /usr/local/include/boost/iterator/iterator_categories.hpp \
-  /usr/local/include/boost/mpl/placeholders.hpp \
-  /usr/local/include/boost/mpl/arg.hpp \
-  /usr/local/include/boost/mpl/arg_fwd.hpp \
-  /usr/local/include/boost/mpl/aux_/na_assert.hpp \
-  /usr/local/include/boost/mpl/assert.hpp \
-  /usr/local/include/boost/mpl/aux_/config/gpu.hpp \
-  /usr/local/include/boost/mpl/aux_/config/pp_counter.hpp \
-  /usr/local/include/boost/mpl/aux_/arity_spec.hpp \
-  /usr/local/include/boost/mpl/aux_/arg_typedef.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/arg.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp \
-  /usr/local/include/boost/iterator/detail/facade_iterator_category.hpp \
-  /usr/local/include/boost/core/use_default.hpp \
-  /usr/local/include/boost/detail/indirect_traits.hpp \
-  /usr/local/include/boost/type_traits/remove_pointer.hpp \
-  /usr/local/include/boost/detail/select_type.hpp \
-  /usr/local/include/boost/iterator/detail/enable_if.hpp \
-  /usr/local/include/boost/type_traits/add_const.hpp \
-  /usr/local/include/boost/type_traits/remove_const.hpp \
-  /usr/local/include/boost/mpl/always.hpp \
-  /usr/local/include/boost/mpl/apply.hpp \
-  /usr/local/include/boost/mpl/apply_fwd.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply_fwd.hpp \
-  /usr/local/include/boost/mpl/lambda.hpp \
-  /usr/local/include/boost/mpl/bind.hpp \
-  /usr/local/include/boost/mpl/bind_fwd.hpp \
-  /usr/local/include/boost/mpl/aux_/config/bind.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/bind_fwd.hpp \
-  /usr/local/include/boost/mpl/next.hpp \
-  /usr/local/include/boost/mpl/next_prior.hpp \
-  /usr/local/include/boost/mpl/aux_/common_name_wknd.hpp \
-  /usr/local/include/boost/mpl/protect.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/bind.hpp \
-  /usr/local/include/boost/mpl/aux_/full_lambda.hpp \
-  /usr/local/include/boost/mpl/quote.hpp \
-  /usr/local/include/boost/mpl/aux_/has_type.hpp \
-  /usr/local/include/boost/mpl/aux_/config/bcc.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/quote.hpp \
-  /usr/local/include/boost/mpl/aux_/template_arity.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/template_arity.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply.hpp \
-  /usr/local/include/boost/range/functions.hpp \
-  /usr/local/include/boost/range/begin.hpp \
-  /usr/local/include/boost/range/config.hpp \
-  /usr/local/include/boost/range/iterator.hpp \
-  /usr/local/include/boost/range/range_fwd.hpp \
-  /usr/local/include/boost/range/mutable_iterator.hpp \
-  /usr/local/include/boost/range/detail/extract_optional_type.hpp \
-  /usr/local/include/boost/range/detail/msvc_has_iterator_workaround.hpp \
-  /usr/local/include/boost/range/const_iterator.hpp \
-  /usr/local/include/boost/range/end.hpp \
-  /usr/local/include/boost/range/detail/implementation_help.hpp \
-  /usr/local/include/boost/range/detail/common.hpp \
-  /usr/local/include/boost/range/detail/sfinae.hpp \
-  /usr/local/include/boost/range/size.hpp \
-  /usr/local/include/boost/range/size_type.hpp \
-  /usr/local/include/boost/range/difference_type.hpp \
-  /usr/local/include/boost/range/has_range_iterator.hpp \
-  /usr/local/include/boost/range/concepts.hpp \
-  /usr/local/include/boost/concept_check.hpp \
-  /usr/local/include/boost/concept/assert.hpp \
-  /usr/local/include/boost/concept/detail/general.hpp \
-  /usr/local/include/boost/concept/detail/backward_compatibility.hpp \
-  /usr/local/include/boost/concept/detail/has_constraints.hpp \
-  /usr/local/include/boost/type_traits/conversion_traits.hpp \
-  /usr/local/include/boost/concept/usage.hpp \
-  /usr/local/include/boost/concept/detail/concept_def.hpp \
-  /usr/local/include/boost/preprocessor/seq/for_each_i.hpp \
-  /usr/local/include/boost/preprocessor/repetition/for.hpp \
-  /usr/local/include/boost/preprocessor/repetition/detail/for.hpp \
-  /usr/local/include/boost/preprocessor/seq/seq.hpp \
-  /usr/local/include/boost/preprocessor/seq/elem.hpp \
-  /usr/local/include/boost/preprocessor/seq/size.hpp \
-  /usr/local/include/boost/preprocessor/seq/detail/is_empty.hpp \
-  /usr/local/include/boost/preprocessor/seq/enum.hpp \
-  /usr/local/include/boost/concept/detail/concept_undef.hpp \
-  /usr/local/include/boost/iterator/iterator_concepts.hpp \
-  /usr/local/include/boost/range/value_type.hpp \
-  /usr/local/include/boost/range/detail/misc_concept.hpp \
-  /usr/local/include/boost/type_traits/make_unsigned.hpp \
-  /usr/local/include/boost/type_traits/is_signed.hpp \
-  /usr/local/include/boost/type_traits/is_unsigned.hpp \
-  /usr/local/include/boost/type_traits/add_volatile.hpp \
-  /usr/local/include/boost/range/detail/has_member_size.hpp \
-  /usr/local/include/boost/utility.hpp \
-  /usr/local/include/boost/utility/base_from_member.hpp \
-  /usr/local/include/boost/preprocessor/repetition/enum_binary_params.hpp \
-  /usr/local/include/boost/preprocessor/repetition/repeat_from_to.hpp \
-  /usr/local/include/boost/utility/binary.hpp \
-  /usr/local/include/boost/preprocessor/control/deduce_d.hpp \
-  /usr/local/include/boost/preprocessor/seq/cat.hpp \
-  /usr/local/include/boost/preprocessor/seq/fold_left.hpp \
-  /usr/local/include/boost/preprocessor/seq/transform.hpp \
-  /usr/local/include/boost/preprocessor/arithmetic/mod.hpp \
-  /usr/local/include/boost/preprocessor/arithmetic/detail/div_base.hpp \
-  /usr/local/include/boost/preprocessor/comparison/less_equal.hpp \
-  /usr/local/include/boost/preprocessor/logical/not.hpp \
-  /usr/local/include/boost/utility/identity_type.hpp \
-  /usr/local/include/boost/type_traits/function_traits.hpp \
-  /usr/local/include/boost/core/noncopyable.hpp \
-  /usr/local/include/boost/range/distance.hpp \
-  /usr/local/include/boost/iterator/distance.hpp \
-  /usr/local/include/boost/range/empty.hpp \
-  /usr/local/include/boost/range/rbegin.hpp \
-  /usr/local/include/boost/range/reverse_iterator.hpp \
-  /usr/local/include/boost/iterator/reverse_iterator.hpp \
-  /usr/local/include/boost/iterator/iterator_adaptor.hpp \
-  /usr/local/include/boost/range/rend.hpp \
-  /usr/local/include/boost/range/algorithm/equal.hpp \
-  /usr/local/include/boost/range/detail/safe_bool.hpp \
-  /usr/local/include/boost/next_prior.hpp \
-  /usr/local/include/boost/type_traits/has_plus.hpp \
-  /usr/local/include/boost/type_traits/detail/has_binary_operator.hpp \
-  /usr/local/include/boost/type_traits/make_void.hpp \
-  /usr/local/include/boost/type_traits/has_plus_assign.hpp \
-  /usr/local/include/boost/type_traits/has_minus.hpp \
-  /usr/local/include/boost/type_traits/has_minus_assign.hpp \
-  /usr/local/include/boost/iterator/advance.hpp \
-  /usr/local/include/boost/lexical_cast/bad_lexical_cast.hpp \
-  /usr/local/include/boost/lexical_cast/try_lexical_convert.hpp \
-  /usr/local/include/boost/type_traits/type_identity.hpp \
-  /usr/local/include/boost/lexical_cast/detail/is_character.hpp \
-  /usr/local/include/boost/lexical_cast/detail/converter_numeric.hpp \
-  /usr/local/include/boost/type_traits/is_float.hpp \
-  /usr/local/include/boost/lexical_cast/detail/converter_lexical.hpp \
-  /usr/local/include/boost/type_traits/has_left_shift.hpp \
-  /usr/local/include/boost/type_traits/has_right_shift.hpp \
-  /usr/local/include/boost/detail/lcast_precision.hpp \
-  /usr/local/include/boost/lexical_cast/detail/widest_char.hpp \
-  /usr/local/include/boost/array.hpp \
-  /usr/local/include/boost/swap.hpp \
-  /usr/local/include/boost/core/swap.hpp \
-  /usr/local/include/boost/detail/iterator.hpp \
-  /usr/local/include/boost/container/container_fwd.hpp \
-  /usr/local/include/boost/container/detail/std_fwd.hpp \
-  /usr/local/include/boost/move/detail/std_ns_begin.hpp \
-  /usr/local/include/boost/move/detail/std_ns_end.hpp \
-  /usr/local/include/boost/lexical_cast/detail/converter_lexical_streams.hpp \
-  /usr/local/include/boost/lexical_cast/detail/lcast_char_constants.hpp \
-  /usr/local/include/boost/lexical_cast/detail/lcast_unsigned_converters.hpp \
-  /usr/local/include/boost/noncopyable.hpp \
-  /usr/local/include/boost/lexical_cast/detail/inf_nan.hpp \
-  /usr/local/include/boost/math/special_functions/sign.hpp \
-  /usr/local/include/boost/math/tools/config.hpp \
-  /usr/include/c++/11/cfloat \
-  /usr/local/include/boost/math/tools/user.hpp \
-  /usr/local/include/boost/math/special_functions/math_fwd.hpp \
-  /usr/local/include/boost/math/special_functions/detail/round_fwd.hpp \
-  /usr/local/include/boost/math/tools/promotion.hpp \
-  /usr/local/include/boost/math/policies/policy.hpp \
-  /usr/local/include/boost/mpl/list.hpp \
-  /usr/local/include/boost/mpl/limits/list.hpp \
-  /usr/local/include/boost/mpl/list/list20.hpp \
-  /usr/local/include/boost/mpl/list/list10.hpp \
-  /usr/local/include/boost/mpl/list/list0.hpp \
-  /usr/local/include/boost/mpl/long.hpp \
-  /usr/local/include/boost/mpl/long_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/push_front.hpp \
-  /usr/local/include/boost/mpl/push_front_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/item.hpp \
-  /usr/local/include/boost/mpl/list/aux_/tag.hpp \
-  /usr/local/include/boost/mpl/list/aux_/pop_front.hpp \
-  /usr/local/include/boost/mpl/pop_front_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/push_back.hpp \
-  /usr/local/include/boost/mpl/push_back_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/front.hpp \
-  /usr/local/include/boost/mpl/front_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/clear.hpp \
-  /usr/local/include/boost/mpl/clear_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/O1_size.hpp \
-  /usr/local/include/boost/mpl/O1_size_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/size.hpp \
-  /usr/local/include/boost/mpl/size_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/empty.hpp \
-  /usr/local/include/boost/mpl/empty_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/begin_end.hpp \
-  /usr/local/include/boost/mpl/begin_end_fwd.hpp \
-  /usr/local/include/boost/mpl/list/aux_/iterator.hpp \
-  /usr/local/include/boost/mpl/iterator_tags.hpp \
-  /usr/local/include/boost/mpl/deref.hpp \
-  /usr/local/include/boost/mpl/aux_/msvc_type.hpp \
-  /usr/local/include/boost/mpl/aux_/lambda_spec.hpp \
-  /usr/local/include/boost/mpl/list/aux_/include_preprocessed.hpp \
-  /usr/local/include/boost/mpl/list/aux_/preprocessed/plain/list10.hpp \
-  /usr/local/include/boost/mpl/list/aux_/preprocessed/plain/list20.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/list.hpp \
-  /usr/local/include/boost/mpl/contains.hpp \
-  /usr/local/include/boost/mpl/contains_fwd.hpp \
-  /usr/local/include/boost/mpl/sequence_tag.hpp \
-  /usr/local/include/boost/mpl/sequence_tag_fwd.hpp \
-  /usr/local/include/boost/mpl/aux_/has_begin.hpp \
-  /usr/local/include/boost/mpl/aux_/contains_impl.hpp \
-  /usr/local/include/boost/mpl/begin_end.hpp \
-  /usr/local/include/boost/mpl/aux_/begin_end_impl.hpp \
-  /usr/local/include/boost/mpl/aux_/traits_lambda_spec.hpp \
-  /usr/local/include/boost/mpl/find.hpp \
-  /usr/local/include/boost/mpl/find_if.hpp \
-  /usr/local/include/boost/mpl/aux_/find_if_pred.hpp \
-  /usr/local/include/boost/mpl/aux_/iter_apply.hpp \
-  /usr/local/include/boost/mpl/iter_fold_if.hpp \
-  /usr/local/include/boost/mpl/logical.hpp \
-  /usr/local/include/boost/mpl/pair.hpp \
-  /usr/local/include/boost/mpl/aux_/iter_fold_if_impl.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/iter_fold_if_impl.hpp \
-  /usr/local/include/boost/mpl/same_as.hpp \
-  /usr/local/include/boost/mpl/remove_if.hpp \
-  /usr/local/include/boost/mpl/fold.hpp \
-  /usr/local/include/boost/mpl/O1_size.hpp \
-  /usr/local/include/boost/mpl/aux_/O1_size_impl.hpp \
-  /usr/local/include/boost/mpl/aux_/has_size.hpp \
-  /usr/local/include/boost/mpl/aux_/fold_impl.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/fold_impl.hpp \
-  /usr/local/include/boost/mpl/reverse_fold.hpp \
-  /usr/local/include/boost/mpl/aux_/reverse_fold_impl.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/reverse_fold_impl.hpp \
-  /usr/local/include/boost/mpl/aux_/inserter_algorithm.hpp \
-  /usr/local/include/boost/mpl/back_inserter.hpp \
-  /usr/local/include/boost/mpl/push_back.hpp \
-  /usr/local/include/boost/mpl/aux_/push_back_impl.hpp \
-  /usr/local/include/boost/mpl/inserter.hpp \
-  /usr/local/include/boost/mpl/front_inserter.hpp \
-  /usr/local/include/boost/mpl/push_front.hpp \
-  /usr/local/include/boost/mpl/aux_/push_front_impl.hpp \
-  /usr/local/include/boost/mpl/clear.hpp \
-  /usr/local/include/boost/mpl/aux_/clear_impl.hpp \
-  /usr/local/include/boost/mpl/vector.hpp \
-  /usr/local/include/boost/mpl/limits/vector.hpp \
-  /usr/local/include/boost/mpl/vector/vector20.hpp \
-  /usr/local/include/boost/mpl/vector/vector10.hpp \
-  /usr/local/include/boost/mpl/vector/vector0.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/at.hpp \
-  /usr/local/include/boost/mpl/at_fwd.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/tag.hpp \
-  /usr/local/include/boost/mpl/aux_/config/typeof.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/front.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/push_front.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/item.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/pop_front.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/push_back.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/pop_back.hpp \
-  /usr/local/include/boost/mpl/pop_back_fwd.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/back.hpp \
-  /usr/local/include/boost/mpl/back_fwd.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/clear.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/vector0.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/iterator.hpp \
-  /usr/local/include/boost/mpl/plus.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/plus.hpp \
-  /usr/local/include/boost/mpl/minus.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/minus.hpp \
-  /usr/local/include/boost/mpl/advance_fwd.hpp \
-  /usr/local/include/boost/mpl/distance_fwd.hpp \
-  /usr/local/include/boost/mpl/prior.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/O1_size.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/size.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/empty.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/begin_end.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/include_preprocessed.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/preprocessed/typeof_based/vector10.hpp \
-  /usr/local/include/boost/mpl/vector/aux_/preprocessed/typeof_based/vector20.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/vector.hpp \
-  /usr/local/include/boost/mpl/at.hpp \
-  /usr/local/include/boost/mpl/aux_/at_impl.hpp \
-  /usr/local/include/boost/mpl/advance.hpp \
-  /usr/local/include/boost/mpl/negate.hpp \
-  /usr/local/include/boost/mpl/aux_/advance_forward.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/advance_forward.hpp \
-  /usr/local/include/boost/mpl/aux_/advance_backward.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/advance_backward.hpp \
-  /usr/local/include/boost/mpl/size.hpp \
-  /usr/local/include/boost/mpl/aux_/size_impl.hpp \
-  /usr/local/include/boost/mpl/distance.hpp \
-  /usr/local/include/boost/mpl/iter_fold.hpp \
-  /usr/local/include/boost/mpl/aux_/iter_fold_impl.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/iter_fold_impl.hpp \
-  /usr/local/include/boost/mpl/iterator_range.hpp \
-  /usr/local/include/boost/mpl/comparison.hpp \
-  /usr/local/include/boost/mpl/not_equal_to.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/not_equal_to.hpp \
-  /usr/local/include/boost/mpl/greater.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/greater.hpp \
-  /usr/local/include/boost/mpl/less_equal.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/less_equal.hpp \
-  /usr/local/include/boost/mpl/greater_equal.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/greater_equal.hpp \
-  /usr/include/c++/11/stdlib.h \
-  /usr/local/include/boost/config/no_tr1/complex.hpp \
-  /usr/include/c++/11/complex \
-  /usr/local/include/boost/math/special_functions/detail/fp_traits.hpp \
-  /usr/local/include/boost/math/special_functions/fpclassify.hpp \
-  /usr/local/include/boost/math/tools/real_cast.hpp \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/quadmath.h \
-  /usr/local/include/boost/detail/basic_pointerbuf.hpp \
-  /usr/local/include/boost/program_options/detail/value_semantic.hpp \
-  /usr/local/include/boost/function.hpp \
-  /usr/local/include/boost/preprocessor/iterate.hpp \
-  /usr/local/include/boost/preprocessor/iteration/iterate.hpp \
-  /usr/local/include/boost/preprocessor/slot/slot.hpp \
-  /usr/local/include/boost/preprocessor/slot/detail/def.hpp \
-  /usr/local/include/boost/preprocessor/iteration/detail/iter/forward1.hpp \
-  /usr/local/include/boost/preprocessor/iteration/detail/bounds/lower1.hpp \
-  /usr/local/include/boost/preprocessor/slot/detail/shared.hpp \
-  /usr/local/include/boost/preprocessor/iteration/detail/bounds/upper1.hpp \
-  /usr/local/include/boost/function/detail/function_iterate.hpp \
-  /usr/local/include/boost/program_options/positional_options.hpp \
-  /usr/local/include/boost/program_options/parsers.hpp \
-  /usr/local/include/boost/program_options/option.hpp \
-  /usr/local/include/boost/program_options/detail/cmdline.hpp \
-  /usr/local/include/boost/program_options/cmdline.hpp \
-  /usr/local/include/boost/program_options/detail/parsers.hpp \
-  /usr/local/include/boost/program_options/detail/convert.hpp \
-  /usr/local/include/boost/program_options/variables_map.hpp \
-  /usr/local/include/boost/program_options/version.hpp \
-  /usr/local/include/boost/variant.hpp \
-  /usr/local/include/boost/variant/variant.hpp \
-  /usr/local/include/boost/variant/detail/config.hpp \
-  /usr/local/include/boost/variant/variant_fwd.hpp \
-  /usr/local/include/boost/blank_fwd.hpp \
-  /usr/local/include/boost/preprocessor/enum_shifted_params.hpp \
-  /usr/local/include/boost/preprocessor/repetition/enum_shifted_params.hpp \
-  /usr/local/include/boost/variant/detail/substitute_fwd.hpp \
-  /usr/local/include/boost/variant/detail/backup_holder.hpp \
-  /usr/local/include/boost/variant/detail/enable_recursive_fwd.hpp \
-  /usr/local/include/boost/variant/detail/forced_return.hpp \
-  /usr/local/include/boost/variant/detail/initializer.hpp \
-  /usr/local/include/boost/call_traits.hpp \
-  /usr/local/include/boost/detail/call_traits.hpp \
-  /usr/local/include/boost/detail/reference_content.hpp \
-  /usr/local/include/boost/type_traits/has_nothrow_copy.hpp \
-  /usr/local/include/boost/variant/recursive_wrapper_fwd.hpp \
-  /usr/local/include/boost/type_traits/is_nothrow_move_constructible.hpp \
-  /usr/local/include/boost/variant/detail/move.hpp \
-  /usr/local/include/boost/move/utility_core.hpp \
-  /usr/local/include/boost/move/detail/config_begin.hpp \
-  /usr/local/include/boost/move/detail/workaround.hpp \
-  /usr/local/include/boost/move/core.hpp \
-  /usr/local/include/boost/move/detail/config_end.hpp \
-  /usr/local/include/boost/move/detail/meta_utils.hpp \
-  /usr/local/include/boost/move/detail/meta_utils_core.hpp \
-  /usr/local/include/boost/move/adl_move_swap.hpp \
-  /usr/local/include/boost/variant/detail/make_variant_list.hpp \
-  /usr/local/include/boost/variant/detail/over_sequence.hpp \
-  /usr/local/include/boost/variant/detail/visitation_impl.hpp \
-  /usr/local/include/boost/variant/detail/cast_storage.hpp \
-  /usr/local/include/boost/variant/detail/hash_variant.hpp \
-  /usr/local/include/boost/variant/static_visitor.hpp \
-  /usr/local/include/boost/variant/apply_visitor.hpp \
-  /usr/local/include/boost/variant/detail/apply_visitor_unary.hpp \
-  /usr/local/include/boost/move/utility.hpp \
-  /usr/local/include/boost/move/traits.hpp \
-  /usr/local/include/boost/move/detail/type_traits.hpp \
-  /usr/local/include/boost/utility/declval.hpp \
-  /usr/local/include/boost/type_traits/copy_cv_ref.hpp \
-  /usr/local/include/boost/type_traits/copy_cv.hpp \
-  /usr/local/include/boost/type_traits/copy_reference.hpp \
-  /usr/local/include/boost/variant/detail/has_result_type.hpp \
-  /usr/local/include/boost/variant/detail/apply_visitor_binary.hpp \
-  /usr/local/include/boost/variant/detail/apply_visitor_delayed.hpp \
-  /usr/local/include/boost/functional/hash_fwd.hpp \
-  /usr/local/include/boost/variant/detail/std_hash.hpp \
-  /usr/local/include/boost/detail/no_exceptions_support.hpp \
-  /usr/local/include/boost/aligned_storage.hpp \
-  /usr/local/include/boost/type_traits/aligned_storage.hpp \
-  /usr/local/include/boost/type_traits/type_with_alignment.hpp \
-  /usr/local/include/boost/blank.hpp \
-  /usr/local/include/boost/detail/templated_streams.hpp \
-  /usr/local/include/boost/type_traits/is_empty.hpp \
-  /usr/local/include/boost/type_traits/is_stateless.hpp \
-  /usr/local/include/boost/type_traits/has_trivial_constructor.hpp \
-  /usr/local/include/boost/integer/common_factor_ct.hpp \
-  /usr/local/include/boost/type_traits/has_nothrow_constructor.hpp \
-  /usr/local/include/boost/type_traits/is_nothrow_move_assignable.hpp \
-  /usr/local/include/boost/type_traits/has_trivial_move_assign.hpp \
-  /usr/local/include/boost/type_traits/is_assignable.hpp \
-  /usr/local/include/boost/type_traits/has_nothrow_assign.hpp \
-  /usr/local/include/boost/mpl/empty.hpp \
-  /usr/local/include/boost/mpl/aux_/empty_impl.hpp \
-  /usr/local/include/boost/mpl/front.hpp \
-  /usr/local/include/boost/mpl/aux_/front_impl.hpp \
-  /usr/local/include/boost/mpl/insert_range.hpp \
-  /usr/local/include/boost/mpl/insert_range_fwd.hpp \
-  /usr/local/include/boost/mpl/aux_/insert_range_impl.hpp \
-  /usr/local/include/boost/mpl/insert.hpp \
-  /usr/local/include/boost/mpl/insert_fwd.hpp \
-  /usr/local/include/boost/mpl/aux_/insert_impl.hpp \
-  /usr/local/include/boost/mpl/joint_view.hpp \
-  /usr/local/include/boost/mpl/aux_/joint_iter.hpp \
-  /usr/local/include/boost/mpl/aux_/iter_push_front.hpp \
-  /usr/local/include/boost/type_traits/same_traits.hpp \
-  /usr/local/include/boost/mpl/is_sequence.hpp \
-  /usr/local/include/boost/mpl/max_element.hpp \
-  /usr/local/include/boost/mpl/size_t.hpp \
-  /usr/local/include/boost/mpl/size_t_fwd.hpp \
-  /usr/local/include/boost/mpl/sizeof.hpp \
-  /usr/local/include/boost/mpl/transform.hpp \
-  /usr/local/include/boost/mpl/pair_view.hpp \
-  /usr/local/include/boost/mpl/iterator_category.hpp \
-  /usr/local/include/boost/mpl/min_max.hpp \
-  /usr/local/include/boost/variant/detail/variant_io.hpp \
-  /usr/local/include/boost/variant/recursive_variant.hpp \
-  /usr/local/include/boost/variant/detail/enable_recursive.hpp \
-  /usr/local/include/boost/variant/detail/substitute.hpp \
-  /usr/local/include/boost/mpl/aux_/preprocessor/repeat.hpp \
-  /usr/local/include/boost/variant/recursive_wrapper.hpp \
-  /usr/local/include/boost/mpl/equal.hpp \
-  /usr/local/include/boost/variant/get.hpp \
-  /usr/local/include/boost/utility/addressof.hpp \
-  /usr/local/include/boost/variant/detail/element_index.hpp \
-  /usr/local/include/boost/variant/visitor_ptr.hpp \
-  /usr/local/include/boost/variant/bad_visit.hpp \
-  /usr/local/include/file.hpp \
-  /usr/local/include/std_msg.hpp \
-  /usr/local/include/base_msg.hpp \
-  /usr/local/include/motor_msg.hpp \
-  /usr/local/include/std_msg.hpp \
-  ../include/case_enum.hpp \
+  /usr/local/include/protocol.hpp \
+  /usr/local/include/boost/asio.hpp \
   /usr/local/include/boost/thread.hpp \
   /usr/local/include/boost/thread/thread.hpp \
   /usr/local/include/boost/thread/thread_only.hpp \
@@ -2975,6 +2448,36 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/thread/lock_guard.hpp \
   /usr/local/include/boost/thread/detail/delete.hpp \
   /usr/local/include/boost/thread/detail/move.hpp \
+  /usr/local/include/boost/type_traits/is_convertible.hpp \
+  /usr/local/include/boost/type_traits/is_complete.hpp \
+  /usr/local/include/boost/type_traits/declval.hpp \
+  /usr/local/include/boost/type_traits/add_rvalue_reference.hpp \
+  /usr/local/include/boost/type_traits/is_void.hpp \
+  /usr/local/include/boost/type_traits/is_reference.hpp \
+  /usr/local/include/boost/type_traits/is_lvalue_reference.hpp \
+  /usr/local/include/boost/type_traits/is_rvalue_reference.hpp \
+  /usr/local/include/boost/type_traits/remove_reference.hpp \
+  /usr/local/include/boost/type_traits/is_function.hpp \
+  /usr/local/include/boost/type_traits/detail/is_function_cxx_11.hpp \
+  /usr/local/include/boost/type_traits/detail/yes_no_type.hpp \
+  /usr/local/include/boost/type_traits/is_array.hpp \
+  /usr/local/include/boost/type_traits/is_abstract.hpp \
+  /usr/local/include/boost/type_traits/add_lvalue_reference.hpp \
+  /usr/local/include/boost/type_traits/add_reference.hpp \
+  /usr/local/include/boost/type_traits/decay.hpp \
+  /usr/local/include/boost/type_traits/remove_bounds.hpp \
+  /usr/local/include/boost/type_traits/remove_extent.hpp \
+  /usr/local/include/boost/type_traits/add_pointer.hpp \
+  /usr/local/include/boost/move/utility.hpp \
+  /usr/local/include/boost/move/detail/config_begin.hpp \
+  /usr/local/include/boost/move/detail/workaround.hpp \
+  /usr/local/include/boost/move/utility_core.hpp \
+  /usr/local/include/boost/move/core.hpp \
+  /usr/local/include/boost/move/detail/config_end.hpp \
+  /usr/local/include/boost/move/detail/meta_utils.hpp \
+  /usr/local/include/boost/move/detail/meta_utils_core.hpp \
+  /usr/local/include/boost/move/traits.hpp \
+  /usr/local/include/boost/move/detail/type_traits.hpp \
   /usr/local/include/boost/thread/detail/lockable_wrapper.hpp \
   /usr/local/include/boost/thread/lock_options.hpp \
   /usr/local/include/boost/thread/lock_types.hpp \
@@ -2984,6 +2487,9 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/chrono/duration.hpp \
   /usr/local/include/boost/chrono/config.hpp \
   /usr/local/include/boost/chrono/detail/static_assert.hpp \
+  /usr/local/include/boost/mpl/logical.hpp \
+  /usr/local/include/boost/mpl/or.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/or.hpp \
   /usr/local/include/boost/ratio/ratio.hpp \
   /usr/local/include/boost/ratio/config.hpp \
   /usr/local/include/boost/ratio/detail/mpl/abs.hpp \
@@ -2991,11 +2497,15 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/ratio/detail/mpl/gcd.hpp \
   /usr/local/include/boost/mpl/aux_/config/dependent_nttp.hpp \
   /usr/local/include/boost/ratio/detail/mpl/lcm.hpp \
+  /usr/local/include/boost/integer_traits.hpp \
   /usr/local/include/boost/ratio/ratio_fwd.hpp \
   /usr/local/include/boost/ratio/detail/overflow_helpers.hpp \
   /usr/local/include/boost/type_traits/common_type.hpp \
   /usr/local/include/boost/type_traits/detail/mp_defer.hpp \
+  /usr/local/include/boost/type_traits/is_unsigned.hpp \
+  /usr/local/include/boost/type_traits/is_enum.hpp \
   /usr/local/include/boost/chrono/detail/is_evenly_divisible_by.hpp \
+  /usr/local/include/boost/utility/enable_if.hpp \
   /usr/local/include/boost/thread/mutex.hpp \
   /usr/local/include/boost/thread/pthread/mutex.hpp \
   /usr/local/include/boost/core/ignore_unused.hpp \
@@ -3022,20 +2532,27 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/thread/pthread/thread_heap_alloc.hpp \
   /usr/local/include/boost/thread/detail/make_tuple_indices.hpp \
   /usr/local/include/boost/thread/detail/invoke.hpp \
+  /usr/local/include/boost/type_traits/is_pointer.hpp \
+  /usr/local/include/boost/type_traits/is_member_function_pointer.hpp \
+  /usr/local/include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
   /usr/local/include/boost/thread/detail/is_convertible.hpp \
+  /usr/include/c++/11/stdlib.h \
   /usr/local/include/boost/io/ios_state.hpp \
   /usr/local/include/boost/io_fwd.hpp \
   /usr/local/include/boost/functional/hash.hpp \
   /usr/local/include/boost/container_hash/hash.hpp \
+  /usr/local/include/boost/container_hash/hash_fwd.hpp \
   /usr/local/include/boost/container_hash/detail/hash_float.hpp \
   /usr/local/include/boost/container_hash/detail/float_functions.hpp \
   /usr/local/include/boost/container_hash/detail/limits.hpp \
   /usr/local/include/boost/integer/static_log2.hpp \
+  /usr/local/include/boost/integer_fwd.hpp \
   /usr/include/c++/11/optional \
   /usr/include/c++/11/variant \
   /usr/local/include/boost/container_hash/extensions.hpp \
   /usr/local/include/boost/detail/container_fwd.hpp \
   /usr/include/c++/11/bitset \
+  /usr/include/c++/11/complex \
   /usr/local/include/boost/thread/detail/thread_interruption.hpp \
   /usr/local/include/boost/thread/condition_variable.hpp \
   /usr/local/include/boost/thread/pthread/condition_variable.hpp \
@@ -3045,11 +2562,13 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/move/unique_ptr.hpp \
   /usr/local/include/boost/move/detail/unique_ptr_meta_utils.hpp \
   /usr/local/include/boost/move/default_delete.hpp \
+  /usr/local/include/boost/move/adl_move_swap.hpp \
   /usr/local/include/boost/move/make_unique.hpp \
   /usr/local/include/boost/thread/shared_mutex.hpp \
   /usr/local/include/boost/thread/pthread/shared_mutex.hpp \
   /usr/local/include/boost/thread/once.hpp \
   /usr/local/include/boost/thread/pthread/once_atomic.hpp \
+  /usr/local/include/boost/core/no_exceptions_support.hpp \
   /usr/local/include/boost/atomic.hpp \
   /usr/local/include/boost/memory_order.hpp \
   /usr/local/include/boost/atomic/capabilities.hpp \
@@ -3074,9 +2593,15 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/atomic/detail/type_traits/integral_constant.hpp \
   /usr/local/include/boost/atomic/detail/integral_conversions.hpp \
   /usr/local/include/boost/atomic/detail/type_traits/is_signed.hpp \
+  /usr/local/include/boost/type_traits/is_signed.hpp \
   /usr/local/include/boost/atomic/detail/type_traits/make_signed.hpp \
   /usr/local/include/boost/type_traits/make_signed.hpp \
+  /usr/local/include/boost/type_traits/is_const.hpp \
+  /usr/local/include/boost/type_traits/is_volatile.hpp \
+  /usr/local/include/boost/type_traits/add_const.hpp \
+  /usr/local/include/boost/type_traits/add_volatile.hpp \
   /usr/local/include/boost/atomic/detail/type_traits/make_unsigned.hpp \
+  /usr/local/include/boost/type_traits/make_unsigned.hpp \
   /usr/local/include/boost/atomic/detail/operations.hpp \
   /usr/local/include/boost/atomic/detail/operations_lockfree.hpp \
   /usr/local/include/boost/atomic/detail/ops_gcc_atomic.hpp \
@@ -3123,7 +2648,17 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/thread/csbl/memory/scoped_allocator.hpp \
   /usr/local/include/boost/thread/csbl/memory/shared_ptr.hpp \
   /usr/local/include/boost/utility/result_of.hpp \
+  /usr/local/include/boost/preprocessor/iteration/iterate.hpp \
+  /usr/local/include/boost/preprocessor/slot/slot.hpp \
+  /usr/local/include/boost/preprocessor/slot/detail/def.hpp \
+  /usr/local/include/boost/preprocessor/repetition/enum_binary_params.hpp \
+  /usr/local/include/boost/preprocessor/repetition/enum_shifted_params.hpp \
   /usr/local/include/boost/preprocessor/facilities/intercept.hpp \
+  /usr/local/include/boost/type_traits/type_identity.hpp \
+  /usr/local/include/boost/preprocessor/iteration/detail/iter/forward1.hpp \
+  /usr/local/include/boost/preprocessor/iteration/detail/bounds/lower1.hpp \
+  /usr/local/include/boost/preprocessor/slot/detail/shared.hpp \
+  /usr/local/include/boost/preprocessor/iteration/detail/bounds/upper1.hpp \
   /usr/local/include/boost/utility/detail/result_of_iterate.hpp \
   /usr/local/include/boost/thread/future.hpp \
   /usr/local/include/boost/thread/detail/invoker.hpp \
@@ -3132,9 +2667,13 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/tuple/detail/tuple_basic.hpp \
   /usr/local/include/boost/type_traits/cv_traits.hpp \
   /usr/local/include/boost/type_traits/add_cv.hpp \
+  /usr/local/include/boost/type_traits/remove_const.hpp \
   /usr/local/include/boost/type_traits/remove_volatile.hpp \
+  /usr/local/include/boost/type_traits/function_traits.hpp \
   /usr/local/include/boost/utility/swap.hpp \
+  /usr/local/include/boost/core/swap.hpp \
   /usr/local/include/boost/thread/detail/variadic_header.hpp \
+  /usr/local/include/boost/preprocessor/repetition/repeat_from_to.hpp \
   /usr/local/include/boost/thread/detail/variadic_footer.hpp \
   /usr/local/include/boost/thread/exceptional_ptr.hpp \
   /usr/local/include/boost/exception_ptr.hpp \
@@ -3146,7 +2685,10 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/exception/detail/object_hex_dump.hpp \
   /usr/local/include/boost/exception/detail/type_info.hpp \
   /usr/local/include/boost/core/typeinfo.hpp \
+  /usr/local/include/boost/core/demangle.hpp \
   /usr/local/include/boost/exception/detail/error_info_impl.hpp \
+  /usr/local/include/boost/type_traits/is_nothrow_move_constructible.hpp \
+  /usr/local/include/boost/type_traits/enable_if.hpp \
   /usr/local/include/boost/exception/detail/shared_ptr.hpp \
   /usr/local/include/boost/exception/diagnostic_information.hpp \
   /usr/local/include/boost/exception/get_error_info.hpp \
@@ -3159,6 +2701,65 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/thread/futures/launch.hpp \
   /usr/local/include/boost/thread/futures/wait_for_all.hpp \
   /usr/local/include/boost/thread/futures/wait_for_any.hpp \
+  /usr/local/include/boost/next_prior.hpp \
+  /usr/local/include/boost/type_traits/has_plus.hpp \
+  /usr/local/include/boost/type_traits/detail/has_binary_operator.hpp \
+  /usr/local/include/boost/type_traits/make_void.hpp \
+  /usr/local/include/boost/type_traits/has_plus_assign.hpp \
+  /usr/local/include/boost/type_traits/remove_pointer.hpp \
+  /usr/local/include/boost/type_traits/has_minus.hpp \
+  /usr/local/include/boost/type_traits/has_minus_assign.hpp \
+  /usr/local/include/boost/iterator/advance.hpp \
+  /usr/local/include/boost/iterator/iterator_categories.hpp \
+  /usr/local/include/boost/iterator/detail/config_def.hpp \
+  /usr/local/include/boost/mpl/placeholders.hpp \
+  /usr/local/include/boost/mpl/arg.hpp \
+  /usr/local/include/boost/mpl/arg_fwd.hpp \
+  /usr/local/include/boost/mpl/aux_/na_assert.hpp \
+  /usr/local/include/boost/mpl/assert.hpp \
+  /usr/local/include/boost/mpl/aux_/config/gpu.hpp \
+  /usr/local/include/boost/mpl/aux_/config/pp_counter.hpp \
+  /usr/local/include/boost/mpl/aux_/arity_spec.hpp \
+  /usr/local/include/boost/mpl/aux_/arg_typedef.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/arg.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp \
+  /usr/local/include/boost/iterator/detail/config_undef.hpp \
+  /usr/local/include/boost/iterator/reverse_iterator.hpp \
+  /usr/local/include/boost/iterator/iterator_adaptor.hpp \
+  /usr/local/include/boost/core/use_default.hpp \
+  /usr/local/include/boost/iterator/iterator_facade.hpp \
+  /usr/local/include/boost/iterator/interoperable.hpp \
+  /usr/local/include/boost/iterator/iterator_traits.hpp \
+  /usr/local/include/boost/iterator/detail/facade_iterator_category.hpp \
+  /usr/local/include/boost/detail/indirect_traits.hpp \
+  /usr/local/include/boost/type_traits/is_member_pointer.hpp \
+  /usr/local/include/boost/detail/select_type.hpp \
+  /usr/local/include/boost/iterator/detail/enable_if.hpp \
+  /usr/local/include/boost/type_traits/is_pod.hpp \
+  /usr/local/include/boost/type_traits/is_scalar.hpp \
+  /usr/local/include/boost/mpl/always.hpp \
+  /usr/local/include/boost/mpl/apply.hpp \
+  /usr/local/include/boost/mpl/apply_fwd.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply_fwd.hpp \
+  /usr/local/include/boost/mpl/lambda.hpp \
+  /usr/local/include/boost/mpl/bind.hpp \
+  /usr/local/include/boost/mpl/bind_fwd.hpp \
+  /usr/local/include/boost/mpl/aux_/config/bind.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/bind_fwd.hpp \
+  /usr/local/include/boost/mpl/next.hpp \
+  /usr/local/include/boost/mpl/next_prior.hpp \
+  /usr/local/include/boost/mpl/aux_/common_name_wknd.hpp \
+  /usr/local/include/boost/mpl/protect.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/bind.hpp \
+  /usr/local/include/boost/mpl/aux_/full_lambda.hpp \
+  /usr/local/include/boost/mpl/quote.hpp \
+  /usr/local/include/boost/mpl/aux_/has_type.hpp \
+  /usr/local/include/boost/mpl/aux_/config/bcc.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/quote.hpp \
+  /usr/local/include/boost/mpl/aux_/template_arity.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/template_arity.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply.hpp \
   /usr/local/include/boost/scoped_array.hpp \
   /usr/local/include/boost/smart_ptr/scoped_array.hpp \
   /usr/local/include/boost/thread/executor.hpp \
@@ -3169,6 +2770,16 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/optional/optional.hpp \
   /usr/local/include/boost/core/explicit_operator_bool.hpp \
   /usr/local/include/boost/optional/bad_optional_access.hpp \
+  /usr/local/include/boost/type_traits/alignment_of.hpp \
+  /usr/local/include/boost/type_traits/has_nothrow_constructor.hpp \
+  /usr/local/include/boost/type_traits/is_default_constructible.hpp \
+  /usr/local/include/boost/type_traits/type_with_alignment.hpp \
+  /usr/local/include/boost/type_traits/is_constructible.hpp \
+  /usr/local/include/boost/type_traits/is_destructible.hpp \
+  /usr/local/include/boost/type_traits/is_nothrow_move_assignable.hpp \
+  /usr/local/include/boost/type_traits/has_trivial_move_assign.hpp \
+  /usr/local/include/boost/type_traits/is_assignable.hpp \
+  /usr/local/include/boost/type_traits/has_nothrow_assign.hpp \
   /usr/local/include/boost/none.hpp \
   /usr/local/include/boost/none_t.hpp \
   /usr/local/include/boost/utility/compare_pointees.hpp \
@@ -3180,6 +2791,28 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/optional/detail/optional_reference_spec.hpp \
   /usr/local/include/boost/optional/detail/optional_relops.hpp \
   /usr/local/include/boost/optional/detail/optional_swap.hpp \
+  /usr/local/include/boost/function.hpp \
+  /usr/local/include/boost/preprocessor/iterate.hpp \
+  /usr/local/include/boost/function/detail/prologue.hpp \
+  /usr/local/include/boost/config/no_tr1/functional.hpp \
+  /usr/local/include/boost/function/function_base.hpp \
+  /usr/local/include/boost/integer.hpp \
+  /usr/local/include/boost/type_index.hpp \
+  /usr/local/include/boost/type_index/stl_type_index.hpp \
+  /usr/local/include/boost/type_index/type_index_facade.hpp \
+  /usr/local/include/boost/type_traits/has_trivial_copy.hpp \
+  /usr/local/include/boost/type_traits/is_copy_constructible.hpp \
+  /usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
+  /usr/local/include/boost/type_traits/composite_traits.hpp \
+  /usr/local/include/boost/type_traits/is_union.hpp \
+  /usr/local/include/boost/function_equal.hpp \
+  /usr/local/include/boost/function/function_fwd.hpp \
+  /usr/local/include/boost/preprocessor/enum.hpp \
+  /usr/local/include/boost/preprocessor/repetition/enum.hpp \
+  /usr/local/include/boost/preprocessor/enum_params.hpp \
+  /usr/local/include/boost/function/detail/function_iterate.hpp \
+  /usr/local/include/boost/function/detail/maybe_include.hpp \
+  /usr/local/include/boost/function/function_template.hpp \
   /usr/local/include/boost/smart_ptr/make_shared.hpp \
   /usr/local/include/boost/smart_ptr/make_shared_object.hpp \
   /usr/local/include/boost/smart_ptr/detail/sp_forward.hpp \
@@ -3194,7 +2827,185 @@ CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o: ../src/fpga_server.cpp \
   /usr/local/include/boost/type_traits/is_unbounded_array.hpp \
   /usr/local/include/boost/type_traits/is_fundamental.hpp \
   /usr/local/include/boost/thread/detail/atomic_undef_macros.hpp \
-  /usr/local/include/boost/thread/detail/atomic_redef_macros.hpp
+  /usr/local/include/boost/thread/detail/atomic_redef_macros.hpp \
+  /usr/local/include/std_service.hpp \
+  /usr/local/include/std_msg.hpp \
+  /usr/local/include/FileArchive.hpp \
+  /usr/local/include/boost/variant.hpp \
+  /usr/local/include/boost/variant/variant.hpp \
+  /usr/local/include/boost/variant/detail/config.hpp \
+  /usr/local/include/boost/variant/variant_fwd.hpp \
+  /usr/local/include/boost/blank_fwd.hpp \
+  /usr/local/include/boost/preprocessor/enum_shifted_params.hpp \
+  /usr/local/include/boost/variant/detail/substitute_fwd.hpp \
+  /usr/local/include/boost/preprocessor/seq/size.hpp \
+  /usr/local/include/boost/variant/detail/backup_holder.hpp \
+  /usr/local/include/boost/variant/detail/enable_recursive_fwd.hpp \
+  /usr/local/include/boost/variant/detail/forced_return.hpp \
+  /usr/local/include/boost/variant/detail/initializer.hpp \
+  /usr/local/include/boost/call_traits.hpp \
+  /usr/local/include/boost/detail/call_traits.hpp \
+  /usr/local/include/boost/detail/reference_content.hpp \
+  /usr/local/include/boost/type_traits/has_nothrow_copy.hpp \
+  /usr/local/include/boost/variant/recursive_wrapper_fwd.hpp \
+  /usr/local/include/boost/variant/detail/move.hpp \
+  /usr/local/include/boost/mpl/iter_fold.hpp \
+  /usr/local/include/boost/mpl/begin_end.hpp \
+  /usr/local/include/boost/mpl/begin_end_fwd.hpp \
+  /usr/local/include/boost/mpl/aux_/begin_end_impl.hpp \
+  /usr/local/include/boost/mpl/sequence_tag_fwd.hpp \
+  /usr/local/include/boost/mpl/aux_/has_begin.hpp \
+  /usr/local/include/boost/mpl/aux_/traits_lambda_spec.hpp \
+  /usr/local/include/boost/mpl/sequence_tag.hpp \
+  /usr/local/include/boost/mpl/O1_size.hpp \
+  /usr/local/include/boost/mpl/O1_size_fwd.hpp \
+  /usr/local/include/boost/mpl/aux_/O1_size_impl.hpp \
+  /usr/local/include/boost/mpl/long.hpp \
+  /usr/local/include/boost/mpl/long_fwd.hpp \
+  /usr/local/include/boost/mpl/aux_/has_size.hpp \
+  /usr/local/include/boost/mpl/aux_/iter_fold_impl.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/iter_fold_impl.hpp \
+  /usr/local/include/boost/mpl/deref.hpp \
+  /usr/local/include/boost/mpl/aux_/msvc_type.hpp \
+  /usr/local/include/boost/mpl/pair.hpp \
+  /usr/local/include/boost/variant/detail/make_variant_list.hpp \
+  /usr/local/include/boost/mpl/list.hpp \
+  /usr/local/include/boost/mpl/limits/list.hpp \
+  /usr/local/include/boost/mpl/list/list20.hpp \
+  /usr/local/include/boost/mpl/list/list10.hpp \
+  /usr/local/include/boost/mpl/list/list0.hpp \
+  /usr/local/include/boost/mpl/list/aux_/push_front.hpp \
+  /usr/local/include/boost/mpl/push_front_fwd.hpp \
+  /usr/local/include/boost/mpl/list/aux_/item.hpp \
+  /usr/local/include/boost/mpl/list/aux_/tag.hpp \
+  /usr/local/include/boost/mpl/list/aux_/pop_front.hpp \
+  /usr/local/include/boost/mpl/pop_front_fwd.hpp \
+  /usr/local/include/boost/mpl/list/aux_/push_back.hpp \
+  /usr/local/include/boost/mpl/push_back_fwd.hpp \
+  /usr/local/include/boost/mpl/list/aux_/front.hpp \
+  /usr/local/include/boost/mpl/front_fwd.hpp \
+  /usr/local/include/boost/mpl/list/aux_/clear.hpp \
+  /usr/local/include/boost/mpl/clear_fwd.hpp \
+  /usr/local/include/boost/mpl/list/aux_/O1_size.hpp \
+  /usr/local/include/boost/mpl/list/aux_/size.hpp \
+  /usr/local/include/boost/mpl/size_fwd.hpp \
+  /usr/local/include/boost/mpl/list/aux_/empty.hpp \
+  /usr/local/include/boost/mpl/empty_fwd.hpp \
+  /usr/local/include/boost/mpl/list/aux_/begin_end.hpp \
+  /usr/local/include/boost/mpl/list/aux_/iterator.hpp \
+  /usr/local/include/boost/mpl/iterator_tags.hpp \
+  /usr/local/include/boost/mpl/aux_/lambda_spec.hpp \
+  /usr/local/include/boost/mpl/list/aux_/include_preprocessed.hpp \
+  /usr/local/include/boost/mpl/list/aux_/preprocessed/plain/list10.hpp \
+  /usr/local/include/boost/mpl/list/aux_/preprocessed/plain/list20.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/list.hpp \
+  /usr/local/include/boost/variant/detail/over_sequence.hpp \
+  /usr/local/include/boost/variant/detail/visitation_impl.hpp \
+  /usr/local/include/boost/variant/detail/cast_storage.hpp \
+  /usr/local/include/boost/variant/detail/hash_variant.hpp \
+  /usr/local/include/boost/variant/static_visitor.hpp \
+  /usr/local/include/boost/variant/apply_visitor.hpp \
+  /usr/local/include/boost/variant/detail/apply_visitor_unary.hpp \
+  /usr/local/include/boost/mpl/distance.hpp \
+  /usr/local/include/boost/mpl/distance_fwd.hpp \
+  /usr/local/include/boost/mpl/iterator_range.hpp \
+  /usr/local/include/boost/mpl/advance.hpp \
+  /usr/local/include/boost/mpl/advance_fwd.hpp \
+  /usr/local/include/boost/mpl/negate.hpp \
+  /usr/local/include/boost/mpl/aux_/advance_forward.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/advance_forward.hpp \
+  /usr/local/include/boost/mpl/aux_/advance_backward.hpp \
+  /usr/local/include/boost/mpl/prior.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/advance_backward.hpp \
+  /usr/local/include/boost/mpl/size.hpp \
+  /usr/local/include/boost/mpl/aux_/size_impl.hpp \
+  /usr/local/include/boost/utility/declval.hpp \
+  /usr/local/include/boost/type_traits/copy_cv_ref.hpp \
+  /usr/local/include/boost/type_traits/copy_cv.hpp \
+  /usr/local/include/boost/type_traits/copy_reference.hpp \
+  /usr/local/include/boost/variant/detail/has_result_type.hpp \
+  /usr/local/include/boost/variant/detail/apply_visitor_binary.hpp \
+  /usr/local/include/boost/variant/detail/apply_visitor_delayed.hpp \
+  /usr/local/include/boost/functional/hash_fwd.hpp \
+  /usr/local/include/boost/variant/detail/std_hash.hpp \
+  /usr/local/include/boost/detail/no_exceptions_support.hpp \
+  /usr/local/include/boost/aligned_storage.hpp \
+  /usr/local/include/boost/type_traits/aligned_storage.hpp \
+  /usr/local/include/boost/blank.hpp \
+  /usr/local/include/boost/detail/templated_streams.hpp \
+  /usr/local/include/boost/type_traits/is_empty.hpp \
+  /usr/local/include/boost/type_traits/is_stateless.hpp \
+  /usr/local/include/boost/type_traits/has_trivial_constructor.hpp \
+  /usr/local/include/boost/integer/common_factor_ct.hpp \
+  /usr/local/include/boost/mpl/empty.hpp \
+  /usr/local/include/boost/mpl/aux_/empty_impl.hpp \
+  /usr/local/include/boost/mpl/find_if.hpp \
+  /usr/local/include/boost/mpl/aux_/find_if_pred.hpp \
+  /usr/local/include/boost/mpl/aux_/iter_apply.hpp \
+  /usr/local/include/boost/mpl/iter_fold_if.hpp \
+  /usr/local/include/boost/mpl/aux_/iter_fold_if_impl.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/iter_fold_if_impl.hpp \
+  /usr/local/include/boost/mpl/fold.hpp \
+  /usr/local/include/boost/mpl/aux_/fold_impl.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/fold_impl.hpp \
+  /usr/local/include/boost/mpl/front.hpp \
+  /usr/local/include/boost/mpl/aux_/front_impl.hpp \
+  /usr/local/include/boost/mpl/insert_range.hpp \
+  /usr/local/include/boost/mpl/insert_range_fwd.hpp \
+  /usr/local/include/boost/mpl/aux_/insert_range_impl.hpp \
+  /usr/local/include/boost/mpl/insert.hpp \
+  /usr/local/include/boost/mpl/insert_fwd.hpp \
+  /usr/local/include/boost/mpl/aux_/insert_impl.hpp \
+  /usr/local/include/boost/mpl/reverse_fold.hpp \
+  /usr/local/include/boost/mpl/aux_/reverse_fold_impl.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/reverse_fold_impl.hpp \
+  /usr/local/include/boost/mpl/clear.hpp \
+  /usr/local/include/boost/mpl/aux_/clear_impl.hpp \
+  /usr/local/include/boost/mpl/push_front.hpp \
+  /usr/local/include/boost/mpl/aux_/push_front_impl.hpp \
+  /usr/local/include/boost/mpl/joint_view.hpp \
+  /usr/local/include/boost/mpl/aux_/joint_iter.hpp \
+  /usr/local/include/boost/mpl/plus.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessed/gcc/plus.hpp \
+  /usr/local/include/boost/mpl/aux_/iter_push_front.hpp \
+  /usr/local/include/boost/type_traits/same_traits.hpp \
+  /usr/local/include/boost/mpl/is_sequence.hpp \
+  /usr/local/include/boost/mpl/max_element.hpp \
+  /usr/local/include/boost/mpl/same_as.hpp \
+  /usr/local/include/boost/mpl/size_t.hpp \
+  /usr/local/include/boost/mpl/size_t_fwd.hpp \
+  /usr/local/include/boost/mpl/sizeof.hpp \
+  /usr/local/include/boost/mpl/transform.hpp \
+  /usr/local/include/boost/mpl/pair_view.hpp \
+  /usr/local/include/boost/mpl/iterator_category.hpp \
+  /usr/local/include/boost/mpl/min_max.hpp \
+  /usr/local/include/boost/mpl/aux_/inserter_algorithm.hpp \
+  /usr/local/include/boost/mpl/back_inserter.hpp \
+  /usr/local/include/boost/mpl/push_back.hpp \
+  /usr/local/include/boost/mpl/aux_/push_back_impl.hpp \
+  /usr/local/include/boost/mpl/inserter.hpp \
+  /usr/local/include/boost/mpl/front_inserter.hpp \
+  /usr/local/include/boost/variant/detail/variant_io.hpp \
+  /usr/local/include/boost/variant/recursive_variant.hpp \
+  /usr/local/include/boost/variant/detail/enable_recursive.hpp \
+  /usr/local/include/boost/variant/detail/substitute.hpp \
+  /usr/local/include/boost/mpl/aux_/preprocessor/repeat.hpp \
+  /usr/local/include/boost/variant/recursive_wrapper.hpp \
+  /usr/local/include/boost/mpl/equal.hpp \
+  /usr/local/include/boost/variant/get.hpp \
+  /usr/local/include/boost/utility/addressof.hpp \
+  /usr/local/include/boost/variant/detail/element_index.hpp \
+  /usr/local/include/boost/variant/visitor_ptr.hpp \
+  /usr/local/include/boost/variant/bad_visit.hpp \
+  /usr/local/include/nvp.hpp \
+  /usr/local/include/Subscriber.hpp \
+  /usr/local/include/NodeHandler.hpp \
+  /usr/local/include/registration.hpp \
+  /usr/local/include/Publisher.hpp \
+  /usr/include/boost/timer.hpp \
+  /usr/local/include/boost/config/header_deprecated.hpp \
+  /usr/local/include/motor_msg.hpp \
+  /usr/local/include/fpga_msg.hpp
 
 CMakeFiles/fpga_srv_main.dir/src/fsm.cpp.o: ../src/fsm.cpp \
   /usr/include/x86_64-linux-gnu/stdc-predef.h \
@@ -4151,9 +3962,213 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 ../src/fsm.cpp:
 
+/usr/local/include/fpga_msg.hpp:
+
+/usr/local/include/motor_msg.hpp:
+
+/usr/local/include/Publisher.hpp:
+
+/usr/local/include/boost/variant/bad_visit.hpp:
+
+/usr/local/include/boost/variant/detail/element_index.hpp:
+
+/usr/local/include/boost/utility/addressof.hpp:
+
+/usr/local/include/boost/variant/recursive_wrapper.hpp:
+
+/usr/local/include/boost/variant/detail/substitute.hpp:
+
+/usr/local/include/boost/variant/recursive_variant.hpp:
+
+/usr/local/include/boost/mpl/front_inserter.hpp:
+
+/usr/local/include/boost/mpl/inserter.hpp:
+
+/usr/local/include/boost/mpl/back_inserter.hpp:
+
+/usr/local/include/boost/mpl/min_max.hpp:
+
+/usr/local/include/boost/mpl/iterator_category.hpp:
+
+/usr/local/include/boost/mpl/size_t_fwd.hpp:
+
+/usr/local/include/boost/mpl/same_as.hpp:
+
+/usr/local/include/boost/mpl/max_element.hpp:
+
+/usr/local/include/boost/type_traits/same_traits.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/plus.hpp:
+
+/usr/local/include/boost/mpl/plus.hpp:
+
+/usr/local/include/boost/mpl/aux_/clear_impl.hpp:
+
+/usr/local/include/boost/mpl/clear.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/reverse_fold_impl.hpp:
+
+/usr/local/include/boost/mpl/reverse_fold.hpp:
+
+/usr/local/include/boost/mpl/aux_/insert_impl.hpp:
+
+/usr/local/include/boost/mpl/insert_fwd.hpp:
+
+/usr/local/include/boost/mpl/insert.hpp:
+
+/usr/local/include/boost/mpl/aux_/insert_range_impl.hpp:
+
+/usr/local/include/boost/mpl/insert_range.hpp:
+
+/usr/local/include/boost/mpl/aux_/front_impl.hpp:
+
+/usr/local/include/boost/mpl/front.hpp:
+
+/usr/local/include/boost/mpl/aux_/fold_impl.hpp:
+
+/usr/local/include/boost/mpl/fold.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/iter_fold_if_impl.hpp:
+
+/usr/local/include/boost/mpl/aux_/iter_fold_if_impl.hpp:
+
+/usr/local/include/boost/mpl/iter_fold_if.hpp:
+
+/usr/local/include/boost/mpl/find_if.hpp:
+
+/usr/local/include/boost/mpl/aux_/empty_impl.hpp:
+
+/usr/local/include/boost/mpl/empty.hpp:
+
+/usr/local/include/boost/integer/common_factor_ct.hpp:
+
+/usr/local/include/boost/type_traits/is_stateless.hpp:
+
+/usr/local/include/boost/type_traits/is_empty.hpp:
+
+/usr/local/include/boost/detail/templated_streams.hpp:
+
+/usr/local/include/boost/blank.hpp:
+
+/usr/local/include/boost/type_traits/aligned_storage.hpp:
+
+/usr/local/include/boost/functional/hash_fwd.hpp:
+
+/usr/local/include/boost/type_traits/copy_reference.hpp:
+
+/usr/local/include/boost/type_traits/copy_cv.hpp:
+
+/usr/local/include/boost/type_traits/copy_cv_ref.hpp:
+
+/usr/local/include/boost/utility/declval.hpp:
+
+/usr/local/include/boost/mpl/aux_/size_impl.hpp:
+
+/usr/local/include/boost/mpl/prior.hpp:
+
+/usr/local/include/boost/mpl/advance.hpp:
+
+/usr/local/include/boost/mpl/distance_fwd.hpp:
+
+/usr/local/include/boost/variant/detail/apply_visitor_unary.hpp:
+
+/usr/local/include/boost/variant/apply_visitor.hpp:
+
+/usr/local/include/boost/variant/detail/cast_storage.hpp:
+
+/usr/local/include/boost/variant/detail/visitation_impl.hpp:
+
+/usr/local/include/boost/variant/detail/over_sequence.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/list.hpp:
+
+/usr/local/include/boost/mpl/list/aux_/preprocessed/plain/list10.hpp:
+
+/usr/local/include/boost/mpl/iterator_tags.hpp:
+
+/usr/local/include/boost/mpl/list/aux_/iterator.hpp:
+
+/usr/local/include/boost/mpl/empty_fwd.hpp:
+
+/usr/local/include/boost/mpl/list/aux_/empty.hpp:
+
+/usr/local/include/boost/mpl/size_fwd.hpp:
+
+/usr/local/include/boost/mpl/list/aux_/O1_size.hpp:
+
+/usr/local/include/boost/mpl/clear_fwd.hpp:
+
+/usr/local/include/boost/mpl/front_fwd.hpp:
+
+/usr/local/include/boost/mpl/list/aux_/front.hpp:
+
+/usr/local/include/boost/mpl/push_back_fwd.hpp:
+
+/usr/local/include/boost/mpl/list/aux_/push_back.hpp:
+
+/usr/local/include/boost/mpl/list/aux_/pop_front.hpp:
+
+/usr/local/include/boost/mpl/push_front_fwd.hpp:
+
+/usr/local/include/boost/mpl/list/aux_/push_front.hpp:
+
+/usr/local/include/boost/aligned_storage.hpp:
+
+/usr/local/include/boost/mpl/limits/list.hpp:
+
+/usr/local/include/boost/variant/detail/make_variant_list.hpp:
+
+/usr/local/include/boost/mpl/long_fwd.hpp:
+
+/usr/local/include/boost/mpl/aux_/O1_size_impl.hpp:
+
+/usr/local/include/boost/mpl/O1_size_fwd.hpp:
+
+/usr/local/include/boost/mpl/aux_/traits_lambda_spec.hpp:
+
+/usr/local/include/boost/mpl/aux_/has_begin.hpp:
+
+/usr/local/include/boost/mpl/sequence_tag_fwd.hpp:
+
+/usr/local/include/boost/mpl/aux_/begin_end_impl.hpp:
+
+/usr/local/include/boost/mpl/begin_end_fwd.hpp:
+
+/usr/local/include/boost/mpl/begin_end.hpp:
+
+/usr/local/include/boost/mpl/list/list0.hpp:
+
+/usr/local/include/boost/mpl/iter_fold.hpp:
+
+/usr/local/include/boost/variant/detail/move.hpp:
+
+/usr/local/include/boost/detail/reference_content.hpp:
+
+/usr/local/include/boost/detail/call_traits.hpp:
+
+/usr/local/include/boost/variant/detail/forced_return.hpp:
+
+/usr/local/include/boost/variant/detail/backup_holder.hpp:
+
+/usr/local/include/boost/preprocessor/seq/size.hpp:
+
+/usr/local/include/boost/variant/detail/substitute_fwd.hpp:
+
+/usr/local/include/boost/preprocessor/enum_shifted_params.hpp:
+
+/usr/local/include/boost/variant/variant_fwd.hpp:
+
+/usr/local/include/boost/variant.hpp:
+
+/usr/local/include/boost/variant/detail/apply_visitor_delayed.hpp:
+
+/usr/local/include/std_service.hpp:
+
 /usr/local/include/boost/type_traits/is_unbounded_array.hpp:
 
 /usr/local/include/boost/type_traits/extent.hpp:
+
+/usr/local/include/boost/core/first_scalar.hpp:
 
 /usr/local/include/boost/core/alloc_construct.hpp:
 
@@ -4165,27 +4180,145 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/smart_ptr/detail/sp_forward.hpp:
 
+/usr/local/include/registration.hpp:
+
 /usr/local/include/boost/smart_ptr/make_shared_object.hpp:
 
 /usr/local/include/boost/smart_ptr/make_shared.hpp:
+
+/usr/local/include/boost/function/function_template.hpp:
+
+/usr/local/include/boost/function/detail/function_iterate.hpp:
+
+/usr/local/include/boost/preprocessor/enum_params.hpp:
+
+/usr/local/include/boost/function/function_fwd.hpp:
+
+/usr/local/include/boost/function_equal.hpp:
+
+/usr/local/include/boost/type_traits/has_trivial_destructor.hpp:
+
+/usr/local/include/boost/type_traits/is_copy_constructible.hpp:
+
+/usr/local/include/boost/type_traits/has_trivial_copy.hpp:
+
+/usr/local/include/boost/type_index/type_index_facade.hpp:
+
+/usr/local/include/boost/type_index.hpp:
+
+/usr/local/include/boost/function/function_base.hpp:
+
+/usr/local/include/boost/preprocessor/iterate.hpp:
 
 /usr/local/include/boost/optional/detail/optional_swap.hpp:
 
 /usr/local/include/boost/optional/detail/optional_trivially_copyable_base.hpp:
 
+/usr/local/include/boost/mpl/list.hpp:
+
+/usr/local/include/boost/optional/detail/optional_factory_support.hpp:
+
 /usr/local/include/boost/optional/detail/optional_config.hpp:
 
 /usr/local/include/boost/none.hpp:
+
+/usr/local/include/boost/type_traits/has_nothrow_assign.hpp:
+
+/usr/local/include/boost/type_traits/is_assignable.hpp:
+
+/usr/local/include/boost/type_traits/is_nothrow_move_assignable.hpp:
+
+/usr/local/include/boost/type_traits/is_constructible.hpp:
+
+/usr/local/include/boost/type_traits/type_with_alignment.hpp:
+
+/usr/local/include/boost/type_traits/is_default_constructible.hpp:
 
 /usr/local/include/boost/optional/bad_optional_access.hpp:
 
 /usr/local/include/boost/core/explicit_operator_bool.hpp:
 
+/usr/local/include/boost/mpl/list/aux_/size.hpp:
+
+/usr/local/include/boost/optional/optional.hpp:
+
 /usr/local/include/boost/thread/executors/generic_executor_ref.hpp:
 
 /usr/local/include/boost/thread/executors/executor_adaptor.hpp:
 
+/usr/local/include/boost/thread/executors/executor.hpp:
+
 /usr/local/include/boost/thread/executor.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp:
+
+/usr/local/include/boost/mpl/aux_/template_arity.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/quote.hpp:
+
+/usr/local/include/boost/mpl/aux_/config/bcc.hpp:
+
+/usr/local/include/boost/mpl/aux_/has_type.hpp:
+
+/usr/local/include/boost/mpl/quote.hpp:
+
+/usr/local/include/boost/mpl/aux_/full_lambda.hpp:
+
+/usr/local/include/boost/mpl/protect.hpp:
+
+/usr/local/include/boost/mpl/aux_/common_name_wknd.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/bind_fwd.hpp:
+
+/usr/local/include/boost/mpl/aux_/config/bind.hpp:
+
+/usr/local/include/boost/mpl/bind.hpp:
+
+/usr/local/include/boost/mpl/apply_fwd.hpp:
+
+/usr/local/include/boost/type_traits/is_scalar.hpp:
+
+/usr/local/include/boost/type_traits/is_pod.hpp:
+
+/usr/local/include/boost/iterator/detail/facade_iterator_category.hpp:
+
+/usr/local/include/boost/iterator/iterator_traits.hpp:
+
+/usr/local/include/boost/iterator/iterator_facade.hpp:
+
+/usr/local/include/boost/variant/detail/enable_recursive_fwd.hpp:
+
+/usr/local/include/boost/core/use_default.hpp:
+
+/usr/local/include/boost/iterator/iterator_adaptor.hpp:
+
+/usr/local/include/boost/iterator/reverse_iterator.hpp:
+
+/usr/local/include/boost/iterator/detail/config_undef.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp:
+
+/usr/local/include/boost/type_traits/has_nothrow_copy.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/arg.hpp:
+
+/usr/local/include/boost/mpl/aux_/arity_spec.hpp:
+
+/usr/local/include/boost/mpl/aux_/na_assert.hpp:
+
+/usr/local/include/boost/mpl/placeholders.hpp:
+
+/usr/local/include/boost/iterator/detail/config_def.hpp:
+
+/usr/local/include/boost/mpl/aux_/config/gpu.hpp:
+
+/usr/local/include/boost/iterator/iterator_categories.hpp:
+
+/usr/local/include/boost/type_traits/has_minus.hpp:
+
+/usr/local/include/boost/type_traits/has_plus_assign.hpp:
 
 /usr/local/include/boost/thread/futures/wait_for_any.hpp:
 
@@ -4199,6 +4332,10 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/exception/detail/shared_ptr.hpp:
 
+/usr/local/include/boost/type_traits/enable_if.hpp:
+
+/usr/local/include/boost/type_traits/is_nothrow_move_constructible.hpp:
+
 /usr/local/include/boost/exception/detail/error_info_impl.hpp:
 
 /usr/local/include/boost/exception/detail/is_output_streamable.hpp:
@@ -4209,9 +4346,19 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/thread/detail/variadic_footer.hpp:
 
+/usr/local/include/boost/mpl/pair.hpp:
+
+/usr/local/include/boost/thread/detail/variadic_header.hpp:
+
+/usr/local/include/boost/core/swap.hpp:
+
 /usr/local/include/boost/utility/swap.hpp:
 
+/usr/local/include/boost/type_traits/function_traits.hpp:
+
 /usr/local/include/boost/type_traits/remove_volatile.hpp:
+
+/usr/local/include/boost/type_traits/remove_const.hpp:
 
 /usr/local/include/boost/tuple/detail/tuple_basic.hpp:
 
@@ -4219,19 +4366,39 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/utility/detail/result_of_iterate.hpp:
 
+/usr/local/include/boost/type_traits/make_void.hpp:
+
+/usr/local/include/boost/preprocessor/iteration/detail/bounds/lower1.hpp:
+
 /usr/local/include/boost/preprocessor/facilities/intercept.hpp:
+
+/usr/local/include/boost/preprocessor/slot/detail/def.hpp:
+
+/usr/local/include/boost/preprocessor/slot/slot.hpp:
+
+/usr/local/include/boost/preprocessor/iteration/iterate.hpp:
 
 /usr/local/include/boost/utility/result_of.hpp:
 
 /usr/local/include/boost/thread/csbl/memory/shared_ptr.hpp:
 
+/usr/local/include/boost/thread/csbl/memory/allocator_traits.hpp:
+
 /usr/local/include/boost/thread/csbl/memory/pointer_traits.hpp:
 
 /usr/local/include/boost/thread/detail/nullary_function.hpp:
 
+/usr/local/include/boost/thread/barrier.hpp:
+
 /usr/local/include/boost/thread/shared_lock_guard.hpp:
 
+/usr/local/include/boost/preprocessor/enum.hpp:
+
+/usr/local/include/boost/thread/lock_algorithms.hpp:
+
 /usr/local/include/boost/thread/locks.hpp:
+
+/usr/local/include/boost/atomic/fences.hpp:
 
 /usr/local/include/boost/atomic/detail/type_traits/is_iec559.hpp:
 
@@ -4240,6 +4407,14 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/atomic/detail/extra_fp_operations.hpp:
 
 /usr/local/include/boost/atomic/detail/fp_operations_fwd.hpp:
+
+/usr/local/include/boost/type_traits/composite_traits.hpp:
+
+/usr/local/include/boost/atomic/detail/fp_ops_generic.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/advance_forward.hpp:
+
+/usr/local/include/boost/atomic/detail/bitwise_fp_cast.hpp:
 
 /usr/local/include/boost/atomic/detail/type_traits/conditional.hpp:
 
@@ -4261,7 +4436,31 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/atomic/detail/ops_gcc_atomic.hpp:
 
+/usr/local/include/boost/mpl/deref.hpp:
+
+/usr/local/include/boost/atomic/detail/type_traits/make_unsigned.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/fold_impl.hpp:
+
+/usr/local/include/boost/type_traits/add_volatile.hpp:
+
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/bind.hpp:
+
+/usr/local/include/boost/type_traits/add_const.hpp:
+
+/usr/local/include/boost/type_traits/is_const.hpp:
+
+/usr/local/include/boost/type_traits/is_signed.hpp:
+
+/usr/local/include/boost/scoped_array.hpp:
+
+/usr/local/include/boost/atomic/detail/integral_conversions.hpp:
+
 /usr/local/include/boost/atomic/detail/addressof.hpp:
+
+/usr/local/include/boost/core/demangle.hpp:
+
+/usr/local/include/boost/atomic/detail/bitwise_cast.hpp:
 
 /usr/local/include/boost/atomic/detail/string_ops.hpp:
 
@@ -4271,6 +4470,8 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/atomic/detail/type_traits/is_integral.hpp:
 
+/usr/local/include/boost/atomic/detail/classify.hpp:
+
 /usr/local/include/boost/atomic/detail/atomic_template.hpp:
 
 /usr/local/include/boost/atomic/atomic.hpp:
@@ -4278,6 +4479,12 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/atomic/detail/int_sizes.hpp:
 
 /usr/local/include/boost/atomic/detail/config.hpp:
+
+/usr/local/include/boost/atomic/capabilities.hpp:
+
+/usr/local/include/boost/variant/detail/initializer.hpp:
+
+/usr/local/include/boost/atomic.hpp:
 
 /usr/local/include/boost/thread/pthread/once_atomic.hpp:
 
@@ -4287,13 +4494,25 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/move/make_unique.hpp:
 
+/usr/local/include/boost/move/adl_move_swap.hpp:
+
+/usr/local/include/boost/move/detail/unique_ptr_meta_utils.hpp:
+
 /usr/local/include/boost/move/unique_ptr.hpp:
 
 /usr/local/include/boost/thread/detail/thread_group.hpp:
 
+/usr/local/include/boost/variant/visitor_ptr.hpp:
+
+/usr/local/include/boost/thread/pthread/condition_variable.hpp:
+
 /usr/local/include/boost/thread/condition_variable.hpp:
 
 /usr/local/include/boost/thread/detail/thread_interruption.hpp:
+
+/usr/local/include/boost/iterator/interoperable.hpp:
+
+/usr/include/c++/11/complex:
 
 /usr/include/c++/11/bitset:
 
@@ -4303,7 +4522,19 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/container_hash/extensions.hpp:
 
+/usr/local/include/boost/integer.hpp:
+
+/usr/local/include/boost/utility/compare_pointees.hpp:
+
+/usr/local/include/boost/type_traits/has_nothrow_constructor.hpp:
+
+/usr/include/c++/11/variant:
+
 /usr/include/c++/11/optional:
+
+/usr/local/include/boost/mpl/is_sequence.hpp:
+
+/usr/local/include/boost/integer_fwd.hpp:
 
 /usr/local/include/boost/integer/static_log2.hpp:
 
@@ -4313,15 +4544,27 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/container_hash/detail/hash_float.hpp:
 
+/usr/local/include/boost/functional/hash.hpp:
+
 /usr/local/include/boost/type_traits/make_signed.hpp:
 
 /usr/local/include/boost/io_fwd.hpp:
 
+/usr/local/include/boost/io/ios_state.hpp:
+
 /usr/local/include/boost/thread/detail/is_convertible.hpp:
+
+/usr/local/include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp:
+
+/usr/local/include/boost/type_traits/is_pointer.hpp:
 
 /usr/local/include/boost/thread/detail/invoke.hpp:
 
 /usr/local/include/boost/thread/interruption.hpp:
+
+/usr/local/include/boost/preprocessor/repetition/enum.hpp:
+
+/usr/local/include/boost/thread/detail/thread.hpp:
 
 /usr/local/include/boost/smart_ptr/enable_shared_from_this.hpp:
 
@@ -4345,13 +4588,33 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/thread/xtime.hpp:
 
+/usr/local/include/boost/type_traits/has_trivial_constructor.hpp:
+
+/usr/local/include/boost/thread/mutex.hpp:
+
+/usr/local/include/boost/utility/enable_if.hpp:
+
 /usr/local/include/boost/chrono/detail/is_evenly_divisible_by.hpp:
+
+/usr/local/include/boost/type_traits/is_enum.hpp:
+
+/usr/include/c++/11/stdlib.h:
+
+/usr/local/include/boost/type_traits/is_unsigned.hpp:
 
 /usr/local/include/boost/type_traits/common_type.hpp:
 
 /usr/local/include/boost/ratio/detail/overflow_helpers.hpp:
 
+/usr/local/include/boost/mpl/next.hpp:
+
+/usr/local/include/boost/ratio/ratio_fwd.hpp:
+
 /usr/local/include/boost/ratio/detail/mpl/lcm.hpp:
+
+/usr/local/include/boost/variant/recursive_wrapper_fwd.hpp:
+
+/usr/local/include/boost/mpl/aux_/config/dependent_nttp.hpp:
 
 /usr/local/include/boost/ratio/detail/mpl/gcd.hpp:
 
@@ -4361,6 +4624,10 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/ratio/ratio.hpp:
 
+/usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply_fwd.hpp:
+
+/usr/local/include/boost/mpl/logical.hpp:
+
 /usr/local/include/boost/type_traits/is_bounded_array.hpp:
 
 /usr/local/include/boost/chrono/duration.hpp:
@@ -4368,6 +4635,44 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/chrono/time_point.hpp:
 
 /usr/local/include/boost/thread/lock_options.hpp:
+
+/usr/local/include/boost/move/detail/type_traits.hpp:
+
+/usr/local/include/boost/move/traits.hpp:
+
+/usr/local/include/boost/move/detail/meta_utils.hpp:
+
+/usr/local/include/boost/move/detail/config_end.hpp:
+
+/usr/local/include/boost/move/utility_core.hpp:
+
+/usr/local/include/boost/type_traits/add_pointer.hpp:
+
+/usr/local/include/boost/type_traits/remove_extent.hpp:
+
+/usr/local/include/boost/type_traits/remove_bounds.hpp:
+
+/usr/local/include/boost/type_traits/add_reference.hpp:
+
+/usr/local/include/boost/container_hash/hash.hpp:
+
+/usr/local/include/boost/type_traits/add_lvalue_reference.hpp:
+
+/usr/local/include/boost/type_traits/is_abstract.hpp:
+
+/usr/local/include/boost/type_traits/detail/yes_no_type.hpp:
+
+/usr/local/include/boost/type_traits/detail/is_function_cxx_11.hpp:
+
+/usr/local/include/boost/type_traits/is_function.hpp:
+
+/usr/local/include/boost/type_traits/is_lvalue_reference.hpp:
+
+/usr/local/include/boost/type_traits/is_void.hpp:
+
+/usr/local/include/boost/type_traits/declval.hpp:
+
+/usr/local/include/boost/type_traits/is_complete.hpp:
 
 /usr/local/include/boost/thread/detail/move.hpp:
 
@@ -4377,703 +4682,11 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/thread/detail/thread_safety.hpp:
 
+/usr/local/include/boost/thread/pthread/thread_data.hpp:
+
 /usr/local/include/boost/thread/detail/platform.hpp:
 
 /usr/local/include/boost/thread/thread.hpp:
-
-/usr/local/include/motor_msg.hpp:
-
-/usr/local/include/boost/move/detail/unique_ptr_meta_utils.hpp:
-
-/usr/local/include/file.hpp:
-
-/usr/local/include/boost/variant/bad_visit.hpp:
-
-/usr/local/include/boost/thread/pthread/condition_variable.hpp:
-
-/usr/local/include/boost/variant/visitor_ptr.hpp:
-
-/usr/local/include/boost/variant/detail/element_index.hpp:
-
-/usr/local/include/boost/utility/addressof.hpp:
-
-/usr/local/include/boost/variant/recursive_wrapper.hpp:
-
-/usr/local/include/boost/variant/detail/substitute.hpp:
-
-/usr/local/include/boost/variant/recursive_variant.hpp:
-
-/usr/local/include/boost/mpl/min_max.hpp:
-
-/usr/local/include/boost/mpl/iterator_category.hpp:
-
-/usr/local/include/boost/mpl/size_t_fwd.hpp:
-
-/usr/local/include/boost/mpl/max_element.hpp:
-
-/usr/local/include/boost/type_traits/same_traits.hpp:
-
-/usr/local/include/boost/mpl/aux_/insert_impl.hpp:
-
-/usr/local/include/boost/mpl/insert_fwd.hpp:
-
-/usr/local/include/boost/mpl/insert.hpp:
-
-/usr/local/include/boost/mpl/aux_/insert_range_impl.hpp:
-
-/usr/local/include/boost/mpl/insert_range.hpp:
-
-/usr/local/include/boost/mpl/aux_/front_impl.hpp:
-
-/usr/local/include/boost/mpl/front.hpp:
-
-/usr/local/include/boost/mpl/aux_/empty_impl.hpp:
-
-/usr/local/include/boost/mpl/empty.hpp:
-
-/usr/local/include/boost/type_traits/has_nothrow_assign.hpp:
-
-/usr/local/include/boost/type_traits/is_assignable.hpp:
-
-/usr/local/include/boost/type_traits/is_nothrow_move_assignable.hpp:
-
-/usr/local/include/boost/integer/common_factor_ct.hpp:
-
-/usr/local/include/boost/thread/mutex.hpp:
-
-/usr/local/include/boost/type_traits/has_trivial_constructor.hpp:
-
-/usr/local/include/boost/type_traits/is_stateless.hpp:
-
-/usr/local/include/boost/type_traits/is_empty.hpp:
-
-/usr/local/include/boost/detail/templated_streams.hpp:
-
-/usr/local/include/boost/blank.hpp:
-
-/usr/local/include/boost/type_traits/type_with_alignment.hpp:
-
-/usr/local/include/boost/type_traits/aligned_storage.hpp:
-
-/usr/local/include/boost/functional/hash_fwd.hpp:
-
-/usr/local/include/boost/type_traits/copy_reference.hpp:
-
-/usr/local/include/boost/type_traits/copy_cv.hpp:
-
-/usr/local/include/boost/type_traits/copy_cv_ref.hpp:
-
-/usr/local/include/boost/utility/declval.hpp:
-
-/usr/local/include/boost/move/detail/type_traits.hpp:
-
-/usr/local/include/boost/move/traits.hpp:
-
-/usr/local/include/boost/variant/detail/apply_visitor_unary.hpp:
-
-/usr/local/include/boost/variant/apply_visitor.hpp:
-
-/usr/local/include/boost/variant/detail/cast_storage.hpp:
-
-/usr/local/include/boost/variant/detail/visitation_impl.hpp:
-
-/usr/local/include/boost/variant/detail/over_sequence.hpp:
-
-/usr/local/include/boost/variant/detail/make_variant_list.hpp:
-
-/usr/local/include/boost/move/adl_move_swap.hpp:
-
-/usr/local/include/boost/move/detail/meta_utils.hpp:
-
-/usr/local/include/boost/move/detail/config_end.hpp:
-
-/usr/local/include/boost/move/utility_core.hpp:
-
-/usr/local/include/boost/variant/detail/move.hpp:
-
-/usr/local/include/boost/type_traits/is_nothrow_move_constructible.hpp:
-
-/usr/local/include/boost/mpl/aux_/config/dependent_nttp.hpp:
-
-/usr/local/include/boost/variant/recursive_wrapper_fwd.hpp:
-
-/usr/local/include/boost/detail/reference_content.hpp:
-
-/usr/local/include/boost/detail/call_traits.hpp:
-
-/usr/local/include/boost/atomic.hpp:
-
-/usr/local/include/boost/variant/detail/initializer.hpp:
-
-/usr/local/include/boost/variant/detail/backup_holder.hpp:
-
-/usr/local/include/boost/variant/detail/substitute_fwd.hpp:
-
-/usr/local/include/boost/preprocessor/enum_shifted_params.hpp:
-
-/usr/local/include/boost/variant/variant_fwd.hpp:
-
-/usr/local/include/boost/variant.hpp:
-
-/usr/local/include/boost/program_options/detail/cmdline.hpp:
-
-/usr/local/include/boost/program_options/option.hpp:
-
-/usr/local/include/boost/function/detail/function_iterate.hpp:
-
-/usr/local/include/boost/preprocessor/slot/detail/def.hpp:
-
-/usr/local/include/boost/preprocessor/slot/slot.hpp:
-
-/usr/local/include/boost/preprocessor/iteration/iterate.hpp:
-
-/usr/local/include/boost/preprocessor/iterate.hpp:
-
-/usr/local/include/boost/program_options/detail/value_semantic.hpp:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/quadmath.h:
-
-/usr/local/include/boost/math/tools/real_cast.hpp:
-
-/usr/local/include/boost/math/special_functions/detail/fp_traits.hpp:
-
-/usr/local/include/boost/mpl/greater_equal.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/less_equal.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/greater.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/not_equal_to.hpp:
-
-/usr/local/include/boost/mpl/not_equal_to.hpp:
-
-/usr/local/include/boost/mpl/comparison.hpp:
-
-/usr/local/include/boost/atomic/detail/bitwise_fp_cast.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/advance_forward.hpp:
-
-/usr/local/include/boost/mpl/advance.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/vector.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/preprocessed/typeof_based/vector20.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/empty.hpp:
-
-/usr/local/include/boost/mpl/prior.hpp:
-
-/usr/local/include/boost/mpl/distance_fwd.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/minus.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/plus.hpp:
-
-/usr/local/include/boost/mpl/plus.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/iterator.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/vector0.hpp:
-
-/usr/local/include/boost/thread/executors/executor.hpp:
-
-/usr/local/include/boost/mpl/back_fwd.hpp:
-
-/usr/local/include/boost/mpl/pop_back_fwd.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/pop_front.hpp:
-
-/usr/local/include/boost/scoped_array.hpp:
-
-/usr/local/include/boost/atomic/detail/integral_conversions.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/item.hpp:
-
-/usr/local/include/boost/mpl/aux_/config/typeof.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/tag.hpp:
-
-/usr/local/include/boost/mpl/at_fwd.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/at.hpp:
-
-/usr/local/include/boost/mpl/vector/vector0.hpp:
-
-/usr/local/include/boost/mpl/limits/vector.hpp:
-
-/usr/local/include/boost/mpl/aux_/clear_impl.hpp:
-
-/usr/local/include/boost/mpl/clear.hpp:
-
-/usr/local/include/boost/mpl/front_inserter.hpp:
-
-/usr/local/include/boost/mpl/inserter.hpp:
-
-/usr/local/include/boost/mpl/back_inserter.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/reverse_fold_impl.hpp:
-
-/usr/local/include/boost/mpl/reverse_fold.hpp:
-
-/usr/local/include/boost/mpl/aux_/fold_impl.hpp:
-
-/usr/local/include/boost/mpl/aux_/O1_size_impl.hpp:
-
-/usr/local/include/boost/mpl/aux_/at_impl.hpp:
-
-/usr/local/include/boost/mpl/fold.hpp:
-
-/usr/local/include/boost/mpl/same_as.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/iter_fold_if_impl.hpp:
-
-/usr/local/include/boost/thread/detail/variadic_header.hpp:
-
-/usr/local/include/boost/mpl/pair.hpp:
-
-/usr/local/include/boost/mpl/aux_/iter_fold_if_impl.hpp:
-
-/usr/local/include/boost/mpl/iter_fold_if.hpp:
-
-/usr/local/include/boost/mpl/find_if.hpp:
-
-/usr/local/include/boost/mpl/find.hpp:
-
-/usr/local/include/boost/mpl/aux_/traits_lambda_spec.hpp:
-
-/usr/local/include/boost/mpl/aux_/begin_end_impl.hpp:
-
-/usr/local/include/boost/mpl/begin_end.hpp:
-
-/usr/local/include/boost/mpl/aux_/has_begin.hpp:
-
-/usr/local/include/boost/mpl/sequence_tag_fwd.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/list.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/preprocessed/plain/list10.hpp:
-
-/usr/local/include/boost/atomic/detail/type_traits/make_unsigned.hpp:
-
-/usr/local/include/boost/mpl/deref.hpp:
-
-/usr/local/include/boost/mpl/iterator_tags.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/iterator.hpp:
-
-/usr/local/include/boost/mpl/begin_end_fwd.hpp:
-
-/usr/local/include/boost/mpl/empty_fwd.hpp:
-
-/usr/local/include/boost/mpl/size_fwd.hpp:
-
-/usr/local/include/boost/optional/optional.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/size.hpp:
-
-/usr/local/include/boost/mpl/O1_size_fwd.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/O1_size.hpp:
-
-/usr/local/include/boost/mpl/front_fwd.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/front.hpp:
-
-/usr/local/include/boost/mpl/push_back_fwd.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/push_back.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/pop_front.hpp:
-
-/usr/local/include/boost/mpl/long_fwd.hpp:
-
-/usr/local/include/boost/mpl/iter_fold.hpp:
-
-/usr/local/include/boost/mpl/list/list0.hpp:
-
-/usr/local/include/boost/aligned_storage.hpp:
-
-/usr/local/include/boost/mpl/limits/list.hpp:
-
-/usr/local/include/boost/optional/detail/optional_factory_support.hpp:
-
-/usr/local/include/boost/mpl/list.hpp:
-
-/usr/local/include/boost/math/policies/policy.hpp:
-
-/usr/local/include/boost/math/special_functions/detail/round_fwd.hpp:
-
-/usr/local/include/boost/math/tools/user.hpp:
-
-/usr/local/include/boost/math/tools/config.hpp:
-
-/usr/local/include/boost/noncopyable.hpp:
-
-/usr/local/include/boost/lexical_cast/detail/lcast_unsigned_converters.hpp:
-
-/usr/local/include/boost/container/container_fwd.hpp:
-
-/usr/local/include/boost/core/swap.hpp:
-
-/usr/local/include/boost/lexical_cast/detail/widest_char.hpp:
-
-/usr/local/include/boost/type_traits/has_left_shift.hpp:
-
-/usr/local/include/boost/lexical_cast/detail/converter_lexical.hpp:
-
-/usr/local/include/boost/type_traits/is_float.hpp:
-
-/usr/local/include/boost/mpl/push_front_fwd.hpp:
-
-/usr/local/include/boost/lexical_cast/detail/is_character.hpp:
-
-/usr/local/include/boost/lexical_cast/try_lexical_convert.hpp:
-
-/usr/local/include/boost/type_traits/has_minus.hpp:
-
-/usr/local/include/boost/type_traits/has_plus_assign.hpp:
-
-/usr/local/include/boost/preprocessor/iteration/detail/bounds/lower1.hpp:
-
-/usr/local/include/boost/type_traits/make_void.hpp:
-
-/usr/local/include/boost/range/detail/safe_bool.hpp:
-
-/usr/local/include/boost/iterator/iterator_adaptor.hpp:
-
-/usr/local/include/boost/iterator/reverse_iterator.hpp:
-
-/usr/local/include/boost/range/reverse_iterator.hpp:
-
-/usr/local/include/boost/range/rbegin.hpp:
-
-/usr/local/include/boost/range/empty.hpp:
-
-/usr/local/include/boost/type_traits/function_traits.hpp:
-
-/usr/local/include/boost/preprocessor/logical/not.hpp:
-
-/usr/local/include/boost/preprocessor/comparison/less_equal.hpp:
-
-/usr/local/include/boost/preprocessor/arithmetic/detail/div_base.hpp:
-
-/usr/local/include/boost/preprocessor/arithmetic/mod.hpp:
-
-/usr/local/include/boost/preprocessor/seq/cat.hpp:
-
-/usr/local/include/boost/utility.hpp:
-
-/usr/local/include/boost/range/detail/has_member_size.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/fold_impl.hpp:
-
-/usr/local/include/boost/type_traits/add_volatile.hpp:
-
-/usr/include/c++/11/stdlib.h:
-
-/usr/local/include/boost/type_traits/is_unsigned.hpp:
-
-/usr/local/include/boost/type_traits/is_signed.hpp:
-
-/usr/local/include/boost/range/detail/misc_concept.hpp:
-
-/usr/local/include/boost/range/value_type.hpp:
-
-/usr/local/include/boost/io/ios_state.hpp:
-
-/usr/local/include/boost/preprocessor/seq/enum.hpp:
-
-/usr/local/include/boost/functional/hash.hpp:
-
-/usr/local/include/boost/preprocessor/seq/detail/is_empty.hpp:
-
-/usr/local/include/boost/preprocessor/seq/size.hpp:
-
-/usr/local/include/boost/preprocessor/seq/elem.hpp:
-
-/usr/local/include/boost/atomic/detail/classify.hpp:
-
-/usr/local/include/boost/preprocessor/seq/seq.hpp:
-
-/usr/local/include/boost/preprocessor/repetition/for.hpp:
-
-/usr/local/include/boost/preprocessor/seq/for_each_i.hpp:
-
-/usr/local/include/boost/concept/usage.hpp:
-
-/usr/local/include/boost/type_traits/conversion_traits.hpp:
-
-/usr/local/include/boost/concept/detail/has_constraints.hpp:
-
-/usr/local/include/boost/range/difference_type.hpp:
-
-/usr/local/include/boost/range/size.hpp:
-
-/usr/local/include/boost/range/detail/common.hpp:
-
-/usr/local/include/boost/atomic/capabilities.hpp:
-
-/usr/local/include/boost/range/end.hpp:
-
-/usr/local/include/boost/range/detail/extract_optional_type.hpp:
-
-/usr/local/include/boost/range/mutable_iterator.hpp:
-
-/usr/local/include/boost/thread/barrier.hpp:
-
-/usr/local/include/boost/range/range_fwd.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/empty.hpp:
-
-/usr/local/include/boost/range/begin.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp:
-
-/usr/local/include/boost/mpl/aux_/template_arity.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/quote.hpp:
-
-/usr/local/include/boost/mpl/aux_/config/bcc.hpp:
-
-/usr/local/include/boost/mpl/aux_/has_type.hpp:
-
-/usr/local/include/boost/mpl/quote.hpp:
-
-/usr/local/include/boost/range/size_type.hpp:
-
-/usr/local/include/boost/mpl/aux_/full_lambda.hpp:
-
-/usr/local/include/boost/mpl/protect.hpp:
-
-/usr/local/include/boost/range/iterator.hpp:
-
-/usr/local/include/boost/mpl/aux_/common_name_wknd.hpp:
-
-/usr/local/include/boost/ratio/ratio_fwd.hpp:
-
-/usr/local/include/boost/mpl/next.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/bind_fwd.hpp:
-
-/usr/local/include/boost/mpl/aux_/config/bind.hpp:
-
-/usr/local/include/boost/mpl/bind.hpp:
-
-/usr/local/include/boost/mpl/logical.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply_fwd.hpp:
-
-/usr/local/include/boost/mpl/apply_fwd.hpp:
-
-/usr/local/include/boost/lexical_cast/detail/inf_nan.hpp:
-
-/usr/local/include/boost/type_traits/remove_const.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/bind.hpp:
-
-/usr/local/include/boost/type_traits/add_const.hpp:
-
-/usr/local/include/boost/variant/detail/enable_recursive_fwd.hpp:
-
-/usr/local/include/boost/core/use_default.hpp:
-
-/usr/local/include/boost/iterator/detail/facade_iterator_category.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp:
-
-/usr/local/include/boost/type_traits/has_nothrow_copy.hpp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/arg.hpp:
-
-/usr/local/include/boost/mpl/aux_/arity_spec.hpp:
-
-/usr/local/include/boost/mpl/aux_/na_assert.hpp:
-
-/usr/local/include/boost/mpl/placeholders.hpp:
-
-/usr/local/include/boost/mpl/aux_/config/gpu.hpp:
-
-/usr/local/include/boost/iterator/iterator_categories.hpp:
-
-/usr/local/include/boost/iterator/detail/config_undef.hpp:
-
-/usr/local/include/boost/iterator/detail/config_def.hpp:
-
-/usr/local/include/boost/container_hash/hash.hpp:
-
-/usr/local/include/boost/type_traits/add_lvalue_reference.hpp:
-
-/usr/local/include/boost/type_traits/is_abstract.hpp:
-
-/usr/include/c++/11/complex:
-
-/usr/local/include/boost/iterator/interoperable.hpp:
-
-/usr/local/include/boost/iterator/iterator_facade.hpp:
-
-/usr/local/include/boost/iterator/iterator_traits.hpp:
-
-/usr/local/include/boost/lexical_cast.hpp:
-
-/usr/local/include/boost/preprocessor/enum_params.hpp:
-
-/usr/local/include/boost/thread/detail/thread.hpp:
-
-/usr/local/include/boost/preprocessor/repetition/enum.hpp:
-
-/usr/local/include/boost/thread/lock_algorithms.hpp:
-
-/usr/local/include/boost/preprocessor/enum.hpp:
-
-/usr/local/include/boost/function/function_fwd.hpp:
-
-/usr/local/include/boost/function_equal.hpp:
-
-/usr/local/include/boost/type_traits/enable_if.hpp:
-
-/usr/local/include/boost/atomic/detail/fp_ops_generic.hpp:
-
-/usr/local/include/boost/type_traits/composite_traits.hpp:
-
-/usr/local/include/boost/type_traits/has_trivial_destructor.hpp:
-
-/usr/local/include/boost/type_traits/is_default_constructible.hpp:
-
-/usr/local/include/boost/type_traits/detail/yes_no_type.hpp:
-
-/usr/local/include/boost/type_traits/declval.hpp:
-
-/usr/local/include/boost/type_traits/is_complete.hpp:
-
-/usr/local/include/boost/type_traits/is_constructible.hpp:
-
-/usr/local/include/boost/type_traits/is_copy_constructible.hpp:
-
-/usr/local/include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp:
-
-/usr/local/include/boost/type_traits/is_pointer.hpp:
-
-/usr/local/include/boost/type_traits/is_enum.hpp:
-
-/usr/local/include/boost/type_traits/is_scalar.hpp:
-
-/usr/local/include/boost/type_traits/is_void.hpp:
-
-/usr/local/include/boost/type_traits/is_pod.hpp:
-
-/usr/local/include/boost/range/algorithm/equal.hpp:
-
-/usr/local/include/boost/type_traits/has_trivial_copy.hpp:
-
-/usr/local/include/boost/mpl/is_sequence.hpp:
-
-/usr/local/include/boost/integer_fwd.hpp:
-
-/usr/local/include/boost/utility/compare_pointees.hpp:
-
-/usr/include/c++/11/variant:
-
-/usr/local/include/boost/type_traits/has_nothrow_constructor.hpp:
-
-/usr/local/include/boost/integer.hpp:
-
-/usr/local/include/boost/function/function_base.hpp:
-
-/usr/local/include/boost/function/function_template.hpp:
-
-/usr/local/include/boost/utility/enable_if.hpp:
-
-/usr/local/include/boost/type_traits/add_reference.hpp:
-
-/usr/local/include/boost/type_traits/add_pointer.hpp:
-
-/usr/local/include/boost/type_traits/remove_extent.hpp:
-
-/usr/local/include/boost/type_traits/remove_bounds.hpp:
-
-/usr/local/include/boost/type_traits/detail/is_function_cxx_11.hpp:
-
-/usr/local/include/boost/type_traits/is_function.hpp:
-
-/usr/local/include/boost/type_traits/is_lvalue_reference.hpp:
-
-/usr/local/include/boost/preprocessor/repetition/detail/for.hpp:
-
-/usr/local/include/boost/type_traits/is_const.hpp:
-
-/usr/local/include/boost/atomic/detail/bitwise_cast.hpp:
-
-/usr/local/include/boost/core/demangle.hpp:
-
-/usr/local/include/boost/type_index/type_index_facade.hpp:
-
-/usr/local/include/boost/type_index.hpp:
-
-/usr/local/include/boost/mpl/list/aux_/push_front.hpp:
-
-/usr/local/include/boost/any.hpp:
-
-/usr/local/include/boost/mpl/aux_/size_impl.hpp:
-
-/usr/local/include/boost/program_options/value_semantic.hpp:
-
-/usr/local/include/boost/variant/detail/forced_return.hpp:
-
-/usr/local/include/boost/program_options/errors.hpp:
-
-/usr/local/include/boost/program_options/config.hpp:
-
-/usr/local/include/boost/program_options/options_description.hpp:
-
-/usr/local/include/cereal/types/string.hpp:
-
-/usr/local/include/cereal/details/polymorphic_impl.hpp:
-
-/usr/local/include/cereal/types/memory.hpp:
-
-/usr/local/include/cereal/types/polymorphic.hpp:
-
-/usr/local/include/cereal/external/rapidjson/internal/pow10.h:
-
-/usr/local/include/boost/mpl/clear_fwd.hpp:
-
-/usr/local/include/cereal/external/rapidjson/internal/strtod.h:
-
-/usr/local/include/cereal/external/rapidjson/memorystream.h:
-
-/usr/local/include/cereal/external/rapidjson/reader.h:
-
-/usr/local/include/boost/thread/csbl/memory/allocator_traits.hpp:
-
-/usr/local/include/cereal/external/rapidjson/document.h:
-
-/usr/local/include/boost/core/first_scalar.hpp:
-
-/usr/local/include/cereal/external/rapidjson/istreamwrapper.h:
-
-/usr/local/include/boost/thread/pthread/thread_data.hpp:
-
-/usr/local/include/cereal/external/rapidjson/stringbuffer.h:
-
-/usr/local/include/cereal/external/rapidjson/internal/ieee754.h:
-
-/usr/local/include/cereal/external/rapidjson/internal/diyfp.h:
-
-/usr/local/include/cereal/external/rapidjson/internal/dtoa.h:
-
-/usr/local/include/cereal/external/rapidjson/internal/strfunc.h:
-
-/usr/local/include/cereal/external/rapidjson/internal/swap.h:
-
-/usr/local/include/cereal/external/rapidjson/encodings.h:
-
-/usr/local/include/cereal/external/rapidjson/stream.h:
-
-/usr/local/include/cereal/archives/json.hpp:
-
-/usr/local/include/boost/mpl/greater.hpp:
 
 /usr/include/c++/11/bits/stl_stack.h:
 
@@ -5081,33 +4694,23 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/iterator/advance.hpp:
 
-/usr/local/include/boost/utility/binary.hpp:
-
 /usr/include/c++/11/deque:
 
 /usr/include/c++/11/stack:
 
-/usr/local/include/boost/atomic/fences.hpp:
+/usr/local/include/cereal/types/string.hpp:
 
-/usr/local/include/cereal/external/base64.hpp:
+/usr/local/include/cereal/details/polymorphic_impl.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h:
 
-/usr/local/include/cereal/archives/xml.hpp:
+/usr/local/include/cereal/types/memory.hpp:
 
-/usr/local/include/boost/program_options/detail/convert.hpp:
-
-/usr/local/include/cereal/archives/binary.hpp:
-
-/usr/local/include/boost/variant/detail/apply_visitor_delayed.hpp:
-
-/usr/local/include/base_msg.hpp:
+/usr/local/include/cereal/types/polymorphic.hpp:
 
 /usr/local/include/boost/asio/write_at.hpp:
 
 /usr/local/include/boost/thread/csbl/memory/allocator_arg.hpp:
-
-/usr/local/include/boost/container/detail/std_fwd.hpp:
 
 /usr/local/include/boost/asio/windows/overlapped_ptr.hpp:
 
@@ -5133,8 +4736,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/detail/impl/strand_executor_service.ipp:
 
-/usr/local/include/utils.hpp:
-
 /usr/local/include/boost/asio/detail/impl/strand_executor_service.hpp:
 
 /usr/local/include/boost/asio/detail/strand_executor_service.hpp:
@@ -5144,6 +4745,8 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/asio/signal_set.hpp:
 
 /usr/local/include/boost/asio/serial_port.hpp:
+
+/usr/local/include/FileArchive.hpp:
 
 /usr/local/include/boost/asio/redirect_error.hpp:
 
@@ -5170,8 +4773,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/predef/platform/windows_runtime.h:
 
 /usr/local/include/boost/predef/platform/windows_store.h:
-
-/usr/local/include/cereal/external/rapidjson/internal/stack.h:
 
 /usr/local/include/boost/predef/platform/windows_phone.h:
 
@@ -5223,9 +4824,9 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/predef/library/std/msl.h:
 
-/usr/local/include/boost/atomic/detail/extra_fp_ops_emulated.hpp:
-
 /usr/local/include/boost/type_traits/is_union.hpp:
+
+/usr/local/include/boost/atomic/detail/extra_fp_ops_emulated.hpp:
 
 /usr/local/include/boost/predef/library/std/modena.h:
 
@@ -5279,13 +4880,11 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/predef/compiler/greenhills.h:
 
-/usr/local/include/cereal/external/rapidjson/internal/itoa.h:
-
 /usr/local/include/boost/predef/detail/comp_detected.h:
 
-/usr/local/include/boost/atomic/detail/operations.hpp:
-
 /usr/local/include/boost/variant/detail/has_result_type.hpp:
+
+/usr/local/include/boost/atomic/detail/operations.hpp:
 
 /usr/local/include/boost/predef/compiler/gcc_xml.h:
 
@@ -5296,8 +4895,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/predef/compiler/compaq.h:
 
 /usr/local/include/boost/predef/compiler/clang.h:
-
-/usr/local/include/boost/iterator/distance.hpp:
 
 /usr/local/include/boost/predef/compiler/borland.h:
 
@@ -5327,8 +4924,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/predef/architecture/riscv.h:
 
-/usr/local/include/boost/mpl/vector/vector20.hpp:
-
 /usr/local/include/boost/predef/architecture/pyramid.h:
 
 /usr/local/include/boost/preprocessor/repetition/enum_shifted_params.hpp:
@@ -5339,17 +4934,17 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/predef/architecture/mips.h:
 
-/usr/local/include/boost/mpl/vector/aux_/back.hpp:
-
 /usr/local/include/boost/predef/architecture/m68k.h:
 
 /usr/local/include/boost/predef/architecture/ia64.h:
 
-/usr/local/include/boost/move/utility.hpp:
-
 /usr/local/include/boost/mpl/iterator_range.hpp:
 
+/usr/local/include/boost/move/utility.hpp:
+
 /usr/local/include/boost/predef/architecture/blackfin.h:
+
+/usr/local/include/boost/predef/architecture.h:
 
 /usr/include/linux/posix_types.h:
 
@@ -5363,9 +4958,9 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/c++/11/bits/gslice_array.h:
 
-/usr/local/include/cereal/external/rapidjson/allocators.h:
-
 /usr/include/x86_64-linux-gnu/bits/in.h:
+
+/usr/local/include/protocol.hpp:
 
 /usr/local/include/boost/mpl/bool_fwd.hpp:
 
@@ -5392,8 +4987,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/asio/detail/posix_static_mutex.hpp:
 
 /usr/local/include/boost/asio/impl/io_context.hpp:
-
-/usr/include/inttypes.h:
 
 /usr/local/include/boost/cerrno.hpp:
 
@@ -5441,17 +5034,15 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/detail/type_traits.hpp:
 
-/usr/local/include/boost/smart_ptr/scoped_array.hpp:
-
 /usr/local/include/boost/config/no_tr1/functional.hpp:
+
+/usr/local/include/boost/smart_ptr/scoped_array.hpp:
 
 /usr/local/include/boost/version.hpp:
 
 /usr/local/include/boost/asio/detail/variadic_templates.hpp:
 
 /usr/local/include/boost/asio/associated_allocator.hpp:
-
-/usr/local/include/boost/range/concepts.hpp:
 
 /usr/local/include/cereal/details/util.hpp:
 
@@ -5460,8 +5051,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/asio/awaitable.hpp:
 
 /usr/local/include/boost/variant/detail/std_hash.hpp:
-
-/usr/local/include/boost/type_traits/has_right_shift.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
@@ -5479,8 +5068,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/mpl/aux_/iter_fold_impl.hpp:
 
-/usr/local/include/boost/range/iterator_range_core.hpp:
-
 /usr/local/include/boost/asio/impl/executor.hpp:
 
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/template_arity.hpp:
@@ -5495,15 +5082,11 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/iter_fold_impl.hpp:
 
-/usr/local/include/boost/math/special_functions/sign.hpp:
-
 /usr/local/include/boost/assert.hpp:
 
 /usr/local/include/boost/thread/thread_time.hpp:
 
 /usr/include/c++/11/ratio:
-
-/usr/local/include/boost/mpl/vector/aux_/push_back.hpp:
 
 /usr/include/c++/11/thread:
 
@@ -5522,8 +5105,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/asio/posix/stream_descriptor.hpp:
 
 /usr/include/c++/11/bits/locale_conv.h:
-
-/usr/local/include/boost/program_options/positional_options.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
@@ -5564,8 +5145,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/asio/detail/posix_thread.hpp:
 
 /usr/local/include/boost/asio/impl/io_context.ipp:
-
-/usr/local/include/boost/utility/identity_type.hpp:
 
 /usr/local/include/boost/asio/detail/throw_error.hpp:
 
@@ -5623,8 +5202,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/is_executor.hpp:
 
-/usr/local/include/boost/iterator/iterator_concepts.hpp:
-
 /usr/local/include/boost/asio/detail/is_executor.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigval_t.h:
@@ -5643,21 +5220,19 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/preprocessor/arithmetic/inc.hpp:
 
-/usr/local/include/boost/memory_order.hpp:
-
 /usr/local/include/boost/mpl/equal.hpp:
+
+/usr/local/include/boost/memory_order.hpp:
 
 /usr/include/strings.h:
 
-/usr/local/include/cereal/external/rapidjson/internal/meta.h:
-
 /usr/include/x86_64-linux-gnu/bits/struct_stat.h:
-
-/usr/local/include/boost/thread/detail/config.hpp:
 
 /usr/local/include/boost/mpl/size.hpp:
 
 /usr/local/include/boost/mpl/or.hpp:
+
+/usr/local/include/boost/thread/detail/config.hpp:
 
 /usr/include/c++/11/bits/unordered_set.h:
 
@@ -5703,8 +5278,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/is_placeholder.hpp:
 
-/usr/local/include/boost/math/special_functions/fpclassify.hpp:
-
 /usr/local/include/boost/asio/impl/system_context.ipp:
 
 /usr/local/include/boost/type.hpp:
@@ -5716,8 +5289,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/get_pointer.hpp:
 
 /usr/local/include/boost/bind/mem_fn.hpp:
-
-/usr/local/include/boost/range/config.hpp:
 
 /usr/local/include/boost/core/addressof.hpp:
 
@@ -5742,8 +5313,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/config/detail/posix_features.hpp:
 
 /usr/include/c++/11/fstream:
-
-/usr/local/include/boost/preprocessor/control/deduce_d.hpp:
 
 /usr/local/include/boost/config/detail/select_platform_config.hpp:
 
@@ -5791,8 +5360,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/regex_fwd.hpp:
 
-/usr/local/include/cereal/external/rapidjson/encodedstream.h:
-
 /usr/local/include/boost/predef/hardware/simd.h:
 
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
@@ -5837,8 +5404,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/c++/11/bits/hashtable_policy.h:
 
-/usr/local/include/boost/math/special_functions/math_fwd.hpp:
-
 /usr/local/include/boost/asio/detail/epoll_reactor.hpp:
 
 /usr/include/c++/11/bits/hashtable.h:
@@ -5875,13 +5440,7 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/ip/impl/network_v4.ipp:
 
-../include/case_enum.hpp:
-
-/usr/local/include/yaml-cpp/node/type.h:
-
 /usr/local/include/boost/asio/generic/detail/impl/endpoint.ipp:
-
-/usr/local/include/boost/predef/architecture.h:
 
 /usr/local/include/boost/preprocessor/stringize.hpp:
 
@@ -5943,8 +5502,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/c++/11/tuple:
 
-/usr/local/include/boost/program_options/variables_map.hpp:
-
 /usr/include/net/if.h:
 
 /usr/include/c++/11/bits/list.tcc:
@@ -5997,13 +5554,9 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/config/detail/select_stdlib_config.hpp:
 
-/usr/local/include/boost/concept/detail/general.hpp:
-
 /usr/local/include/boost/predef/library/std/vacpp.h:
 
 /usr/local/include/boost/asio/detail/pop_options.hpp:
-
-/usr/local/include/cereal/external/rapidxml/rapidxml_print.hpp:
 
 /usr/include/c++/11/bit:
 
@@ -6036,8 +5589,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/include/c++/11/bits/sstream.tcc:
 
 /usr/local/include/boost/predef/make.h:
-
-/usr/local/include/cereal/external/rapidjson/internal/biginteger.h:
 
 /usr/include/c++/11/new:
 
@@ -6113,6 +5664,8 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/basic_deadline_timer.hpp:
 
+/usr/include/boost/timer.hpp:
+
 /usr/local/include/boost/asio/detail/impl/signal_set_service.ipp:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
@@ -6125,19 +5678,13 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/preprocessor/iteration/detail/iter/forward1.hpp:
 
-/usr/local/include/cereal/external/rapidxml/rapidxml.hpp:
-
 /usr/include/c++/11/ext/aligned_buffer.h:
-
-/usr/local/include/boost/program_options/detail/parsers.hpp:
 
 /usr/local/include/boost/asio/buffers_iterator.hpp:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/local/include/boost/mpl/minus.hpp:
 
 /usr/local/include/boost/mpl/arg_fwd.hpp:
 
@@ -6159,6 +5706,12 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/mpl/aux_/config/forwarding.hpp:
 
+/usr/local/include/yaml-cpp/node/type.h:
+
+../include/case_enum.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/termios-tcflow.h:
+
 /usr/local/include/boost/asio/ip/address_v4_iterator.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
@@ -6179,8 +5732,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
-/usr/local/include/boost/move/detail/std_ns_begin.hpp:
-
 /usr/include/poll.h:
 
 /usr/local/include/boost/type_traits/detail/has_binary_operator.hpp:
@@ -6191,11 +5742,7 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/c++/11/bits/stl_heap.h:
 
-/usr/local/include/boost/range/detail/sfinae.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
-
-/usr/local/include/boost/range/functions.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
 
@@ -6210,8 +5757,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
 /usr/local/include/boost/asio/basic_socket_iostream.hpp:
-
-/usr/local/include/boost/mpl/at.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
@@ -6232,8 +5777,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/mem_fn.hpp:
 
 /usr/local/include/yaml-cpp/dll.h:
-
-/usr/local/include/boost/concept/detail/concept_def.hpp:
 
 /usr/local/include/boost/predef/architecture/convex.h:
 
@@ -6258,8 +5801,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/siginfo-consts-arch.h:
-
-/usr/local/include/boost/concept_check.hpp:
 
 /usr/local/include/boost/type_traits/is_base_of.hpp:
 
@@ -6293,15 +5834,17 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/ip/detail/endpoint.hpp:
 
-/usr/local/include/boost/thread/thread_only.hpp:
-
 /usr/local/include/boost/mpl/size_t.hpp:
+
+/usr/local/include/boost/thread/thread_only.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_sigstack.h:
 
 /usr/include/c++/11/limits:
 
 /usr/include/x86_64-linux-gnu/stdc-predef.h:
+
+/usr/local/include/Subscriber.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
 
@@ -6327,15 +5870,11 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
 
-/usr/local/include/boost/range/detail/msvc_has_iterator_workaround.hpp:
-
 /usr/local/include/boost/current_function.hpp:
 
 /usr/local/include/boost/mpl/aux_/adl_barrier.hpp:
 
 /usr/local/include/boost/system/error_code.hpp:
-
-/usr/local/include/boost/swap.hpp:
 
 /usr/local/include/boost/core/no_exceptions_support.hpp:
 
@@ -6345,15 +5884,11 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 ../include/leg_module.hpp:
 
-/usr/local/include/boost/range/rend.hpp:
-
 /usr/include/netdb.h:
 
 /usr/local/include/boost/bind/bind.hpp:
 
 ../include/color.hpp:
-
-/usr/local/include/boost/mpl/vector/vector10.hpp:
 
 /usr/local/include/boost/config/detail/suffix.hpp:
 
@@ -6362,8 +5897,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
 
 /usr/include/unistd.h:
-
-/usr/local/include/cereal/external/rapidjson/prettywriter.h:
 
 /usr/local/include/boost/system/detail/system_category_posix.hpp:
 
@@ -6406,8 +5939,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/asio/detail/consuming_buffers.hpp:
 
 /usr/local/include/boost/asio/local/basic_endpoint.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/pop_back.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
 
@@ -6527,8 +6058,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/detail/impl/null_event.ipp:
 
-/usr/local/include/boost/array.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
@@ -6543,13 +6072,9 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/asm-generic/sockios.h:
 
-/usr/local/include/boost/utility/base_from_member.hpp:
-
 /usr/local/include/boost/asio/impl/error.ipp:
 
 /usr/local/include/boost/thread/exceptions.hpp:
-
-/usr/include/c++/11/cfloat:
 
 /usr/local/include/boost/asio/detail/reactive_descriptor_service.hpp:
 
@@ -6560,8 +6085,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/smart_ptr/detail/spinlock_std_atomic.hpp:
 
 ../src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c:
-
-/usr/local/include/boost/range/distance.hpp:
 
 /usr/include/c++/11/bits/stl_map.h:
 
@@ -6629,8 +6152,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/atomic/detail/extra_fp_ops_generic.hpp:
 
-/usr/local/include/boost/move/detail/std_ns_end.hpp:
-
 /usr/include/c++/11/type_traits:
 
 /usr/include/c++/11/bits/std_thread.h:
@@ -6638,8 +6159,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/date_time/gregorian/greg_month.hpp:
 
 /usr/include/c++/11/bits/stl_iterator_base_funcs.h:
-
-/usr/local/include/boost/mpl/remove_if.hpp:
 
 /usr/local/include/boost/asio/detail/handler_invoke_helpers.hpp:
 
@@ -6673,8 +6192,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/preprocessor/repetition/enum_params.hpp:
 
-/usr/local/include/cereal/external/rapidjson/ostreamwrapper.h:
-
 /usr/local/include/boost/predef/library/c/gnu.h:
 
 /usr/local/include/boost/numeric/conversion/detail/int_float_mixture.hpp:
@@ -6700,8 +6217,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/include/c++/11/bits/atomic_lockfree_defines.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
-
-/usr/local/include/boost/program_options/version.hpp:
 
 /usr/local/include/boost/predef/os/bsd.h:
 
@@ -6767,8 +6282,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/c++/11/bits/node_handle.h:
 
-/usr/local/include/boost/mpl/vector.hpp:
-
 /usr/include/c++/11/bits/stl_multiset.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
@@ -6807,8 +6320,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/detail/scoped_lock.hpp:
 
-/usr/local/include/boost/mpl/aux_/contains_impl.hpp:
-
 /usr/local/include/boost/asio/detail/config.hpp:
 
 /usr/include/c++/11/bits/locale_facets.h:
@@ -6835,8 +6346,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/less.hpp:
 
-/usr/local/include/boost/function/function1.hpp:
-
 ../src/NiFpga.c:
 
 /usr/local/include/boost/bind/storage.hpp:
@@ -6860,8 +6369,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
 /usr/local/include/yaml-cpp/node/detail/node_ref.h:
-
-/usr/local/include/cereal/external/rapidjson/rapidjson.h:
 
 /usr/include/x86_64-linux-gnu/sys/socket.h:
 
@@ -6892,8 +6399,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/date_time/microsec_time_clock.hpp:
 
 /usr/local/include/boost/thread/csbl/memory/unique_ptr.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/begin_end.hpp:
 
 /usr/include/c++/11/initializer_list:
 
@@ -6926,8 +6431,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/include/c++/11/tr1/legendre_function.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
-
-/usr/local/include/boost/config/no_tr1/complex.hpp:
 
 /usr/include/c++/11/bits/invoke.h:
 
@@ -7067,8 +6570,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/generic/raw_protocol.hpp:
 
-/usr/local/include/cereal/external/rapidjson/writer.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
 /usr/local/include/boost/atomic/detail/fp_operations.hpp:
@@ -7117,6 +6618,8 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/mpl/aux_/template_arity_fwd.hpp:
 
+/usr/local/include/nvp.hpp:
+
 /usr/include/c++/11/bits/unique_lock.h:
 
 /usr/include/c++/11/bits/uses_allocator.h:
@@ -7124,8 +6627,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/include/c++/11/tr1/riemann_zeta.tcc:
 
 /usr/include/limits.h:
-
-/usr/include/linux/stddef.h:
 
 /usr/local/include/boost/asio/windows/random_access_handle.hpp:
 
@@ -7135,13 +6636,13 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/c++/11/bits/shared_ptr_atomic.h:
 
+/usr/include/linux/stddef.h:
+
 /usr/include/x86_64-linux-gnu/asm/posix_types.h:
 
 /usr/local/include/boost/asio/executor.hpp:
 
 /usr/include/x86_64-linux-gnu/asm/posix_types_64.h:
-
-/usr/local/include/boost/program_options.hpp:
 
 /usr/include/asm-generic/posix_types.h:
 
@@ -7154,8 +6655,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/include/asm-generic/bitsperlong.h:
 
 /usr/include/x86_64-linux-gnu/asm/sockios.h:
-
-/usr/local/include/boost/lexical_cast/detail/lcast_char_constants.hpp:
 
 /usr/local/include/boost/mpl/aux_/preprocessor/params.hpp:
 
@@ -7193,13 +6692,9 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/detail/impl/posix_event.ipp:
 
-/usr/local/include/boost/program_options/parsers.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/statx-generic.h:
 
 /usr/local/include/boost/asio/detail/null_event.hpp:
-
-/usr/local/include/boost/concept/detail/backward_compatibility.hpp:
 
 /usr/local/include/boost/asio/basic_stream_socket.hpp:
 
@@ -7232,8 +6727,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/exception_ptr.hpp:
 
 /usr/local/include/boost/asio/detail/eventfd_select_interrupter.hpp:
-
-/usr/local/include/boost/lexical_cast/detail/converter_lexical_streams.hpp:
 
 /usr/local/include/boost/preprocessor/control/detail/while.hpp:
 
@@ -7277,8 +6770,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/detail/array_fwd.hpp:
 
-/usr/local/include/boost/range/has_range_iterator.hpp:
-
 /usr/local/include/boost/asio/detail/socket_types.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/poll2.h:
@@ -7317,6 +6808,8 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/write.hpp:
 
+/usr/local/include/boost/config/header_deprecated.hpp:
+
 /usr/local/include/boost/mpl/O1_size.hpp:
 
 /usr/local/include/boost/asio/basic_waitable_timer.hpp:
@@ -7326,8 +6819,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/type_traits/alignment_of.hpp:
 
 /usr/local/include/boost/asio/detail/chrono_time_traits.hpp:
-
-/usr/local/include/boost/preprocessor/seq/transform.hpp:
 
 /usr/include/c++/11/bits/atomic_futex.h:
 
@@ -7355,15 +6846,11 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/c++/11/csignal:
 
-/usr/local/include/boost/concept/assert.hpp:
-
 /usr/local/include/boost/asio/detail/thread_group.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
 /usr/local/include/boost/asio/impl/read_at.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/front.hpp:
 
 /usr/local/include/boost/type_traits/make_unsigned.hpp:
 
@@ -7373,8 +6860,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/io_context.hpp:
 
-/usr/local/include/boost/mpl/vector/aux_/push_front.hpp:
-
 /usr/local/include/boost/type_traits/integral_constant.hpp:
 
 /usr/include/c++/11/bits/refwrap.h:
@@ -7382,8 +6867,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/core/checked_delete.hpp:
 
 /usr/local/include/boost/asio/detail/wrapped_handler.hpp:
-
-/usr/local/include/boost/math/tools/promotion.hpp:
 
 /usr/local/include/boost/date_time/adjust_functors.hpp:
 
@@ -7417,17 +6900,15 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/date_time/posix_time/time_period.hpp:
 
-/usr/local/include/boost/core/noncopyable.hpp:
-
 /usr/local/include/boost/asio/post.hpp:
 
 /usr/local/include/boost/asio/detail/io_control.hpp:
 
 /usr/local/include/boost/asio/detail/socket_option.hpp:
 
-/usr/local/include/boost/thread/lockable_traits.hpp:
-
 /usr/local/include/boost/detail/indirect_traits.hpp:
+
+/usr/local/include/boost/thread/lockable_traits.hpp:
 
 /usr/local/include/boost/predef/library/std.h:
 
@@ -7527,8 +7008,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/smart_ptr/detail/local_sp_deleter.hpp:
 
-/usr/local/include/boost/concept/detail/concept_undef.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
 /usr/include/x86_64-linux-gnu/sys/ioctl.h:
@@ -7609,15 +7088,11 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/atomic/detail/intptr.hpp:
 
-/usr/local/include/boost/preprocessor/seq/fold_left.hpp:
-
 /usr/local/include/boost/type_traits/add_rvalue_reference.hpp:
 
 /usr/local/include/boost/type_traits/is_class.hpp:
 
 /usr/local/include/boost/date_time/date_defs.hpp:
-
-/usr/local/include/boost/program_options/cmdline.hpp:
 
 /usr/local/include/boost/date_time/gregorian_calendar.hpp:
 
@@ -7648,8 +7123,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/asio/impl/serial_port_base.hpp:
 
 /usr/local/include/boost/numeric/conversion/cast.hpp:
-
-/usr/local/include/boost/mpl/vector/aux_/O1_size.hpp:
 
 /usr/local/include/boost/numeric/conversion/detail/conversion_traits.hpp:
 
@@ -7688,8 +7161,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/mpl/aux_/config/static_constant.hpp:
 
 /usr/local/include/boost/mpl/aux_/config/ctps.hpp:
-
-/usr/local/include/boost/detail/lcast_precision.hpp:
 
 /usr/local/include/boost/asio/detail/reactor_op.hpp:
 
@@ -7763,8 +7234,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/preprocessor/list/detail/fold_left.hpp:
 
-/usr/local/include/boost/mpl/less_equal.hpp:
-
 /usr/local/include/boost/asio/windows/basic_object_handle.hpp:
 
 /usr/local/include/boost/preprocessor/control/expr_iif.hpp:
@@ -7809,11 +7278,7 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/thread.hpp:
 
-/usr/local/include/boost/mpl/vector/aux_/preprocessed/typeof_based/vector10.hpp:
-
 /usr/local/include/boost/mpl/aux_/config/arrays.hpp:
-
-/usr/local/include/boost/range/detail/implementation_help.hpp:
 
 /usr/local/include/boost/asio/impl/read_until.hpp:
 
@@ -7843,17 +7308,15 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/detail/impl/strand_service.hpp:
 
-/usr/local/include/boost/mpl/vector/aux_/size.hpp:
-
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/apply_wrap.hpp:
 
 /usr/local/include/boost/predef/os/aix.h:
 
 /usr/local/include/boost/mpl/aux_/has_tag.hpp:
 
-/usr/local/include/boost/optional.hpp:
-
 /usr/local/include/boost/mpl/insert_range_fwd.hpp:
+
+/usr/local/include/boost/optional.hpp:
 
 /usr/local/include/boost/asio/detail/strand_service.hpp:
 
@@ -7909,8 +7372,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/mpl/aux_/largest_int.hpp:
 
-/usr/local/include/boost/mpl/vector/aux_/clear.hpp:
-
 /usr/local/include/boost/mpl/eval_if.hpp:
 
 /usr/local/include/boost/numeric/conversion/bounds.hpp:
@@ -7931,8 +7392,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/local/datagram_protocol.hpp:
 
-/usr/local/include/boost/lexical_cast/detail/converter_numeric.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/sigaction.h:
 
 /usr/local/include/boost/predef/language/cuda.h:
@@ -7946,8 +7405,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/date_time/dst_rules.hpp:
 
 /usr/local/include/boost/asio/read_at.hpp:
-
-/usr/local/include/cereal/external/rapidjson/error/error.h:
 
 /usr/local/include/boost/asio/detail/timer_scheduler.hpp:
 
@@ -8001,13 +7458,9 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/termios-baud.h:
 
-/usr/local/include/boost/mpl/vector/aux_/include_preprocessed.hpp:
-
 /usr/include/c++/11/bits/std_abs.h:
 
 /usr/include/x86_64-linux-gnu/bits/termios-c_lflag.h:
-
-/usr/include/x86_64-linux-gnu/bits/termios-tcflow.h:
 
 /usr/include/x86_64-linux-gnu/bits/termios-misc.h:
 
@@ -8038,8 +7491,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/predef/compiler/ekopath.h:
 
 /usr/local/include/boost/asio/buffered_read_stream_fwd.hpp:
-
-/usr/local/include/boost/detail/iterator.hpp:
 
 /usr/local/include/boost/system/system_error.hpp:
 
@@ -8107,8 +7558,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/generic/seq_packet_protocol.hpp:
 
-/usr/local/include/boost/detail/basic_pointerbuf.hpp:
-
 /usr/local/include/boost/asio/generic/stream_protocol.hpp:
 
 /usr/include/c++/11/tr1/modified_bessel_func.tcc:
@@ -8138,8 +7587,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 /usr/local/include/boost/mpl/aux_/advance_backward.hpp:
 
 /usr/local/include/boost/asio/ip/impl/address_v4.ipp:
-
-/usr/local/include/boost/mpl/aux_/preprocessed/gcc/greater_equal.hpp:
 
 /usr/local/include/boost/ref.hpp:
 
@@ -8183,8 +7630,6 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/asio/ip/host_name.hpp:
 
-/usr/local/include/boost/mpl/contains.hpp:
-
 /usr/local/include/boost/asio/ip/icmp.hpp:
 
 /usr/local/include/boost/asio/ip/tcp.hpp:
@@ -8217,14 +7662,8 @@ CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o: ../src/theta_error.cpp \
 
 /usr/local/include/boost/predef/language/stdc.h:
 
-/usr/local/include/boost/mpl/contains_fwd.hpp:
-
 /usr/local/include/boost/predef/version_number.h:
 
 /usr/local/include/boost/thread/detail/invoker.hpp:
-
-/usr/local/include/boost/lexical_cast/bad_lexical_cast.hpp:
-
-/usr/local/include/boost/range/const_iterator.hpp:
 
 /usr/local/include/boost/predef/language/stdcpp.h:

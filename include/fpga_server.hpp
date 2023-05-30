@@ -1,22 +1,29 @@
-// #include <leg_module.hpp>
 #include <console.hpp>
 #include <yaml.h>
 #include <fpga_handler.hpp>
 #include <fsm.hpp>
 #include <msg.hpp>
 #include <string>
+#include <fstream>
 #include <vector>
-#include <NodeHandler.hpp>
 #include <mutex>
-#include "motor_msg.hpp"
 #include "case_enum.hpp"
 #include "angle_convert.hpp"
-#include <fstream>
+
+// Node setup
+#include <NodeHandler.hpp>
+#include "std_service.hpp"
+#include "Subscriber.hpp"
+#include "Publisher.hpp"
+#include "timer.hpp"
 
 #include "boost/bind.hpp"
 #include "boost/thread.hpp"
 
-#define CONFIG_PATH "/home/admin/fpga_driver/config/config.yaml"
+#include "motor_msg.hpp"
+#include "fpga_msg.hpp"
+
+#define CONFIG_PATH "/home/admin/fpga_driver2/config/config.yaml"
 
 volatile sig_atomic_t sys_stop;
 void inthand(int signum);
@@ -49,13 +56,19 @@ public:
   int max_timeout_cnt_;
   int timeout_cnt_;
 
+  bool NO_SWITCH_TIMEDOUT_ERROR_;
+  bool NO_CAN_TIMEDOUT_ERROR_;
+  bool HALL_CALIBRATED_;
+
   bool digital_switch_;
   bool signal_switch_;
   bool power_switch_;
   bool stop_;
 
-  void interruptHandler(std::vector<core::Subscriber> &cmd_sub_, std::vector<core::Publisher> &state_pub_);
+  void interruptHandler(core::Subscriber &fpga_common_sub, core::Publisher &fpga_common_pub, std::vector<core::Subscriber> &cmd_sub_, std::vector<core::Publisher> &state_pub_);
 
-  void mainLoop_(std::vector<core::Subscriber> &cmd_sub_, std::vector<core::Publisher> &state_pub_);
+  void powerboardPack(fpga_msg::fpga_common &fpga_status_msg);
+
+  void mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_common_pub, std::vector<core::Subscriber> &cmd_sub_, std::vector<core::Publisher> &state_pub_);
   void canLoop_();
 };

@@ -8,6 +8,8 @@ set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
+
 set (CMAKE_EXE_LINKER_FLAGS)
 set (CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_FLAGS "-std=c99")
@@ -34,4 +36,4 @@ link_directories(/usr/local/lib)
 
 
 add_executable(fpga_srv_main ${SRC_DIR}/fpga_server.cpp ${SRC_DIR}/leg_module.cpp ${SRC_DIR}/fpga_handler.cpp ${SRC_DIR}/color.cpp ${SRC_DIR}/fsm.cpp ${SRC_DIR}/console.cpp ${SRC_DIR}/theta_error.cpp ${SRC_DIR}/angle_convert.cpp ${SRC_DIR}/NiFpga.c ${SRC_DIR}/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c)
-target_link_libraries(fpga_srv_main yaml-cpp ${CURSES_LIBRARY} -lncurses ${Boost_LIBRARIES} ${CMAKE_DL_LIBS} Utility NodeHandler -lpthread)
+target_link_libraries(fpga_srv_main yaml-cpp ${CURSES_LIBRARY} -lncurses ${Boost_LIBRARIES} ${CMAKE_DL_LIBS} Protocol NodeHandler -lpthread)

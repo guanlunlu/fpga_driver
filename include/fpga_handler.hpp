@@ -107,8 +107,14 @@ public:
   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16 r_powerboard_data_;
   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16Size size_powerboard_data_;
 
+  NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool w_vicon_trigger;
+  NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool w_orin_trigger;
+
   void setIrqPeriod(int main_loop_period, int can_loop_period);
   void write_powerboard_(std::vector<bool> *powerboard_state_);
+  
+  void write_vicon_trigger(bool trigger);
+  void write_orin_trigger(bool trigger);
 
   void read_powerboard_data_();
 

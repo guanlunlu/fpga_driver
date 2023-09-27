@@ -401,6 +401,9 @@ FpgaHandler::FpgaHandler()
     r_powerboard_data_ = NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16_Data;
     size_powerboard_data_ = NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorArrayU16Size_Data;
 
+    w_vicon_trigger = NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Conn9_2w;
+    w_orin_trigger = NiFpga_FPGA_CANBus_IMU_4module_IRQ_ControlBool_Conn9_1w;
+
     for (int i = 0; i < 12; i++)
     {
         powerboard_V_list_[i] = 0;
@@ -438,6 +441,16 @@ void FpgaHandler::write_powerboard_(std::vector<bool> *powerboard_state_)
     NiFpga_MergeStatus(&status_, NiFpga_WriteBool(session_, w_pb_digital_, powerboard_state_->at(0)));
     NiFpga_MergeStatus(&status_, NiFpga_WriteBool(session_, w_pb_signal_, powerboard_state_->at(1)));
     NiFpga_MergeStatus(&status_, NiFpga_WriteBool(session_, w_pb_power_, powerboard_state_->at(2)));
+}
+
+void FpgaHandler::write_vicon_trigger(bool trigger)
+{
+    NiFpga_MergeStatus(&status_, NiFpga_WriteBool(session_, w_vicon_trigger, trigger));
+}
+
+void FpgaHandler::write_orin_trigger(bool trigger)
+{
+    NiFpga_MergeStatus(&status_, NiFpga_WriteBool(session_, w_orin_trigger, trigger));
 }
 
 void FpgaHandler::read_powerboard_data_()

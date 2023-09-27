@@ -16,6 +16,7 @@
 #include "Subscriber.hpp"
 #include "Publisher.hpp"
 #include "timer.hpp"
+#include <sys/time.h>
 
 #include "boost/bind.hpp"
 #include "boost/thread.hpp"
@@ -23,7 +24,7 @@
 #include "motor_msg.hpp"
 #include "fpga_msg.hpp"
 
-#define CONFIG_PATH "/home/admin/fpga_driver2/config/config.yaml"
+#define CONFIG_PATH "/home/admin/fpga_driver/config/config.yaml"
 
 volatile sig_atomic_t sys_stop;
 void inthand(int signum);
@@ -50,6 +51,10 @@ public:
 
   std::ofstream MSG_Stream;
 
+  // header msg
+  struct timeval t_stamp;
+  int seq;
+
   int main_irq_period_us_;
   int can_irq_period_us_;
 
@@ -71,4 +76,7 @@ public:
 
   void mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_common_pub, std::vector<core::Subscriber> &cmd_sub_, std::vector<core::Publisher> &state_pub_);
   void canLoop_();
+
+  std::string log_path;
+  std::ofstream log_stream;
 };

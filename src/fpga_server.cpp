@@ -3,14 +3,9 @@
 #include <fpga_server.hpp>
 
 /* TCP node connection setup*/
-// std::string local_ip = "169.254.254.89";
-// std::string master_ip = "169.254.105.68";
-// std::string local_ip = "192.168.50.148";
-
 std::string master_ip = "127.0.0.1";
 std::string local_ip = "127.0.0.1";
 uint32_t master_port = 8888;
-
 std::string command_topic = "/fpga/command";
 std::string publish_topic = "/fpga/state";
 
@@ -18,6 +13,7 @@ motor_msg::MotorModule motor_msg_data;
 fpga_msg::fpga_common fpga_common_control_data;
 int motor_message_updated = 0;
 int fpga_message_updated = 0;
+bool vicon_toggle = true;
 
 void motor_module_cb(std::shared_ptr<motor_msg::MotorModule> msg)
 {
@@ -39,12 +35,14 @@ Corgi::Corgi()
     main_irq_period_us_ = 500;
     can_irq_period_us_ = 800;
 
+    seq = 0;
+
     /* initialize powerboard state */
     digital_switch_ = false;
     signal_switch_ = false;
     power_switch_ = false;
 
-    NO_SWITCH_TIMEDOUT_ERROR_ = true;
+    NO_CAN_TIMEDOUT_ERROR_ = true;
     NO_SWITCH_TIMEDOUT_ERROR_ = true;
     HALL_CALIBRATED_ = false;
 
@@ -69,6 +67,30 @@ Corgi::Corgi()
 void Corgi::load_config_()
 {
     yaml_node_ = YAML::LoadFile(CONFIG_PATH);
+
+    log_path = yaml_node_["log_path"].as<std::string>();
+    log_stream.open(log_path);
+    log_stream << "seq,vicon_trigger,";
+    log_stream << "AR_cmd_pos,AR_cmd_torq,AR_cmd_kp,AR_cmd_kd,AR_rpy_pos,AR_rpy_torq,";
+    log_stream << "AL_cmd_pos,AL_cmd_torq,AL_cmd_kp,AL_cmd_kd,AL_rpy_pos,AL_rpy_torq,";
+    log_stream << "BR_cmd_pos,BR_cmd_torq,BR_cmd_kp,BR_cmd_kd,BR_rpy_pos,BR_rpy_torq,";
+    log_stream << "BL_cmd_pos,BL_cmd_torq,BL_cmd_kp,BL_cmd_kd,BL_rpy_pos,BL_rpy_torq,";
+    log_stream << "CR_cmd_pos,CR_cmd_torq,CR_cmd_kp,CR_cmd_kd,CR_rpy_pos,CR_rpy_torq,";
+    log_stream << "CL_cmd_pos,CL_cmd_torq,CL_cmd_kp,CL_cmd_kd,CL_rpy_pos,CL_rpy_torq,";
+    log_stream << "DR_cmd_pos,DR_cmd_torq,DR_cmd_kp,DR_cmd_kd,DR_rpy_pos,DR_rpy_torq,";
+    log_stream << "DL_cmd_pos,DL_cmd_torq,DL_cmd_kp,DL_cmd_kd,DL_rpy_pos,DL_rpy_torq,";
+    log_stream << "Powerboard_0_V,Powerboard_0_I,";
+    log_stream << "Powerboard_1_V,Powerboard_1_I,";
+    log_stream << "Powerboard_2_V,Powerboard_2_I,";
+    log_stream << "Powerboard_3_V,Powerboard_3_I,";
+    log_stream << "Powerboard_4_V,Powerboard_4_I,";
+    log_stream << "Powerboard_5_V,Powerboard_5_I,";
+    log_stream << "Powerboard_6_V,Powerboard_6_I,";
+    log_stream << "Powerboard_7_V,Powerboard_7_I,";
+    log_stream << "Powerboard_8_V,Powerboard_8_I,";
+    log_stream << "Powerboard_9_V,Powerboard_9_I,";
+    log_stream << "Powerboard_10_V,Powerboard_10_I,";
+    log_stream << "Powerboard_11_V,Powerboard_11_I,";
 
     master_ip = yaml_node_["Master_IP"].as<std::string>();
     master_port = yaml_node_["Master_port"].as<int>();
@@ -172,6 +194,7 @@ void Corgi::interruptHandler(core::Subscriber &fpga_common_sub, core::Publisher 
                 NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
             }
         }
+        usleep(10);
     }
 }
 
@@ -218,7 +241,11 @@ void Corgi::mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_c
 
     // Communication with Node Architecture
     // Publish
+    gettimeofday(&t_stamp, NULL);
     fpga_msg::fpga_common fpga_status_msg;
+    fpga_status_msg.header.seq = seq;
+    fpga_status_msg.header.timestamp_sec = t_stamp.tv_sec;
+    fpga_status_msg.header.timestamp_usec = t_stamp.tv_usec;
     fpga_status_msg.digital = powerboard_state_.at(0);
     fpga_status_msg.signal = powerboard_state_.at(1);
     fpga_status_msg.power = powerboard_state_.at(2);
@@ -259,7 +286,10 @@ void Corgi::mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_c
             powerboard_state_.at(1) = fpga_common_control_data.signal;
             powerboard_state_.at(2) = fpga_common_control_data.power;
 
-            if (fpga_common_control_data.mode == _REST_MODE)
+            fpga_.write_vicon_trigger(fpga_common_control_data.vicon_trigger);
+            fpga_.write_orin_trigger(fpga_common_control_data.orin_trigger);
+
+            /*if (fpga_common_control_data.mode == _REST_MODE)
                 NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::REST);
             else if (fpga_common_control_data.mode == _MOTOR_MODE)
                 NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::MOTOR);
@@ -268,7 +298,8 @@ void Corgi::mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_c
                 NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::HALL_CALIBRATE);
             }
             else if (fpga_common_control_data.mode == _SET_ZERO)
-                NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::SET_ZERO);
+                NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::SET_ZERO);*/
+        
             fpga_message_updated = 0;
         }
     }
@@ -282,20 +313,14 @@ void Corgi::mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_c
             mod.io_.CAN_recieve_feedback(&mod.rxdata_buffer_[0], &mod.rxdata_buffer_[1]);
 
             /* Pubish feedback data from Motors */
-            /* MSG_Stream << "mod.rxdata_buffer_[0].position_: " << mod.rxdata_buffer_[0].position_
-                          << ", mod.rxdata_buffer_[1].position_: " << mod.rxdata_buffer_[0].position_ << std::endl; */
-
             motor_module.phi_RL[0] = mod.rxdata_buffer_[0].position_; // phi R
             motor_module.phi_RL[1] = mod.rxdata_buffer_[1].position_; // phi L
 
             double tb_[2] = {0, 0};
             getThetaBeta(tb_, mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
 
-            /* MSG_Stream << "Scenario: " << Scenario::SINGLE_MODULE << std::endl; */
-
             if (scenario_ == Scenario::SINGLE_MODULE)
             {
-                /* MSG_Stream << "motor_module.theta_beta[0]: " << tb_[0] << ", mod.rxdata_buffer_[1].position_: " << tb_[1] << std::endl; */
                 motor_module.theta_beta[0] = tb_[0]; // theta
                 motor_module.theta_beta[1] = tb_[1]; // beta
             }
@@ -305,21 +330,12 @@ void Corgi::mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_c
                 motor_module.theta_beta[0] = tb_[0]; // theta
                 if (index == 0 || index == 3)
                 {
-                    /* MSG_Stream << "motor_module.theta_beta[0]: " << tb_[0] << ", mod.rxdata_buffer_[1].position_: " << tb_[1] << std::endl;
-                    MSG_Stream << "raw: " << tb_[1] << "processed: " << motor_module.theta_beta[1]; */
+                    MSG_Stream << "raw: " << tb_[1] << "processed: " << motor_module.theta_beta[1];
                     motor_module.theta_beta[1] = -1 * tb_[1]; // beta
                 }
                 else
                     motor_module.theta_beta[1] = tb_[1]; // beta
-                /* MSG_Stream << "motor_module.theta_beta[0]: " << tb_[0] << ", mod.rxdata_buffer_[1].position_: " << tb_[1] << std::endl; */
             }
-
-            /* for (int i = 0; i < 4; i++)
-            {
-            MSG_Stream << "mod " << i << " rx timeout" << modules_list_[i].CAN_rx_timedout_[0] << modules_list_[i].CAN_rx_timedout_[1] << std::endl;
-            MSG_Stream << "mod " << i << " tx timeout" << modules_list_[i].CAN_tx_timedout_[0] << modules_list_[i].CAN_tx_timedout_[1] << std::endl;
-            }
-            MSG_Stream << "---" << std::endl; */
 
             motor_module.twist[0] = mod.rxdata_buffer_[0].velocity_; // velocity R
             motor_module.twist[1] = mod.rxdata_buffer_[1].velocity_; // velocity L
@@ -392,6 +408,43 @@ void Corgi::mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_c
         }
         index++;
     }
+
+    // log data
+    log_stream << seq << ",";
+    log_stream << fpga_common_control_data.vicon_trigger << ",";
+    for (int i = 0; i < 4; i++)
+    {
+        log_stream << modules_list_.at(i).txdata_buffer_[0].position_ << ",";
+        log_stream << modules_list_.at(i).txdata_buffer_[0].torque_ << ",";
+        log_stream << modules_list_.at(i).txdata_buffer_[0].KP_ << ",";
+        log_stream << modules_list_.at(i).txdata_buffer_[0].KD_ << ",";
+        log_stream << modules_list_.at(i).rxdata_buffer_[0].position_ << ",";
+        log_stream << modules_list_.at(i).rxdata_buffer_[0].torque_ << ",";
+
+        log_stream << modules_list_.at(i).txdata_buffer_[1].position_ << ",";
+        log_stream << modules_list_.at(i).txdata_buffer_[1].torque_ << ",";
+        log_stream << modules_list_.at(i).txdata_buffer_[1].KP_ << ",";
+        log_stream << modules_list_.at(i).txdata_buffer_[1].KD_ << ",";
+        log_stream << modules_list_.at(i).rxdata_buffer_[1].position_ << ",";
+        log_stream << modules_list_.at(i).rxdata_buffer_[1].torque_ << ",";
+    }
+    log_stream << fpga_.powerboard_V_list_[0] << "," << fpga_.powerboard_I_list_[0] << ",";
+    log_stream << fpga_.powerboard_V_list_[1] << "," << fpga_.powerboard_I_list_[1] << ",";
+    log_stream << fpga_.powerboard_V_list_[2] << "," << fpga_.powerboard_I_list_[2] << ",";
+    log_stream << fpga_.powerboard_V_list_[3] << "," << fpga_.powerboard_I_list_[3] << ",";
+    log_stream << fpga_.powerboard_V_list_[4] << "," << fpga_.powerboard_I_list_[4] << ",";
+    log_stream << fpga_.powerboard_V_list_[5] << "," << fpga_.powerboard_I_list_[5] << ",";
+    log_stream << fpga_.powerboard_V_list_[6] << "," << fpga_.powerboard_I_list_[6] << ",";
+    log_stream << fpga_.powerboard_V_list_[7] << "," << fpga_.powerboard_I_list_[7] << ",";
+    log_stream << fpga_.powerboard_V_list_[8] << "," << fpga_.powerboard_I_list_[8] << ",";
+    log_stream << fpga_.powerboard_V_list_[9] << "," << fpga_.powerboard_I_list_[9] << ",";
+    log_stream << fpga_.powerboard_V_list_[10] << "," << fpga_.powerboard_I_list_[10] << ",";
+    log_stream << fpga_.powerboard_V_list_[11] << "," << fpga_.powerboard_I_list_[11] << std::endl;
+    /* if (seq % 1000 == 0)
+        vicon_toggle = !vicon_toggle;
+    fpga_.write_vicon_trigger(vicon_toggle); */
+
+    seq++;
 }
 
 void Corgi::canLoop_()
@@ -415,6 +468,7 @@ void Corgi::canLoop_()
                 if (timeout_cnt_ < max_timeout_cnt_)
                 {
                     modules_list_[i].io_.CAN_send_command(modules_list_[i].txdata_buffer_[0], modules_list_[i].txdata_buffer_[1]);
+                    NO_CAN_TIMEDOUT_ERROR_ = true;
                 }
                 else
                 {

@@ -3,8 +3,8 @@
 #if !NiFpga_VxWorks
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -48,8 +48,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Unpa
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -78,8 +78,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID1RXFrame_Pack
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -123,8 +123,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Unpa
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -153,8 +153,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0ID2RXFrame_Pack
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type *const destination)
 {
    (*destination).status = 0;
    (*destination).status |= ((packedData[0] >> 7) & 0x1);
@@ -167,8 +167,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_UnpackC
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).status & 0x1) << 7);
    packedData[0] |= (uint8_t)(((*source).code >> 25) & 0x7F);
@@ -179,8 +179,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXError_PackClu
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -224,8 +224,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_UnpackC
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -254,8 +254,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0RXFrame_PackClu
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type *const destination)
 {
    (*destination).status = 0;
    (*destination).status |= ((packedData[0] >> 7) & 0x1);
@@ -268,8 +268,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_U
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).status & 0x1) << 7);
    packedData[0] |= (uint8_t)(((*source).code >> 25) & 0x7F);
@@ -280,8 +280,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN0TransmitError_P
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -325,8 +325,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Unpa
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -355,8 +355,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID1RXFrame_Pack
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -400,8 +400,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Unpa
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -430,8 +430,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1ID2RXFrame_Pack
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type *const destination)
 {
    (*destination).status = 0;
    (*destination).status |= ((packedData[0] >> 7) & 0x1);
@@ -444,8 +444,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_UnpackC
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).status & 0x1) << 7);
    packedData[0] |= (uint8_t)(((*source).code >> 25) & 0x7F);
@@ -456,8 +456,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXError_PackClu
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -501,8 +501,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_UnpackC
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -531,8 +531,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1RXFrame_PackClu
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type *const destination)
 {
    (*destination).status = 0;
    (*destination).status |= ((packedData[0] >> 7) & 0x1);
@@ -545,8 +545,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_U
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).status & 0x1) << 7);
    packedData[0] |= (uint8_t)(((*source).code >> 25) & 0x7F);
@@ -557,8 +557,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod1CAN1TransmitError_P
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -602,8 +602,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Unpa
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -632,8 +632,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID1RXFrame_Pack
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -677,8 +677,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Unpa
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -707,8 +707,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0ID2RXFrame_Pack
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type *const destination)
 {
    (*destination).status = 0;
    (*destination).status |= ((packedData[0] >> 7) & 0x1);
@@ -721,8 +721,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_UnpackC
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).status & 0x1) << 7);
    packedData[0] |= (uint8_t)(((*source).code >> 25) & 0x7F);
@@ -733,8 +733,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXError_PackClu
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -778,8 +778,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_UnpackC
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -808,8 +808,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0RXFrame_PackClu
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type *const destination)
 {
    (*destination).status = 0;
    (*destination).status |= ((packedData[0] >> 7) & 0x1);
@@ -822,8 +822,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_U
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).status & 0x1) << 7);
    packedData[0] |= (uint8_t)(((*source).code >> 25) & 0x7F);
@@ -834,8 +834,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN0TransmitError_P
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -879,8 +879,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Unpa
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -909,8 +909,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID1RXFrame_Pack
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -954,8 +954,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Unpa
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -984,8 +984,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1ID2RXFrame_Pack
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type *const destination)
 {
    (*destination).status = 0;
    (*destination).status |= ((packedData[0] >> 7) & 0x1);
@@ -998,8 +998,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_UnpackC
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).status & 0x1) << 7);
    packedData[0] |= (uint8_t)(((*source).code >> 25) & 0x7F);
@@ -1010,8 +1010,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXError_PackClu
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type *const destination)
 {
    (*destination).timestamphigh = 0;
    (*destination).timestamphigh |= (packedData[0] & 0xFFULL) << 24;
@@ -1055,8 +1055,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_UnpackC
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).timestamphigh >> 24) & 0xFF);
    packedData[1] = (uint8_t)(((*source).timestamphigh >> 16) & 0xFF);
@@ -1085,8 +1085,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1RXFrame_PackClu
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_UnpackCluster(
-   const uint8_t* const packedData,
-   NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type* const destination)
+    const uint8_t *const packedData,
+    NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type *const destination)
 {
    (*destination).status = 0;
    (*destination).status |= ((packedData[0] >> 7) & 0x1);
@@ -1099,8 +1099,8 @@ void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_U
 }
 
 void NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_PackCluster(
-   uint8_t* const packedData,
-   const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type* const source)
+    uint8_t *const packedData,
+    const NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorCluster_Mod2CAN1TransmitError_Type *const source)
 {
    packedData[0] = (uint8_t)(((*source).status & 0x1) << 7);
    packedData[0] |= (uint8_t)(((*source).code >> 25) & 0x7F);

@@ -77,5 +77,6 @@
         "variant": "cpp",
         "semaphore": "cpp",
         "*.ipp": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }

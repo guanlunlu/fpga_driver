@@ -1,7 +1,9 @@
+log_path: "/home/admin/fpga_driver/log/sample_test.csv"
+
 # TCP node communication setup
-Master_IP: "127.0.0.1"
+Master_IP: "192.168.0.107"
 Master_port: 9999
-Local_IP: "127.0.0.1"
+Local_IP: "192.168.0.107"
 
 Command_topic: "/fpga/command"
 Publish_topic: "/fpga/state"
@@ -11,17 +13,17 @@ Scenario: "Robot"
 # Scenario: "SingleModule"
 
 # Command Frame Type: "theta_beta" or "phiR_phiL"
-Command_type: "theta_beta"
-# Command_type: "phiR_phiL"
+# Command_type: "theta_beta"
+Command_type: "phiR_phiL"
 
 
 # Interrupt Setup, Triggered By FPGA IRQ
 # IRQ 0
 # Loop Period (type int) of the main loop, where controllers were implemented
-MainLoop_period_us: 500
+MainLoop_period_us: 1000
 # IRQ 1
 # Loop Period (type int) of the loop handling CAN transceiving, at least 1000 us
-CANLoop_period_us: 500
+CANLoop_period_us: 1000
 
 # CAN Bus timeout
 CAN_Timeout_us: 500
@@ -33,18 +35,18 @@ LF_Module:
   Motor_R:
     FW_Version: 3
     CAN_ID: 20
-    Calibration_Bias: 0.056087
-    KP: 50
+    Calibration_Bias: 0.0675921
+    KP: 85
     KI: 0
-    KD: 1.5
+    KD: 1.75
     Torque_Feedfoward: 0
   Motor_L:
     FW_Version: 3
     CAN_ID: 19
-    Calibration_Bias: 0.884449
-    KP: 50
+    Calibration_Bias: 0.921841
+    KP: 85
     KI: 0
-    KD: 1.5
+    KD: 1.75
     Torque_Feedfoward: 0
 
 # MOD B
@@ -54,18 +56,18 @@ RF_Module:
   Motor_R:
     FW_Version: 3
     CAN_ID: 17
-    Calibration_Bias: -0.821172
-    KP: 50
+    Calibration_Bias: -0.841305
+    KP: 85
     KI: 0
-    KD: 1.5
+    KD: 1.75
     Torque_Feedfoward: 0
   Motor_L:
     FW_Version: 3
     CAN_ID: 11
-    Calibration_Bias: 0.0129432
-    KP: 50
+    Calibration_Bias: -0.0417057
+    KP: 85
     KI: 0
-    KD: 1.5
+    KD: 1.75
     Torque_Feedfoward: 0
 
 # MOD C
@@ -75,18 +77,18 @@ RH_Module:
   Motor_R:
     FW_Version: 3
     CAN_ID: 16
-    Calibration_Bias: 0.0417057
-    KP: 50
+    Calibration_Bias: 0.033077
+    KP: 85
     KI: 0
-    KD: 1.5
+    KD: 1.75
     Torque_Feedfoward: 0
   Motor_L:
     FW_Version: 3
     CAN_ID: 15
-    Calibration_Bias: 0.847058
-    KP: 50
+    Calibration_Bias: 0.844182
+    KP: 85
     KI: 0
-    KD: 1.5
+    KD: 1.75
     Torque_Feedfoward: 0
 
 # MOD D
@@ -96,18 +98,18 @@ LH_Module:
   Motor_R:
     FW_Version: 3
     CAN_ID: 14
-    Calibration_Bias: -0.798162
-    KP: 50
+    Calibration_Bias: -0.826924
+    KP: 85
     KI: 0
-    KD: 1.5
+    KD: 1.75
     Torque_Feedfoward: 0
   Motor_L:
     FW_Version: 3
     CAN_ID: 13
     Calibration_Bias: 0.00719064
-    KP: 50
+    KP: 85
     KI: 0
-    KD: 1.5
+    KD: 1.75
     Torque_Feedfoward: 0
 
 # ADD USED MODULE IN LIST

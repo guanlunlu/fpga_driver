@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/guanlunlu/fpga_driver/src/angle_convert.cpp" "CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.o" "gcc" "CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.o.d"
   "/home/guanlunlu/fpga_driver/src/color.cpp" "CMakeFiles/fpga_srv_main.dir/src/color.cpp.o" "gcc" "CMakeFiles/fpga_srv_main.dir/src/color.cpp.o.d"
   "/home/guanlunlu/fpga_driver/src/console.cpp" "CMakeFiles/fpga_srv_main.dir/src/console.cpp.o" "gcc" "CMakeFiles/fpga_srv_main.dir/src/console.cpp.o.d"
+  "/home/guanlunlu/fpga_driver/src/force_control.cpp" "CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o" "gcc" "CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o.d"
   "/home/guanlunlu/fpga_driver/src/fpga_handler.cpp" "CMakeFiles/fpga_srv_main.dir/src/fpga_handler.cpp.o" "gcc" "CMakeFiles/fpga_srv_main.dir/src/fpga_handler.cpp.o.d"
   "/home/guanlunlu/fpga_driver/src/fpga_server.cpp" "CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o" "gcc" "CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o.d"
   "/home/guanlunlu/fpga_driver/src/fsm.cpp" "CMakeFiles/fpga_srv_main.dir/src/fsm.cpp.o" "gcc" "CMakeFiles/fpga_srv_main.dir/src/fsm.cpp.o.d"

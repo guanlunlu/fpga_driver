@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/fpga_srv_main.dir/src/color.cpp.o.d"
   "CMakeFiles/fpga_srv_main.dir/src/console.cpp.o"
   "CMakeFiles/fpga_srv_main.dir/src/console.cpp.o.d"
+  "CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o"
+  "CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o.d"
   "CMakeFiles/fpga_srv_main.dir/src/fpga_handler.cpp.o"
   "CMakeFiles/fpga_srv_main.dir/src/fpga_handler.cpp.o.d"
   "CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o"

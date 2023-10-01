@@ -109,25 +109,11 @@ void ModeFsm::runFsm()
             }
         }
 
-        /* usleep(0.1 * 1000 * 1000);
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (modules_list_->at(i).enable_)
-            {
-                modules_list_->at(i).io_.CAN_set_mode(Mode::MOTOR);
-            }
-        }
-
-        usleep(0.1 * 1000 * 1000); */
-
         double dt_ = 0.01;  // second
         double vel_ = 0.25; // rad/s
         double command[4][2];
         double dir_[4][2];
         double tolerance = 0.05;
-        std::ofstream LOGFILE;
-        LOGFILE.open("/home/admin/fpga_driver/log/log_fsm.txt");
 
         for (int i = 0; i < 4; i++)
         {
@@ -147,12 +133,9 @@ void ModeFsm::runFsm()
                     dir_[i][1] = 1;
                 else
                     dir_[i][1] = -1;
-                LOGFILE << "Start Position 0: " << command[i][0] << " Start Position 1: " << command[i][1] << std::endl;
-                LOGFILE << "DIR 0: " << dir_[i][0] << ", DIR 1: " << dir_[i][1] << std::endl;
             }
         }
 
-        // LOGFILE << "Start Moving ..." << std::endl;
         while (1)
         {
             int finished = 1;
@@ -161,21 +144,14 @@ void ModeFsm::runFsm()
             {
                 if (modules_list_->at(i).enable_)
                 {
-                    // LOGFILE << "Module " << i << std::endl;
                     modules_list_->at(i).io_.CAN_recieve_feedback(&modules_list_->at(i).rxdata_buffer_[0], &modules_list_->at(i).rxdata_buffer_[1]);
 
                     CAN_txdata txdata_[2];
 
                     for (int j = 0; j < 2; j++)
                     {
-                        /* LOGFILE << "Motor " << j << std::endl;
-                        LOGFILE << "Feedback Pose " << modules_list_->at(i).rxdata_buffer_[j].position_ << std::endl; */
-
                         double errj = 0;
                         errj = theta_error(command[i][j], txdata_zero[0].position_);
-                        LOGFILE << "Command[i][j] = " << command[i][j] << std::endl;
-                        LOGFILE << "txdata_zero[0].position_ = " << txdata_zero[0].position_ << std::endl;
-                        LOGFILE << "Error " << j << " = " << errj << std::endl;
                         txdata_[j].position_ = 0;
                         txdata_[j].torque_ = 0;
                         txdata_[j].KP_ = 0;
@@ -185,14 +161,11 @@ void ModeFsm::runFsm()
                         if (fabs(errj) < tolerance)
                         {
                             txdata_[j].position_ = 0;
-                            // LOGFILE << "Finished" << std::endl;
                             finished *= 1;
                         }
                         else
                         {
                             command[i][j] += dir_[i][j] * vel_ * dt_;
-                            // LOGFILE << "Command = " << command[i][j] << std::endl;
-                            // LOGFILE << "Dcmd = " << dir_[i][j] * vel_ * dt_ << std::endl;
 
                             txdata_[j].position_ = command[i][j];
                             txdata_[j].torque_ = 0;
@@ -201,7 +174,6 @@ void ModeFsm::runFsm()
                             txdata_[j].KD_ = 1.5;
                             finished *= 0;
                         }
-                        // LOGFILE << "---" << std::endl;
                     }
                     modules_list_->at(i).io_.CAN_send_command(txdata_[0], txdata_[1]);
                 }
@@ -249,21 +221,8 @@ bool ModeFsm::switchMode(Mode next_mode)
 
     double time_elapsed = 0;
 
-    // log_ << "next_mode == Mode::HALL_CALIBRATE: " << (next_mode == Mode::HALL_CALIBRATE) << std::endl;
-    // log_ << "hall_calibrate_enable_: " << hall_calibrate_enable_ << std::endl;
-
     while (1)
     {
-        // log_ << "loop next_mode == Mode::HALL_CALIBRATE: " << (next_mode == Mode::HALL_CALIBRATE) << std::endl;
-        // log_ << "loop hall_calibrate_enable_: " << hall_calibrate_enable_ << std::endl;
-
-        // if (next_mode == Mode::HALL_CALIBRATE && hall_calibrate_enable_ == false)
-        // {
-        // log_ << "aaa" << std::endl;
-        // success = false;
-        // break;
-        // }
-
         if (mode_switched_cnt == module_enabled)
         {
             success = true;

@@ -1,52 +1,7 @@
 [
 {
   "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o -c /home/guanlunlu/fpga_driver/src/fpga_server.cpp",
-  "file": "/home/guanlunlu/fpga_driver/src/fpga_server.cpp"
-},
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o -c /home/guanlunlu/fpga_driver/src/leg_module.cpp",
-  "file": "/home/guanlunlu/fpga_driver/src/leg_module.cpp"
-},
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/fpga_handler.cpp.o -c /home/guanlunlu/fpga_driver/src/fpga_handler.cpp",
-  "file": "/home/guanlunlu/fpga_driver/src/fpga_handler.cpp"
-},
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/color.cpp.o -c /home/guanlunlu/fpga_driver/src/color.cpp",
-  "file": "/home/guanlunlu/fpga_driver/src/color.cpp"
-},
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/fsm.cpp.o -c /home/guanlunlu/fpga_driver/src/fsm.cpp",
-  "file": "/home/guanlunlu/fpga_driver/src/fsm.cpp"
-},
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/console.cpp.o -c /home/guanlunlu/fpga_driver/src/console.cpp",
-  "file": "/home/guanlunlu/fpga_driver/src/console.cpp"
-},
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o -c /home/guanlunlu/fpga_driver/src/theta_error.cpp",
-  "file": "/home/guanlunlu/fpga_driver/src/theta_error.cpp"
-},
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -Wall -Wextra -O3 -o CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.o -c /home/guanlunlu/fpga_driver/src/angle_convert.cpp",
-  "file": "/home/guanlunlu/fpga_driver/src/angle_convert.cpp"
-},
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/gcc -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -std=c99 -O3 -DNDEBUG -o CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o -c /home/guanlunlu/fpga_driver/src/NiFpga.c",
-  "file": "/home/guanlunlu/fpga_driver/src/NiFpga.c"
-},
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/gcc -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_THREAD_DYN_LINK -DYAML_CPP_STATIC_DEFINE -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -std=c99 -O3 -DNDEBUG -o CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o -c /home/guanlunlu/fpga_driver/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c",
-  "file": "/home/guanlunlu/fpga_driver/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c"
+  "command": "/usr/bin/g++  -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -isystem /usr/include/eigen3 -Wall -Wextra -O3 -o CMakeFiles/force_control.dir/src/force_control.cpp.o -c /home/guanlunlu/fpga_driver/src/force_control.cpp",
+  "file": "/home/guanlunlu/fpga_driver/src/force_control.cpp"
 }
 ]

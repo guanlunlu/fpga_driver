@@ -181,10 +181,24 @@ CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/guanlunlu/fpga_driver/src/angle_convert.cpp -o CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.s
 
+CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o: CMakeFiles/fpga_srv_main.dir/flags.make
+CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o: ../src/force_control.cpp
+CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o: CMakeFiles/fpga_srv_main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guanlunlu/fpga_driver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o -MF CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o.d -o CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o -c /home/guanlunlu/fpga_driver/src/force_control.cpp
+
+CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/guanlunlu/fpga_driver/src/force_control.cpp > CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.i
+
+CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/guanlunlu/fpga_driver/src/force_control.cpp -o CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.s
+
 CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o: CMakeFiles/fpga_srv_main.dir/flags.make
 CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o: ../src/NiFpga.c
 CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o: CMakeFiles/fpga_srv_main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guanlunlu/fpga_driver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guanlunlu/fpga_driver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o"
 	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o -MF CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o.d -o CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o -c /home/guanlunlu/fpga_driver/src/NiFpga.c
 
 CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.i: cmake_force
@@ -198,7 +212,7 @@ CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.s: cmake_force
 CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o: CMakeFiles/fpga_srv_main.dir/flags.make
 CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o: ../src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c
 CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o: CMakeFiles/fpga_srv_main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guanlunlu/fpga_driver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guanlunlu/fpga_driver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o"
 	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o -MF CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o.d -o CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o -c /home/guanlunlu/fpga_driver/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c
 
 CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.i: cmake_force
@@ -219,6 +233,7 @@ fpga_srv_main_OBJECTS = \
 "CMakeFiles/fpga_srv_main.dir/src/console.cpp.o" \
 "CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o" \
 "CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.o" \
+"CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o" \
 "CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o" \
 "CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o"
 
@@ -233,6 +248,7 @@ fpga_srv_main: CMakeFiles/fpga_srv_main.dir/src/fsm.cpp.o
 fpga_srv_main: CMakeFiles/fpga_srv_main.dir/src/console.cpp.o
 fpga_srv_main: CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o
 fpga_srv_main: CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.o
+fpga_srv_main: CMakeFiles/fpga_srv_main.dir/src/force_control.cpp.o
 fpga_srv_main: CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o
 fpga_srv_main: CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o
 fpga_srv_main: CMakeFiles/fpga_srv_main.dir/build.make
@@ -241,7 +257,7 @@ fpga_srv_main: /usr/local/lib/libboost_serialization.so.1.73.0
 fpga_srv_main: /usr/local/lib/libboost_thread.so.1.73.0
 fpga_srv_main: /usr/local/lib/libboost_program_options.so.1.73.0
 fpga_srv_main: CMakeFiles/fpga_srv_main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/guanlunlu/fpga_driver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable fpga_srv_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/guanlunlu/fpga_driver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable fpga_srv_main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/fpga_srv_main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

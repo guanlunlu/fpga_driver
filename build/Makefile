@@ -117,257 +117,41 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named fpga_srv_main
+# Target rules for targets named force_control
 
 # Build rule for target.
-fpga_srv_main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fpga_srv_main
-.PHONY : fpga_srv_main
+force_control: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 force_control
+.PHONY : force_control
 
 # fast build rule for target.
-fpga_srv_main/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/build
-.PHONY : fpga_srv_main/fast
+force_control/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/force_control.dir/build.make CMakeFiles/force_control.dir/build
+.PHONY : force_control/fast
 
-src/NiFpga.o: src/NiFpga.c.o
-.PHONY : src/NiFpga.o
-
-# target to build an object file
-src/NiFpga.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.o
-.PHONY : src/NiFpga.c.o
-
-src/NiFpga.i: src/NiFpga.c.i
-.PHONY : src/NiFpga.i
-
-# target to preprocess a source file
-src/NiFpga.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.i
-.PHONY : src/NiFpga.c.i
-
-src/NiFpga.s: src/NiFpga.c.s
-.PHONY : src/NiFpga.s
-
-# target to generate assembly for a file
-src/NiFpga.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/NiFpga.c.s
-.PHONY : src/NiFpga.c.s
-
-src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.o: src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o
-.PHONY : src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.o
+src/force_control.o: src/force_control.cpp.o
+.PHONY : src/force_control.o
 
 # target to build an object file
-src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o
-.PHONY : src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.o
+src/force_control.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/force_control.dir/build.make CMakeFiles/force_control.dir/src/force_control.cpp.o
+.PHONY : src/force_control.cpp.o
 
-src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.i: src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.i
-.PHONY : src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.i
-
-# target to preprocess a source file
-src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.i
-.PHONY : src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.i
-
-src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.s: src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.s
-.PHONY : src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.s
-
-# target to generate assembly for a file
-src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.s
-.PHONY : src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c.s
-
-src/angle_convert.o: src/angle_convert.cpp.o
-.PHONY : src/angle_convert.o
-
-# target to build an object file
-src/angle_convert.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.o
-.PHONY : src/angle_convert.cpp.o
-
-src/angle_convert.i: src/angle_convert.cpp.i
-.PHONY : src/angle_convert.i
+src/force_control.i: src/force_control.cpp.i
+.PHONY : src/force_control.i
 
 # target to preprocess a source file
-src/angle_convert.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.i
-.PHONY : src/angle_convert.cpp.i
+src/force_control.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/force_control.dir/build.make CMakeFiles/force_control.dir/src/force_control.cpp.i
+.PHONY : src/force_control.cpp.i
 
-src/angle_convert.s: src/angle_convert.cpp.s
-.PHONY : src/angle_convert.s
-
-# target to generate assembly for a file
-src/angle_convert.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/angle_convert.cpp.s
-.PHONY : src/angle_convert.cpp.s
-
-src/color.o: src/color.cpp.o
-.PHONY : src/color.o
-
-# target to build an object file
-src/color.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/color.cpp.o
-.PHONY : src/color.cpp.o
-
-src/color.i: src/color.cpp.i
-.PHONY : src/color.i
-
-# target to preprocess a source file
-src/color.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/color.cpp.i
-.PHONY : src/color.cpp.i
-
-src/color.s: src/color.cpp.s
-.PHONY : src/color.s
+src/force_control.s: src/force_control.cpp.s
+.PHONY : src/force_control.s
 
 # target to generate assembly for a file
-src/color.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/color.cpp.s
-.PHONY : src/color.cpp.s
-
-src/console.o: src/console.cpp.o
-.PHONY : src/console.o
-
-# target to build an object file
-src/console.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/console.cpp.o
-.PHONY : src/console.cpp.o
-
-src/console.i: src/console.cpp.i
-.PHONY : src/console.i
-
-# target to preprocess a source file
-src/console.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/console.cpp.i
-.PHONY : src/console.cpp.i
-
-src/console.s: src/console.cpp.s
-.PHONY : src/console.s
-
-# target to generate assembly for a file
-src/console.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/console.cpp.s
-.PHONY : src/console.cpp.s
-
-src/fpga_handler.o: src/fpga_handler.cpp.o
-.PHONY : src/fpga_handler.o
-
-# target to build an object file
-src/fpga_handler.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/fpga_handler.cpp.o
-.PHONY : src/fpga_handler.cpp.o
-
-src/fpga_handler.i: src/fpga_handler.cpp.i
-.PHONY : src/fpga_handler.i
-
-# target to preprocess a source file
-src/fpga_handler.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/fpga_handler.cpp.i
-.PHONY : src/fpga_handler.cpp.i
-
-src/fpga_handler.s: src/fpga_handler.cpp.s
-.PHONY : src/fpga_handler.s
-
-# target to generate assembly for a file
-src/fpga_handler.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/fpga_handler.cpp.s
-.PHONY : src/fpga_handler.cpp.s
-
-src/fpga_server.o: src/fpga_server.cpp.o
-.PHONY : src/fpga_server.o
-
-# target to build an object file
-src/fpga_server.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.o
-.PHONY : src/fpga_server.cpp.o
-
-src/fpga_server.i: src/fpga_server.cpp.i
-.PHONY : src/fpga_server.i
-
-# target to preprocess a source file
-src/fpga_server.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.i
-.PHONY : src/fpga_server.cpp.i
-
-src/fpga_server.s: src/fpga_server.cpp.s
-.PHONY : src/fpga_server.s
-
-# target to generate assembly for a file
-src/fpga_server.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/fpga_server.cpp.s
-.PHONY : src/fpga_server.cpp.s
-
-src/fsm.o: src/fsm.cpp.o
-.PHONY : src/fsm.o
-
-# target to build an object file
-src/fsm.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/fsm.cpp.o
-.PHONY : src/fsm.cpp.o
-
-src/fsm.i: src/fsm.cpp.i
-.PHONY : src/fsm.i
-
-# target to preprocess a source file
-src/fsm.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/fsm.cpp.i
-.PHONY : src/fsm.cpp.i
-
-src/fsm.s: src/fsm.cpp.s
-.PHONY : src/fsm.s
-
-# target to generate assembly for a file
-src/fsm.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/fsm.cpp.s
-.PHONY : src/fsm.cpp.s
-
-src/leg_module.o: src/leg_module.cpp.o
-.PHONY : src/leg_module.o
-
-# target to build an object file
-src/leg_module.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.o
-.PHONY : src/leg_module.cpp.o
-
-src/leg_module.i: src/leg_module.cpp.i
-.PHONY : src/leg_module.i
-
-# target to preprocess a source file
-src/leg_module.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.i
-.PHONY : src/leg_module.cpp.i
-
-src/leg_module.s: src/leg_module.cpp.s
-.PHONY : src/leg_module.s
-
-# target to generate assembly for a file
-src/leg_module.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/leg_module.cpp.s
-.PHONY : src/leg_module.cpp.s
-
-src/theta_error.o: src/theta_error.cpp.o
-.PHONY : src/theta_error.o
-
-# target to build an object file
-src/theta_error.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.o
-.PHONY : src/theta_error.cpp.o
-
-src/theta_error.i: src/theta_error.cpp.i
-.PHONY : src/theta_error.i
-
-# target to preprocess a source file
-src/theta_error.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.i
-.PHONY : src/theta_error.cpp.i
-
-src/theta_error.s: src/theta_error.cpp.s
-.PHONY : src/theta_error.s
-
-# target to generate assembly for a file
-src/theta_error.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fpga_srv_main.dir/build.make CMakeFiles/fpga_srv_main.dir/src/theta_error.cpp.s
-.PHONY : src/theta_error.cpp.s
+src/force_control.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/force_control.dir/build.make CMakeFiles/force_control.dir/src/force_control.cpp.s
+.PHONY : src/force_control.cpp.s
 
 # Help Target
 help:
@@ -377,37 +161,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... fpga_srv_main"
-	@echo "... src/NiFpga.o"
-	@echo "... src/NiFpga.i"
-	@echo "... src/NiFpga.s"
-	@echo "... src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.o"
-	@echo "... src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.i"
-	@echo "... src/NiFpga_FPGA_CANBus_IMU_4module_IRQ.s"
-	@echo "... src/angle_convert.o"
-	@echo "... src/angle_convert.i"
-	@echo "... src/angle_convert.s"
-	@echo "... src/color.o"
-	@echo "... src/color.i"
-	@echo "... src/color.s"
-	@echo "... src/console.o"
-	@echo "... src/console.i"
-	@echo "... src/console.s"
-	@echo "... src/fpga_handler.o"
-	@echo "... src/fpga_handler.i"
-	@echo "... src/fpga_handler.s"
-	@echo "... src/fpga_server.o"
-	@echo "... src/fpga_server.i"
-	@echo "... src/fpga_server.s"
-	@echo "... src/fsm.o"
-	@echo "... src/fsm.i"
-	@echo "... src/fsm.s"
-	@echo "... src/leg_module.o"
-	@echo "... src/leg_module.i"
-	@echo "... src/leg_module.s"
-	@echo "... src/theta_error.o"
-	@echo "... src/theta_error.i"
-	@echo "... src/theta_error.s"
+	@echo "... force_control"
+	@echo "... src/force_control.o"
+	@echo "... src/force_control.i"
+	@echo "... src/force_control.s"
 .PHONY : help
 
 

@@ -299,7 +299,7 @@ void Corgi::mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_c
             }
             else if (fpga_common_control_data.mode == _SET_ZERO)
                 NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::SET_ZERO);*/
-        
+
             fpga_message_updated = 0;
         }
     }

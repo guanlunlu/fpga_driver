@@ -1,0 +1,1 @@
+/usr/bin/g++ -Wall -Wextra -O3 CMakeFiles/force_control.dir/src/force_control.cpp.o -o force_control   -L/usr/local/lib  -Wl,-rpath,/usr/local/lib 

@@ -1,12 +1,13 @@
 #include <fsm.hpp>
 
-ModeFsm::ModeFsm(std::vector<LegModule> *_modules, std::vector<bool> *_pb_state)
+ModeFsm::ModeFsm(std::vector<LegModule> *_modules, std::vector<bool> *_pb_state, double *pb_v)
 {
     workingMode_ = Mode::REST;
     prev_workingMode_ = Mode::REST;
 
     modules_list_ = _modules;
     pb_state_ = _pb_state;
+    powerboard_voltage = pb_v;
 
     hall_calibrated = false;
     hall_calibrate_status = 0;
@@ -81,6 +82,16 @@ void ModeFsm::runFsm()
                 module_enabled++;
             }
         }
+
+        int power_off = 0;
+        for(int i = 0; i < 12; i++){
+            double v = *(powerboard_voltage+i);
+            if (v < 45){
+                power_off = 1;
+            }
+        }
+        if(power_off)
+            switchMode(Mode::REST);
 
         switch (hall_calibrate_status)
         {

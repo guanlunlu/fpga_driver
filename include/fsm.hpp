@@ -11,7 +11,7 @@ class ModeFsm
 {
 public:
   /* pass modules vector by reference*/
-  ModeFsm(std::vector<LegModule> *module_list_, std::vector<bool> *pb_state_);
+  ModeFsm(std::vector<LegModule> *module_list_, std::vector<bool> *pb_state_, double *pb_v);
   ModeFsm()
   {
   }
@@ -32,6 +32,7 @@ public:
   double cal_dir_[4][2];
   double cal_command[4][2];
 
+  double *powerboard_voltage;
   void runFsm();
   bool switchMode(Mode next_mode);
 };

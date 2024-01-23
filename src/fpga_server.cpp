@@ -9,7 +9,8 @@ volatile bool vicon_toggle = true;
 
 std::mutex mutex_;
 motor_msg::MotorStamped motor_data;
-void motor_data_cb(motor_msg::MotorStamped msg) {
+void motor_data_cb(motor_msg::MotorStamped msg)
+{
     mutex_.lock();
     motor_message_updated = 1;
     motor_data = msg;
@@ -20,14 +21,16 @@ void motor_data_cb(motor_msg::MotorStamped msg) {
 power_msg::PowerBoardStamped power_command_request;
 power_msg::PowerBoardStamped power_dashboard_reply;
 
-void power_command_function(power_msg::PowerBoardStamped request) {
+void power_command_function(power_msg::PowerBoardStamped request)
+{
     mutex_.lock();
     fpga_message_updated = 1;
     power_command_request = request;
     mutex_.unlock();
 }
 
-void cb(power_msg::PowerBoardStamped request, power_msg::PowerBoardStamped &reply) {
+void cb(power_msg::PowerBoardStamped request, power_msg::PowerBoardStamped &reply)
+{
     power_command_function(request);
     mutex_.lock();
     reply = power_dashboard_reply;
@@ -59,10 +62,9 @@ Corgi::Corgi()
     powerboard_state_.push_back(signal_switch_);
     powerboard_state_.push_back(power_switch_);
 
-
-    ModeFsm fsm(&modules_list_, &powerboard_state_);
+    ModeFsm fsm(&modules_list_, &powerboard_state_, fpga_.powerboard_V_list_);
     fsm_ = fsm;
-    
+
     load_config_();
 
     console_.init(&fpga_, &modules_list_, &powerboard_state_, &fsm_, &main_mtx_);
@@ -215,9 +217,101 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
     fsm_.runFsm();
     HALL_CALIBRATED_ = fsm_.hall_calibrated;
 
+    core::spinOnce();
+
+    mutex_.lock();
+    motor_msg::MotorStamped motor_module;
+    int index = 0;
+    for (auto &mod : modules_list_)
+    {
+        if (mod.enable_)
+        {
+            /* Pubish feedback data from Motors */
+            motor_msg::Motor motor_r;
+            motor_msg::Motor motor_l;
+            motor_msg::LegAngle leg;
+            motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
+            motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
+
+            double tb_[2] = {0, 0};
+            getThetaBeta(tb_, mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
+
+            if (scenario_ == Scenario::SINGLE_MODULE)
+            {
+                leg.set_theta(tb_[0]); // theta
+                leg.set_beta(tb_[1]);  // beta
+            }
+            else
+            {
+                /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
+                leg.set_theta(tb_[0]); // theta
+                if (index == 0 || index == 3)
+                    leg.set_beta(-tb_[1]); // beta
+                else
+                    leg.set_beta(tb_[1]); // beta
+            }
+            motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
+            motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
+            motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
+            motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
+            motor_module.add_motors()->CopyFrom(motor_r);
+            motor_module.add_motors()->CopyFrom(motor_l);
+            motor_module.add_legs()->CopyFrom(leg);
+
+            /* Subscribe command from other nodes */
+            // initialize message
+            // update
+            if (fsm_.workingMode_ == Mode::MOTOR && NO_CAN_TIMEDOUT_ERROR_ && NO_SWITCH_TIMEDOUT_ERROR_ && motor_data.motors().size() == 8)
+            {
+                if (cmd_type_ == Command_type::THETA_BETA)
+                {
+                    double phi[2] = {0, 0};
+                    // Full Robot experiment scenario
+                    if (scenario_ == Scenario::ROBOT)
+                    {
+                        // Special Case for module A D should be inverted
+                        if (index == 0 || index == 3)
+                        {
+                            getPhiVector(phi, motor_data.legs(index).theta(), -1 * motor_data.legs(index).beta());
+                        }
+                        else
+                        {
+                            getPhiVector(phi, motor_data.legs(index).theta(), motor_data.legs(index).beta());
+                        }
+                    }
+                    // Single Module experiment scenario
+                    else
+                    {
+                        getPhiVector(phi, motor_data.legs(index).theta(), motor_data.legs(index).beta());
+                    }
+                    mod.txdata_buffer_[0].position_ = phi[0];
+                    mod.txdata_buffer_[1].position_ = phi[1];
+                }
+                else
+                {
+                    // Command Type Phi_R Phi_L
+                    mod.txdata_buffer_[0].position_ = motor_data.motors(index * 2).angle();
+                    mod.txdata_buffer_[1].position_ = motor_data.motors(index * 2 + 1).angle();
+                }
+                // std::cout << "data=" << motor_data.motors(index*2).angle() << std::endl;
+                mod.txdata_buffer_[0].torque_ = motor_data.motors(index * 2).torque();
+                mod.txdata_buffer_[1].torque_ = motor_data.motors(index * 2 + 1).torque();
+                mod.txdata_buffer_[0].KP_ = motor_data.motors(index * 2).kp();
+                mod.txdata_buffer_[0].KI_ = motor_data.motors(index * 2).ki();
+                mod.txdata_buffer_[0].KD_ = motor_data.motors(index * 2).kd();
+                mod.txdata_buffer_[1].KP_ = motor_data.motors(index * 2 + 1).kp();
+                mod.txdata_buffer_[1].KI_ = motor_data.motors(index * 2 + 1).ki();
+                mod.txdata_buffer_[1].KD_ = motor_data.motors(index * 2 + 1).kd();
+            }
+        }
+        index++;
+    }
+    motor_message_updated = 0;
+    mutex_.unlock();
+
     // Communication with Node Architecture
     powerboardPack();
-    
+
     // --------------------------------------------------------- //
     // Read Command
     mutex_.lock();
@@ -240,16 +334,20 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
             fpga_.write_vicon_trigger((*power_command_request.mutable_digital())["vicon_trigger"]);
             fpga_.write_orin_trigger((*power_command_request.mutable_digital())["orin_trigger"]);
 
-            if (power_command_request.mode() == _REST_MODE){
+            if (power_command_request.mode() == _REST_MODE && fsm_.workingMode_ != Mode::REST)
+            {
                 fsm_.switchMode(Mode::REST);
             }
-            else if (power_command_request.mode() == _MOTOR_MODE){
+            else if (power_command_request.mode() == _MOTOR_MODE && fsm_.workingMode_ != Mode::MOTOR)
+            {
                 fsm_.switchMode(Mode::MOTOR);
             }
-            else if (power_command_request.mode() == _HALL_CALIBRATE) {
+            else if (power_command_request.mode() == _HALL_CALIBRATE && fsm_.workingMode_ != Mode::HALL_CALIBRATE)
+            {
                 fsm_.switchMode(Mode::HALL_CALIBRATE);
             }
-            else if (power_command_request.mode() == _SET_ZERO) {
+            else if (power_command_request.mode() == _SET_ZERO && fsm_.workingMode_ != Mode::SET_ZERO)
+            {
                 fsm_.switchMode(Mode::SET_ZERO);
             }
             /*if (fpga_common_control_data.mode == _REST_MODE)
@@ -268,102 +366,6 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
     }
     mutex_.unlock();
 
-    motor_msg::MotorStamped motor_module;
-    int index = 0;
-    core::spinOnce();
-    mutex_.lock();
-
-    // for (auto &mod : modules_list_)
-    // {
-    //     if (mod.enable_)
-    //     {
-    //         mod.io_.CAN_recieve_feedback(&mod.rxdata_buffer_[0], &mod.rxdata_buffer_[1]);
-
-    //         /* Pubish feedback data from Motors */
-    //         motor_msg::Motor motor_r;
-    //         motor_msg::Motor motor_l;
-    //         motor_msg::LegAngle leg;
-    //         motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
-    //         motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
-
-    //         double tb_[2] = {0, 0};
-    //         getThetaBeta(tb_, mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
-
-    //         if (scenario_ == Scenario::SINGLE_MODULE)
-    //         {
-    //             leg.set_theta(tb_[0]); // theta
-    //             leg.set_beta(tb_[1]); // beta
-    //         }
-    //         else
-    //         {
-    //             /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
-    //             leg.set_theta(tb_[0]); // theta
-    //             if (index == 0 || index == 3)
-    //                 leg.set_beta(-tb_[1]); // beta
-    //             else
-    //                 leg.set_beta(tb_[1]);  // beta
-    //         }
-    //         motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
-    //         motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
-    //         motor_r.set_torque(mod.rxdata_buffer_[0].torque_); // torque R
-    //         motor_l.set_torque(mod.rxdata_buffer_[1].torque_); // torque L
-    //         motor_module.add_motors()->CopyFrom(motor_r);
-    //         motor_module.add_motors()->CopyFrom(motor_l);
-    //         motor_module.add_legs()->CopyFrom(leg);
-
-    //         /* Subscribe command from other nodes */
-    //         // initialize message
-    //         // update
-    //         if (motor_message_updated && NO_CAN_TIMEDOUT_ERROR_ && NO_SWITCH_TIMEDOUT_ERROR_ && motor_data.motors().size() == 8)
-    //         {
-    //             if (cmd_type_ == Command_type::THETA_BETA)
-    //             {
-    //                 // double *phi;
-    //                 double phi[2] = {0, 0};
-    //                 // Full Robot experiment scenario
-    //                 if (scenario_ == Scenario::ROBOT)
-    //                 {
-    //                     // Special Case for module A D should be inverted
-    //                     if (index == 0 || index == 3)
-    //                     {
-    //                         getPhiVector(phi, motor_data.legs(index).theta(), -1 * motor_data.legs(index).beta());
-    //                     }
-    //                     else
-    //                     {
-    //                         getPhiVector(phi, motor_data.legs(index).theta(), motor_data.legs(index).beta());
-    //                     }
-    //                 }
-    //                 // Single Module experiment scenario
-    //                 else
-    //                 {
-    //                     getPhiVector(phi, motor_data.legs(index).theta(), motor_data.legs(index).beta());
-    //                 }
-    //                 mod.txdata_buffer_[0].position_ = phi[0];
-    //                 mod.txdata_buffer_[1].position_ = phi[1];
-    //             }
-    //             else
-    //             {
-    //                 // Command Type Phi_R Phi_L
-    //                 mod.txdata_buffer_[0].position_ = motor_data.motors(index*2).angle();
-    //                 mod.txdata_buffer_[1].position_ = motor_data.motors(index*2+1).angle();
-    //             }
-    //             // std::cout << "data=" << motor_data.motors(index*2).angle() << std::endl;
-    //             mod.txdata_buffer_[0].torque_ = motor_data.motors(index*2).torque();
-    //             mod.txdata_buffer_[1].torque_ = motor_data.motors(index*2+1).torque();
-    //             mod.txdata_buffer_[0].KP_ = motor_data.motors(index*2).kp();
-    //             mod.txdata_buffer_[0].KI_ = motor_data.motors(index*2).ki();
-    //             mod.txdata_buffer_[0].KD_ = motor_data.motors(index*2).kd();
-    //             mod.txdata_buffer_[1].KP_ = motor_data.motors(index*2+1).kp();
-    //             mod.txdata_buffer_[1].KI_ = motor_data.motors(index*2+1).ki();
-    //             mod.txdata_buffer_[1].KD_ = motor_data.motors(index*2+1).kd();
-    //         }
-    //     }
-    //     index++;
-    // }
-
-
-    motor_message_updated = 0;
-    mutex_.unlock();
     state_pub_.publish(motor_module);
 
     // log data
@@ -410,31 +412,27 @@ void Corgi::canLoop_()
     {
         if (modules_list_[i].enable_ && powerboard_state_.at(2) == true)
         {
-            // if (modules_list_[i].rxdata_buffer_[0].mode_ == Mode::MOTOR && modules_list_[i].rxdata_buffer_[1].mode_ == Mode::MOTOR)
-            // {
-                modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0], &modules_list_[i].rxdata_buffer_[1]);
+            modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0], &modules_list_[i].rxdata_buffer_[1]);
+            modules_list_[i].CAN_timeoutCheck();
 
-                modules_list_[i].CAN_timeoutCheck();
-                if (modules_list_[i].CAN_module_timedout)
-                {
-                    timeout_cnt_++;
-                }
-                else
-                {
-                    timeout_cnt_ = 0;
-                }
+            if (modules_list_[i].CAN_module_timedout)
+            {
+                timeout_cnt_++;
+            }
+            else
+            {
+                timeout_cnt_ = 0;
+            }
 
-                if (timeout_cnt_ < max_timeout_cnt_)
-                {
-                    modules_list_[i].io_.CAN_send_command(modules_list_[i].txdata_buffer_[0], modules_list_[i].txdata_buffer_[1]);
-                    NO_CAN_TIMEDOUT_ERROR_ = true;
-                }
-                else
-                {
-                    NO_CAN_TIMEDOUT_ERROR_ = false;
-                }
-                
-            // }
+            if (timeout_cnt_ < max_timeout_cnt_)
+            {
+                modules_list_[i].io_.CAN_send_command(modules_list_[i].txdata_buffer_[0], modules_list_[i].txdata_buffer_[1]);
+                NO_CAN_TIMEDOUT_ERROR_ = true;
+            }
+            else
+            {
+                NO_CAN_TIMEDOUT_ERROR_ = false;
+            }
         }
     }
 }
@@ -464,7 +462,7 @@ void Corgi::powerboardPack()
         power_dashboard_reply.set_mode(power_msg::MOTOR_MODE);
     else if (fsm_.workingMode_ == Mode::SET_ZERO)
         power_dashboard_reply.set_mode(power_msg::SET_ZERO);
-    
+
     auto power_analog_dashboard = *power_dashboard_reply.mutable_analog();
     power_analog_dashboard["PB_1_Battery[0]"] = fpga_.powerboard_V_list_[0];
     power_analog_dashboard["PB_1_Battery[1]"] = fpga_.powerboard_I_list_[0];
@@ -511,8 +509,8 @@ int main()
     important_message("[FPGA Server] : Launched");
     Corgi corgi;
     core::NodeHandler nh;
-    core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv = 
-    nh.serviceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>("power/command", cb);
+    core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv =
+        nh.serviceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>("power/command", cb);
     core::Publisher<motor_msg::MotorStamped> &motor_pub = nh.advertise<motor_msg::MotorStamped>("motor/state");
     core::Subscriber<motor_msg::MotorStamped> &motor_sub = nh.subscribe<motor_msg::MotorStamped>("motor/command", 1000, motor_data_cb);
 

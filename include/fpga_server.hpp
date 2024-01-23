@@ -69,6 +69,10 @@ public:
   void mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_);
   void canLoop_();
 
+  void logger_init();
+  void logger(int seq);
+
+  int log_data;
   std::string log_path;
   std::ofstream log_stream;
 };

@@ -68,30 +68,36 @@ void ModeFsm::runFsm()
 
     case Mode::HALL_CALIBRATE:
     {
-        int module_enabled = 0;
-        for (int i = 0; i < 4; i++)
-        {
-            if (modules_list_->at(i).enable_)
-            {
-                modules_list_->at(i).txdata_buffer_[0].KP_ = 50;
-                modules_list_->at(i).txdata_buffer_[0].KI_ = 0;
-                modules_list_->at(i).txdata_buffer_[0].KD_ = 1.5;
-                modules_list_->at(i).txdata_buffer_[1].KP_ = 50;
-                modules_list_->at(i).txdata_buffer_[1].KI_ = 0;
-                modules_list_->at(i).txdata_buffer_[1].KD_ = 1.5;
-                module_enabled++;
-            }
-        }
-
         int power_off = 0;
-        for(int i = 0; i < 12; i++){
-            double v = *(powerboard_voltage+i);
-            if (v < 45){
+        for (int i = 0; i < 12; i++)
+        {
+            double v = *(powerboard_voltage + i);
+            if (v < 45)
+            {
                 power_off = 1;
             }
         }
-        if(power_off)
-            switchMode(Mode::REST);
+
+        int module_enabled = 0;
+        if (power_off || hall_calibrated == true){
+            hall_calibrate_status = -1;
+        }
+        else{
+            for (int i = 0; i < 4; i++)
+            {
+                if (modules_list_->at(i).enable_)
+                {
+                    modules_list_->at(i).txdata_buffer_[0].KP_ = 50;
+                    modules_list_->at(i).txdata_buffer_[0].KI_ = 0;
+                    modules_list_->at(i).txdata_buffer_[0].KD_ = 1.5;
+                    modules_list_->at(i).txdata_buffer_[1].KP_ = 50;
+                    modules_list_->at(i).txdata_buffer_[1].KI_ = 0;
+                    modules_list_->at(i).txdata_buffer_[1].KD_ = 1.5;
+                    module_enabled++;
+                }
+            }
+        }
+
 
         switch (hall_calibrate_status)
         {
@@ -208,8 +214,6 @@ bool ModeFsm::switchMode(Mode next_mode)
     int mode_switched_cnt = 0;
     int module_enabled = 0;
     bool success = false;
-    // std::ofstream log_;
-    // log_.open("/home/admin/fpga_driver2/log/log_fsm.txt");
 
     for (int i = 0; i < 4; i++)
     {
@@ -232,7 +236,6 @@ bool ModeFsm::switchMode(Mode next_mode)
         if (mode_switched_cnt == module_enabled)
         {
             success = true;
-            // hall_calibrate_enable_ = false;
             break;
         }
         else if (time_elapsed > 1)

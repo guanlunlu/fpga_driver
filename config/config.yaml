@@ -1,3 +1,5 @@
+# Data logging
+log_data: 1
 log_path: "/home/admin/fpga_driver/log/sample_test.csv"
 
 # TCP node communication setup

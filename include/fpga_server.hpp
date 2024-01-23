@@ -2,7 +2,6 @@
 #include <yaml.h>
 #include <fpga_handler.hpp>
 #include <fsm.hpp>
-#include <msg.hpp>
 #include <string>
 #include <fstream>
 #include <vector>
@@ -11,20 +10,13 @@
 #include "angle_convert.hpp"
 
 // Node setup
-#include <NodeHandler.hpp>
-#include "std_service.hpp"
-#include "Subscriber.hpp"
-#include "Publisher.hpp"
-#include "timer.hpp"
+#include <NodeHandler.h>
 #include <sys/time.h>
 
-#include "boost/bind.hpp"
-#include "boost/thread.hpp"
+#include "motor.pb.h"
+#include "power.pb.h"
 
-#include "motor_msg.hpp"
-#include "fpga_msg.hpp"
-
-#define CONFIG_PATH "/home/admin/fpga_driver/config/config.yaml"
+#define CONFIG_PATH "/home/admin/quadruped/src/fpga_driver/config/config.yaml"
 
 volatile sig_atomic_t sys_stop;
 void inthand(int signum);
@@ -70,11 +62,11 @@ public:
   bool power_switch_;
   bool stop_;
 
-  void interruptHandler(core::Subscriber &fpga_common_sub, core::Publisher &fpga_common_pub, std::vector<core::Subscriber> &cmd_sub_, std::vector<core::Publisher> &state_pub_);
+  void interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_);
 
-  void powerboardPack(fpga_msg::fpga_common &fpga_status_msg);
+  void powerboardPack();
 
-  void mainLoop_(core::Subscriber &fpga_common_sub, core::Publisher &fpga_common_pub, std::vector<core::Subscriber> &cmd_sub_, std::vector<core::Publisher> &state_pub_);
+  void mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_);
   void canLoop_();
 
   std::string log_path;

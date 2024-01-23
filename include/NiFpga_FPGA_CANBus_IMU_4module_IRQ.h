@@ -18,7 +18,7 @@
  *
  *    static const char* const Bitfile = "C:\\" NiFpga_FPGA_CANBus_IMU_4module_IRQ_Bitfile;
  */
-#define NiFpga_FPGA_CANBus_IMU_4module_IRQ_Bitfile "/home/admin/fpga_driver/fpga_bitfile/NiFpga_FPGA_CANBus_IMU_4module_IRQ_0530.lvbitx"
+#define NiFpga_FPGA_CANBus_IMU_4module_IRQ_Bitfile "/home/admin/quadruped/src/fpga_driver/fpga_bitfile/NiFpga_FPGA_CANBus_IMU_4module_IRQ_0530.lvbitx"
 
 /**
  * The signature of the FPGA bitfile.

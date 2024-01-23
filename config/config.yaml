@@ -16,6 +16,10 @@ Scenario: "Robot"
 # Command_type: "theta_beta"
 Command_type: "phiR_phiL"
 
+# Measure hall calibration offset
+Measure_offset: 0
+Hall_calibration_vel: 0.25
+Hall_calibration_tol: 0.05
 
 # Interrupt Setup, Triggered By FPGA IRQ
 # IRQ 0

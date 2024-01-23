@@ -1,14 +1,15 @@
 #include <fsm.hpp>
 
-ModeFsm::ModeFsm(std::vector<LegModule> *_modules)
+ModeFsm::ModeFsm(std::vector<LegModule> *_modules, std::vector<bool> *_pb_state)
 {
     workingMode_ = Mode::REST;
     prev_workingMode_ = Mode::REST;
 
     modules_list_ = _modules;
-    if_switch_mode_msg_sent_ = false;
-    if_switch_mode_printed_ = false;
-    hall_calibrated = true;
+    pb_state_ = _pb_state;
+
+    hall_calibrated = false;
+    hall_calibrate_status = 0;
     runFsm();
 }
 
@@ -18,185 +19,174 @@ void ModeFsm::runFsm()
     {
     case Mode::REST:
     {
-        /* if (!if_switch_mode_printed_)
+        if (pb_state_->at(2) == true)
         {
-            // important_message("[FSM] REST MODE RUNNING ");
-            // if_switch_mode_printed_ = true;
-        } */
+            for (auto &mod : *modules_list_)
+            {
+                if (mod.enable_)
+                {
+                    mod.txdata_buffer_[0].position_ = 0;
+                    mod.txdata_buffer_[0].torque_ = 0;
+                    mod.txdata_buffer_[0].KP_ = 0;
+                    mod.txdata_buffer_[0].KI_ = 0;
+                    mod.txdata_buffer_[0].KD_ = 0;
+                    mod.txdata_buffer_[1].position_ = 0;
+                    mod.txdata_buffer_[1].torque_ = 0;
+                    mod.txdata_buffer_[1].KP_ = 0;
+                    mod.txdata_buffer_[1].KI_ = 0;
+                    mod.txdata_buffer_[1].KD_ = 0;
+                }
+            }
+        }
     }
     break;
 
     case Mode::SET_ZERO:
     {
-        /* if (!if_switch_mode_printed_)
+        if (pb_state_->at(2) == true)
         {
-            important_message(" [FSM] SET_ZERO MODE RUNNING ");
-            if_switch_mode_printed_ = true;
-        } */
+            for (auto &mod : *modules_list_)
+            {
+                if (mod.enable_)
+                {
+                    mod.txdata_buffer_[0].position_ = 0;
+                    mod.txdata_buffer_[0].torque_ = 0;
+                    mod.txdata_buffer_[0].KP_ = 0;
+                    mod.txdata_buffer_[0].KI_ = 0;
+                    mod.txdata_buffer_[0].KD_ = 0;
+                    mod.txdata_buffer_[1].position_ = 0;
+                    mod.txdata_buffer_[1].torque_ = 0;
+                    mod.txdata_buffer_[1].KP_ = 0;
+                    mod.txdata_buffer_[1].KI_ = 0;
+                    mod.txdata_buffer_[1].KD_ = 0;
+                }
+            }
+        }
     }
     break;
 
     case Mode::HALL_CALIBRATE:
     {
-        /* if (!if_switch_mode_printed_)
+        int module_enabled = 0;
+        for (int i = 0; i < 4; i++)
         {
-            important_message(" [FSM] HALL_CALIBRATE MODE RUNNING ");
-            if_switch_mode_printed_ = true;
-        } */
+            if (modules_list_->at(i).enable_)
+            {
+                modules_list_->at(i).txdata_buffer_[0].KP_ = 50;
+                modules_list_->at(i).txdata_buffer_[0].KI_ = 0;
+                modules_list_->at(i).txdata_buffer_[0].KD_ = 1.5;
+                modules_list_->at(i).txdata_buffer_[1].KP_ = 50;
+                modules_list_->at(i).txdata_buffer_[1].KI_ = 0;
+                modules_list_->at(i).txdata_buffer_[1].KD_ = 1.5;
+                module_enabled++;
+            }
+        }
 
-        CAN_txdata txdata_zero[2];
-        txdata_zero[0].position_ = 0;
-        txdata_zero[0].torque_ = 0;
-        txdata_zero[0].KP_ = 5;
-        txdata_zero[0].KI_ = 0;
-        txdata_zero[0].KD_ = 1.5;
-        txdata_zero[1].position_ = 0 * M_PI / 180.0;
-        txdata_zero[1].torque_ = 0;
-        txdata_zero[1].KP_ = 5;
-        txdata_zero[1].KI_ = 0;
-        txdata_zero[1].KD_ = 1.5;
-
-        int module_cal_finished = 1;
-
-        while (1)
+        switch (hall_calibrate_status)
         {
-            module_cal_finished = 1;
+        case -1:
+        {
+            switchMode(Mode::REST);
+        }
+        break;
+
+        case 0:
+        {
+            int cal_cnt = 0;
             for (int i = 0; i < 4; i++)
             {
                 if (modules_list_->at(i).enable_)
                 {
-                    CAN_txdata idle_txdata_;
-                    idle_txdata_.position_ = 0;
-                    idle_txdata_.torque_ = 0;
-                    idle_txdata_.KP_ = 0;
-                    idle_txdata_.KI_ = 0;
-                    idle_txdata_.KD_ = 0;
-
-                    // modules_list_->at(i).CAN_timeoutCheck();
-
-                    modules_list_->at(i).io_.CAN_send_command(idle_txdata_, idle_txdata_);
-
-                    modules_list_->at(i).io_.CAN_recieve_feedback(&modules_list_->at(i).rxdata_buffer_[0], &modules_list_->at(i).rxdata_buffer_[1]);
-
-                    int mod1_finished = 0;
-                    int mod2_finished = 0;
-
-                    if (modules_list_->at(i).rxdata_buffer_[0].calibrate_finish_ == 2)
-                        mod1_finished = 1;
-                    if (modules_list_->at(i).rxdata_buffer_[1].calibrate_finish_ == 2)
-                        mod2_finished = 1;
-
-                    module_cal_finished *= mod1_finished;
-                    module_cal_finished *= mod2_finished;
+                    if (modules_list_->at(i).rxdata_buffer_[0].calibrate_finish_ == 2 && modules_list_->at(i).rxdata_buffer_[1].calibrate_finish_ == 2)
+                        cal_cnt++;
                 }
             }
-            if (module_cal_finished == 1)
-                break;
-            usleep(0.01 * 1000 * 1000);
+            if (cal_cnt == module_enabled && measure_offset == 0)
+                hall_calibrate_status++;
+            else if (cal_cnt == module_enabled && measure_offset == 1)
+                hall_calibrate_status = -1;
         }
+        break;
 
-        for (int i = 0; i < 4; i++)
+        case 1:
         {
-            if (modules_list_->at(i).enable_)
-            {
-                modules_list_->at(i).CAN_rx_timedout_[0] = false;
-                modules_list_->at(i).CAN_rx_timedout_[1] = false;
-                modules_list_->at(i).CAN_tx_timedout_[0] = false;
-                modules_list_->at(i).CAN_tx_timedout_[1] = false;
-                modules_list_->at(i).io_.motorR_bias = modules_list_->at(i).linkR_bias;
-                modules_list_->at(i).io_.motorL_bias = modules_list_->at(i).linkL_bias;
-                modules_list_->at(i).io_.CAN_set_mode(Mode::MOTOR);
-            }
-        }
-
-        double dt_ = 0.01;  // second
-        double vel_ = 0.25; // rad/s
-        double command[4][2];
-        double dir_[4][2];
-        double tolerance = 0.05;
-
-        for (int i = 0; i < 4; i++)
-        {
-            // LOGFILE << "Module " << i << std::endl;
-            if (modules_list_->at(i).enable_)
-            {
-                modules_list_->at(i).io_.CAN_recieve_feedback(&modules_list_->at(i).rxdata_buffer_[0], &modules_list_->at(i).rxdata_buffer_[1]);
-
-                command[i][0] = modules_list_->at(i).rxdata_buffer_[0].position_;
-                if (theta_error(modules_list_->at(i).rxdata_buffer_[0].position_, txdata_zero[0].position_) > 0)
-                    dir_[i][0] = 1;
-                else
-                    dir_[i][0] = -1;
-
-                command[i][1] = modules_list_->at(i).rxdata_buffer_[1].position_;
-                if (theta_error(modules_list_->at(i).rxdata_buffer_[1].position_, txdata_zero[1].position_) > 0)
-                    dir_[i][1] = 1;
-                else
-                    dir_[i][1] = -1;
-            }
-        }
-
-        while (1)
-        {
-            int finished = 1;
-
             for (int i = 0; i < 4; i++)
             {
                 if (modules_list_->at(i).enable_)
                 {
-                    modules_list_->at(i).io_.CAN_recieve_feedback(&modules_list_->at(i).rxdata_buffer_[0], &modules_list_->at(i).rxdata_buffer_[1]);
+                    modules_list_->at(i).CAN_rx_timedout_[0] = false;
+                    modules_list_->at(i).CAN_rx_timedout_[1] = false;
+                    modules_list_->at(i).CAN_tx_timedout_[0] = false;
+                    modules_list_->at(i).CAN_tx_timedout_[1] = false;
 
-                    CAN_txdata txdata_[2];
+                    modules_list_->at(i).io_.motorR_bias = modules_list_->at(i).linkR_bias;
+                    modules_list_->at(i).io_.motorL_bias = modules_list_->at(i).linkL_bias;
 
-                    for (int j = 0; j < 2; j++)
+                    cal_command[i][0] = modules_list_->at(i).rxdata_buffer_[0].position_ - modules_list_->at(i).linkR_bias;
+                    modules_list_->at(i).txdata_buffer_[0].position_ = modules_list_->at(i).rxdata_buffer_[0].position_ - modules_list_->at(i).linkR_bias;
+
+                    if (theta_error(modules_list_->at(i).rxdata_buffer_[0].position_ - modules_list_->at(i).linkR_bias, 0) > 0)
+                        cal_dir_[i][0] = 1;
+                    else
+                        cal_dir_[i][0] = -1;
+
+                    cal_command[i][1] = modules_list_->at(i).rxdata_buffer_[1].position_ - modules_list_->at(i).linkL_bias;
+                    modules_list_->at(i).txdata_buffer_[1].position_ = modules_list_->at(i).rxdata_buffer_[1].position_ - modules_list_->at(i).linkL_bias;
+                    if (theta_error(modules_list_->at(i).rxdata_buffer_[1].position_ - modules_list_->at(i).linkL_bias, 0) > 0)
+                        cal_dir_[i][1] = 1;
+                    else
+                        cal_dir_[i][1] = -1;
+                }
+            }
+            hall_calibrate_status++;
+        }
+        break;
+
+        case 2:
+        {
+            int finish_cnt = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    double errj = 0;
+                    errj = theta_error(cal_command[i][j], 0);
+                    modules_list_->at(i).txdata_buffer_[j].position_ = 0;
+
+                    if (fabs(errj) < cal_tol_)
                     {
-                        double errj = 0;
-                        errj = theta_error(command[i][j], txdata_zero[0].position_);
-                        txdata_[j].position_ = 0;
-                        txdata_[j].torque_ = 0;
-                        txdata_[j].KP_ = 0;
-                        txdata_[j].KI_ = 0;
-                        txdata_[j].KD_ = 0;
-
-                        if (fabs(errj) < tolerance)
-                        {
-                            txdata_[j].position_ = 0;
-                            finished *= 1;
-                        }
-                        else
-                        {
-                            command[i][j] += dir_[i][j] * vel_ * dt_;
-
-                            txdata_[j].position_ = command[i][j];
-                            txdata_[j].torque_ = 0;
-                            txdata_[j].KP_ = 50;
-                            txdata_[j].KI_ = 0;
-                            txdata_[j].KD_ = 1.5;
-                            finished *= 0;
-                        }
+                        modules_list_->at(i).txdata_buffer_[j].position_ = 0;
+                        finish_cnt++;
                     }
-                    modules_list_->at(i).io_.CAN_send_command(txdata_[0], txdata_[1]);
+                    else
+                    {
+                        cal_command[i][j] += cal_dir_[i][j] * cal_vel_ * dt_;
+
+                        modules_list_->at(i).txdata_buffer_[j].position_ = cal_command[i][j];
+                        modules_list_->at(i).txdata_buffer_[j].torque_ = 0;
+                        modules_list_->at(i).txdata_buffer_[j].KP_ = 50;
+                        modules_list_->at(i).txdata_buffer_[j].KI_ = 0;
+                        modules_list_->at(i).txdata_buffer_[j].KD_ = 1.5;
+                    }
                 }
             }
-
-            if (finished)
-                break;
-
-            usleep(dt_ * 1000 * 1000);
+            if (finish_cnt == 2 * module_enabled)
+                hall_calibrate_status++;
         }
+        break;
 
-        hall_calibrated = true;
-        switchMode(Mode::MOTOR);
+        case 3:
+        {
+            hall_calibrated = true;
+            switchMode(Mode::MOTOR);
+        }
+        break;
+        }
     }
     break;
 
     case Mode::MOTOR:
     {
-        /* if (!if_switch_mode_printed_)
-        {
-            important_message(" [FSM] MOTOR MODE RUNNING ");
-            if_switch_mode_printed_ = true;
-        } */
     }
     break;
     }
@@ -204,12 +194,11 @@ void ModeFsm::runFsm()
 
 bool ModeFsm::switchMode(Mode next_mode)
 {
-
     int mode_switched_cnt = 0;
     int module_enabled = 0;
     bool success = false;
-    std::ofstream log_;
-    log_.open("/home/admin/fpga_driver2/log/log_fsm.txt");
+    // std::ofstream log_;
+    // log_.open("/home/admin/fpga_driver2/log/log_fsm.txt");
 
     for (int i = 0; i < 4; i++)
     {
@@ -217,6 +206,12 @@ bool ModeFsm::switchMode(Mode next_mode)
         {
             module_enabled++;
         }
+    }
+
+    if (next_mode == Mode::HALL_CALIBRATE)
+    {
+        hall_calibrated = false;
+        hall_calibrate_status = 0;
     }
 
     double time_elapsed = 0;
@@ -254,7 +249,7 @@ bool ModeFsm::switchMode(Mode next_mode)
         }
 
         time_elapsed += 0.01;
-        usleep(0.01 * 1000 * 1000);
+        usleep(1e4);
     }
 
     prev_workingMode_ = workingMode_;

@@ -7,6 +7,7 @@
 #include <yaml.h>
 #include <fpga_handler.hpp>
 #include <iomanip>
+#include "msg.hpp"
 
 class LegModule
 {

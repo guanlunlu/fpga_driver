@@ -77,7 +77,10 @@
         "variant": "cpp",
         "semaphore": "cpp",
         "*.ipp": "cpp",
-        "hash_map": "cpp"
+        "hash_map": "cpp",
+        "core": "cpp",
+        "*.inc": "cpp",
+        "queue": "cpp"
     },
     "cmake.configureOnOpen": false
 }

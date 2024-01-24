@@ -1,42 +1,81 @@
 #include <force_control.hpp>
 
-ForceTracker::ForceTracker()
+ForceTracker::ForceTracker(Eigen::Vector2d init_xy, Eigen::Vector2d a_kp, Eigen::Vector2d a_ki, Eigen::Vector2d a_kd)
 {
-    M_d = 0.1;
-    K_d = 0.1;
-    B_d = 1;
+    // initialize state queue
+    Eigen::Vector2d z(0, 0);
+    init_tb = ik(init_xy);
+    X_d_q.push_front(init_xy);
+    X_d_q.push_front(init_xy);
+    X_d_q.push_front(init_xy);
+
+    F_d_q.push_front(z);
+    F_d_q.push_front(z);
+    F_d_q.push_front(z);
+
+    X_c_q.push_front(init_xy);
+    X_c_q.push_front(init_xy);
+
+    TB_fb_q.push_front(init_tb);
+    TB_fb_q.push_front(init_tb);
+    TB_fb_q.push_front(init_tb);
+    TB_fb_q.push_front(init_tb);
+
+    T_fb_q.push_front(z);
+    T_fb_q.push_front(z);
+    T_fb_q.push_front(z);
+
+    adaptive_kp = a_kp;
+    adaptive_kp = a_ki;
+    adaptive_kp = a_kd;
+    adaptive_pid_out.push_front(z);
+    adaptive_pid_out.push_front(z);
+    adaptive_pid_out.push_front(z);
+    adaptive_pid_err.push_front(z);
+    adaptive_pid_err.push_front(z);
+    adaptive_pid_err.push_front(z);
+
+    M_d << 0.652, 0,
+        0, 0.652;
+    K_d << 50000, 0,
+        0, 50000;
+    D_d << 400, 0,
+        0, 400;
 }
 
-int main()
+Eigen::Vector2d ForceTracker::track(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d, const Eigen::Matrix2d &K_adapt)
 {
-    /* Eigen::Vector3d v1;
-    Eigen::MatrixXd M1(3, 3);
+    Eigen::Vector2d Xc_k = PositionBasedImpFilter(M_d, K_d, D_d, X_d_q, F_d_q, X_c_q, TB_fb_q, T_fb_q);
+    update_delay_state<Eigen::Vector2d>(X_c_q, Xc_k);
+    Eigen::Vector2d tb_k = ik(Xc_k);
+    Eigen::Vector2d phi_k = tb2phi(tb_k);
+    return phi_k;
+}
 
-    v1 << 0, 1, 2;
-    std::cout << v1 << std::endl;
-    std::cout << "v1_size " << v1.rows() << v1.cols() << std::endl;
+Eigen::Vector2d ForceTracker::controlLoop(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d, const Eigen::Vector2d &tb_fb, const Eigen::Vector2d &trq_fb)
+{
+    update_delay_state<Eigen::Vector2d>(TB_fb_q, tb_fb);
+    update_delay_state<Eigen::Vector2d>(T_fb_q, trq_fb);
+    update_delay_state<Eigen::Vector2d>(X_d_q, X_d);
+    update_delay_state<Eigen::Vector2d>(F_d_q, F_d);
 
-    M1 << 0, 1, 2, 3, 4, 5, 5, 7, 8;
+    Eigen::Vector2d F_est_l2g = forceEstimation(trq_fb, TB_fb_q);
+    Eigen::Vector2d F_est_g2l = -1 * F_est_l2g;
+    Eigen::Vector2d F_err_g2l = F_d - F_est_g2l;
 
-    std::cout << M1 << std::endl;
-    M1(0, 0) += 1;
-    std::cout << M1 << std::endl;
-    std::cout << M1.coeff(0, 0) << std::endl; */
+    update_delay_state<Eigen::Vector2d>(adaptive_pid_err, F_err_g2l);
+    Eigen::Vector2d K_adapt = adaptiveStiffness(F_err_g2l, adaptive_pid_out, adaptive_pid_err, adaptive_kp, adaptive_ki, adaptive_kd);
+    update_delay_state<Eigen::Vector2d>(adaptive_pid_out, K_adapt);
 
-    Eigen::Vector2d phiRL;
-    phiRL << 0, 0;
-    getThetaBeta(phiRL);
-    std::cout << getPhiRL(phiRL) << std::endl;
-    Eigen::Vector2d tb;
-    tb << deg2rad(17), deg2rad(0);
-    std::cout << fowardKinematics(phiRL, "phi") << std::endl;
-    tb << deg2rad(160), deg2rad(0);
-    std::cout << fowardKinematics(tb, "tb") << std::endl;
+    Eigen::Matrix2d K_adpt;
+    K_adpt << K_adapt[0], 0, 0, K_adapt[1];
+    Eigen::Vector2d phi = track(X_d, F_d, K_adpt);
+    return phi;
+}
 
-    Eigen::Vector2d footend;
-    footend << 0, -0.342951;
-    std::cout << "-- ik --" << std::endl;
-    std::cout << inverseKinematics(footend, "tb") << std::endl;
-    tb << 1, 0.5;
-    std::cout << footendJacobian(tb, "phi", 0.001) << std::endl;
+template <typename T>
+void ForceTracker::update_delay_state(std::deque<T> &state, T x)
+{
+    state.push_front(x);
+    state.pop_back();
 }

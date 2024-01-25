@@ -15,7 +15,7 @@ void getPhiVector(double *phiRL, double theta, double beta)
     // return phiRL;
 }
 
-double deg2rad(double deg)
-{
-    return (deg / 180.0) * M_PI;
-}
+// double deg2rad(double deg)
+// {
+//     return (deg / 180.0) * M_PI;
+// }

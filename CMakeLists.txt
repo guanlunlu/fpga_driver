@@ -4,6 +4,8 @@ set(SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
 include_directories(${INC_DIR})
 include_directories(${YAML_CPP_INCLUDE_DIR})
 include_directories(${CMAKE_PREFIX_PATH}/include/yaml-cpp)
+include_directories(/usr/local/include/yaml-cpp)
+include_directories(/usr/local/include/eigen3)
 include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${CMAKE_PREFIX_PATH}/include/ncurses)
 
@@ -17,7 +19,8 @@ add_executable(fpga_srv_main ${SRC_DIR}/fpga_server.cpp
                              ${SRC_DIR}/theta_error.cpp
                              ${SRC_DIR}/angle_convert.cpp
                              ${SRC_DIR}/NiFpga.c
-                             ${SRC_DIR}/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c)
+                             ${SRC_DIR}/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c
+                             ${SRC_DIR}/force_control.cpp)
 
 target_link_libraries(fpga_srv_main yaml-cpp ${CURSES_LIBRARY} -lncurses ${CMAKE_DL_LIBS} ${_CORE_LIBRARIES} motor_proto power_proto -lpthread Eigen3::Eigen)
 

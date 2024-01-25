@@ -1,3 +1,6 @@
+#ifndef __FORCE_CONTROL
+#define __FORCE_CONTROL
+
 #include <iostream>
 #include "force_tracking.hpp"
 
@@ -32,3 +35,5 @@ public:
     Eigen::Vector2d track(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d, const Eigen::Matrix2d &K_adapt);
     Eigen::Vector2d controlLoop(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d, const Eigen::Vector2d &tb_fb, const Eigen::Vector2d &trq_fb);
 };
+
+#endif

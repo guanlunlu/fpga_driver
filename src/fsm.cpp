@@ -11,10 +11,9 @@ ModeFsm::ModeFsm(std::vector<LegModule> *_modules, std::vector<bool> *_pb_state,
 
     hall_calibrated = false;
     hall_calibrate_status = 0;
-    runFsm();
 }
 
-void ModeFsm::runFsm()
+void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, motor_msg::MotorStamped &motor_cmd_msg)
 {
     switch (workingMode_)
     {
@@ -24,8 +23,41 @@ void ModeFsm::runFsm()
         {
             for (auto &mod : *modules_list_)
             {
+                int index = 0;
                 if (mod.enable_)
                 {
+                    /* Pubish feedback data from Motors */
+                    motor_msg::Motor motor_r;
+                    motor_msg::Motor motor_l;
+                    motor_msg::LegAngle leg;
+                    motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
+                    motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
+
+                    Eigen::Vector2d phi_(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
+                    Eigen::Vector2d tb_ = phi2tb(phi_);
+
+                    if (scenario_ == Scenario::SINGLE_MODULE)
+                    {
+                        leg.set_theta(tb_[0]); // theta
+                        leg.set_beta(tb_[1]);  // beta
+                    }
+                    else
+                    {
+                        /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
+                        leg.set_theta(tb_[0]); // theta
+                        if (index == 0 || index == 3)
+                            leg.set_beta(-tb_[1]); // beta
+                        else
+                            leg.set_beta(tb_[1]); // beta
+                    }
+                    motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
+                    motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
+                    motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
+                    motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
+                    motor_fb_msg.add_motors()->CopyFrom(motor_r);
+                    motor_fb_msg.add_motors()->CopyFrom(motor_l);
+                    motor_fb_msg.add_legs()->CopyFrom(leg);
+
                     mod.txdata_buffer_[0].position_ = 0;
                     mod.txdata_buffer_[0].torque_ = 0;
                     mod.txdata_buffer_[0].KP_ = 0;
@@ -46,10 +78,43 @@ void ModeFsm::runFsm()
     {
         if (pb_state_->at(2) == true)
         {
+            int index = 0;
             for (auto &mod : *modules_list_)
             {
                 if (mod.enable_)
                 {
+                    /* Pubish feedback data from Motors */
+                    motor_msg::Motor motor_r;
+                    motor_msg::Motor motor_l;
+                    motor_msg::LegAngle leg;
+                    motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
+                    motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
+
+                    Eigen::Vector2d phi_(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
+                    Eigen::Vector2d tb_ = phi2tb(phi_);
+
+                    if (scenario_ == Scenario::SINGLE_MODULE)
+                    {
+                        leg.set_theta(tb_[0]); // theta
+                        leg.set_beta(tb_[1]);  // beta
+                    }
+                    else
+                    {
+                        /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
+                        leg.set_theta(tb_[0]); // theta
+                        if (index == 0 || index == 3)
+                            leg.set_beta(-tb_[1]); // beta
+                        else
+                            leg.set_beta(tb_[1]); // beta
+                    }
+                    motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
+                    motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
+                    motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
+                    motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
+                    motor_fb_msg.add_motors()->CopyFrom(motor_r);
+                    motor_fb_msg.add_motors()->CopyFrom(motor_l);
+                    motor_fb_msg.add_legs()->CopyFrom(leg);
+
                     mod.txdata_buffer_[0].position_ = 0;
                     mod.txdata_buffer_[0].torque_ = 0;
                     mod.txdata_buffer_[0].KP_ = 0;
@@ -79,10 +144,12 @@ void ModeFsm::runFsm()
         }
 
         int module_enabled = 0;
-        if (power_off || hall_calibrated == true){
+        /* if (power_off || hall_calibrated == true)
+        {
             hall_calibrate_status = -1;
         }
-        else{
+        else
+        {
             for (int i = 0; i < 4; i++)
             {
                 if (modules_list_->at(i).enable_)
@@ -96,8 +163,21 @@ void ModeFsm::runFsm()
                     module_enabled++;
                 }
             }
-        }
+        } */
 
+        for (int i = 0; i < 4; i++)
+        {
+            if (modules_list_->at(i).enable_)
+            {
+                modules_list_->at(i).txdata_buffer_[0].KP_ = 50;
+                modules_list_->at(i).txdata_buffer_[0].KI_ = 0;
+                modules_list_->at(i).txdata_buffer_[0].KD_ = 1.5;
+                modules_list_->at(i).txdata_buffer_[1].KP_ = 50;
+                modules_list_->at(i).txdata_buffer_[1].KI_ = 0;
+                modules_list_->at(i).txdata_buffer_[1].KD_ = 1.5;
+                module_enabled++;
+            }
+        }
 
         switch (hall_calibrate_status)
         {
@@ -204,6 +284,92 @@ void ModeFsm::runFsm()
 
     case Mode::MOTOR:
     {
+        int index = 0;
+        for (auto &mod : *modules_list_)
+        {
+            if (mod.enable_)
+            {
+                /* Pubish feedback data from Motors */
+                motor_msg::Motor motor_r;
+                motor_msg::Motor motor_l;
+                motor_msg::LegAngle leg;
+                motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
+                motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
+
+                Eigen::Vector2d phi_(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
+                Eigen::Vector2d tb_ = phi2tb(phi_);
+
+                if (scenario_ == Scenario::SINGLE_MODULE)
+                {
+                    leg.set_theta(tb_[0]); // theta
+                    leg.set_beta(tb_[1]);  // beta
+                }
+                else
+                {
+                    /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
+                    leg.set_theta(tb_[0]); // theta
+                    if (index == 0 || index == 3)
+                        leg.set_beta(-tb_[1]); // beta
+                    else
+                        leg.set_beta(tb_[1]); // beta
+                }
+                motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
+                motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
+                motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
+                motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
+                motor_fb_msg.add_motors()->CopyFrom(motor_r);
+                motor_fb_msg.add_motors()->CopyFrom(motor_l);
+                motor_fb_msg.add_legs()->CopyFrom(leg);
+
+                /* Subscribe command from other nodes */
+                // initialize message
+                // update
+                if (*NO_CAN_TIMEDOUT_ERROR_ && *NO_SWITCH_TIMEDOUT_ERROR_ && motor_cmd_msg.motors().size() == 8)
+                {
+                    if (cmd_type_ == Command_type::THETA_BETA)
+                    {
+                        Eigen::Vector2d tb_cmd;
+                        // Full Robot experiment scenario
+                        if (scenario_ == Scenario::ROBOT)
+                        {
+                            // Special Case for module A D should be inverted
+                            if (index == 0 || index == 3)
+                            {
+                                tb_cmd << motor_cmd_msg.legs(index).theta(), -1 * motor_cmd_msg.legs(index).beta();
+                            }
+                            else
+                            {
+                                tb_cmd << motor_cmd_msg.legs(index).theta(), motor_cmd_msg.legs(index).beta();
+                            }
+                        }
+                        // Single Module experiment scenario
+                        else
+                        {
+                            tb_cmd << motor_cmd_msg.legs(index).theta(), motor_cmd_msg.legs(index).beta();
+                        }
+                        Eigen::Vector2d phi_cmd = tb2phi(tb_cmd);
+                        mod.txdata_buffer_[0].position_ = phi_cmd[0];
+                        mod.txdata_buffer_[1].position_ = phi_cmd[1];
+                    }
+                    else
+                    {
+                        // Command Type Phi_R Phi_L
+                        mod.txdata_buffer_[0].position_ = motor_cmd_msg.motors(index * 2).angle();
+                        mod.txdata_buffer_[1].position_ = motor_cmd_msg.motors(index * 2 + 1).angle();
+                    }
+
+                    mod.txdata_buffer_[0].torque_ = motor_cmd_msg.motors(index * 2).torque();
+                    mod.txdata_buffer_[1].torque_ = motor_cmd_msg.motors(index * 2 + 1).torque();
+                    mod.txdata_buffer_[0].KP_ = motor_cmd_msg.motors(index * 2).kp();
+                    mod.txdata_buffer_[0].KI_ = motor_cmd_msg.motors(index * 2).ki();
+                    mod.txdata_buffer_[0].KD_ = motor_cmd_msg.motors(index * 2).kd();
+                    mod.txdata_buffer_[1].KP_ = motor_cmd_msg.motors(index * 2 + 1).kp();
+                    mod.txdata_buffer_[1].KI_ = motor_cmd_msg.motors(index * 2 + 1).ki();
+                    mod.txdata_buffer_[1].KD_ = motor_cmd_msg.motors(index * 2 + 1).kd();
+                }
+            }
+            index++;
+        }
     }
     break;
     }
@@ -214,6 +380,7 @@ bool ModeFsm::switchMode(Mode next_mode)
     int mode_switched_cnt = 0;
     int module_enabled = 0;
     bool success = false;
+    Mode next_mode_switch = next_mode;
 
     for (int i = 0; i < 4; i++)
     {
@@ -225,8 +392,8 @@ bool ModeFsm::switchMode(Mode next_mode)
 
     if (next_mode == Mode::HALL_CALIBRATE)
     {
-        hall_calibrated = false;
-        hall_calibrate_status = 0;
+        if (hall_calibrated)
+            next_mode_switch = Mode::REST;
     }
 
     double time_elapsed = 0;
@@ -251,11 +418,11 @@ bool ModeFsm::switchMode(Mode next_mode)
         {
             if (modules_list_->at(i).enable_)
             {
-                modules_list_->at(i).io_.CAN_set_mode(next_mode);
+                modules_list_->at(i).io_.CAN_set_mode(next_mode_switch);
 
                 modules_list_->at(i).io_.CAN_recieve_feedback(&modules_list_->at(i).rxdata_buffer_[0], &modules_list_->at(i).rxdata_buffer_[1]);
 
-                if (modules_list_->at(i).rxdata_buffer_[0].mode_ == next_mode && modules_list_->at(i).rxdata_buffer_[1].mode_ == next_mode)
+                if (modules_list_->at(i).rxdata_buffer_[0].mode_ == next_mode_switch && modules_list_->at(i).rxdata_buffer_[1].mode_ == next_mode_switch)
                 {
                     mode_switched_cnt++;
                 }
@@ -267,7 +434,7 @@ bool ModeFsm::switchMode(Mode next_mode)
     }
 
     prev_workingMode_ = workingMode_;
-    workingMode_ = next_mode;
+    workingMode_ = next_mode_switch;
 
     return success;
 }

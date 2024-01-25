@@ -1,20 +1,18 @@
+#include <fsm.hpp>
 #include <console.hpp>
 #include <yaml.h>
 #include <fpga_handler.hpp>
-#include <fsm.hpp>
 #include <string>
 #include <fstream>
 #include <vector>
 #include <mutex>
-#include "case_enum.hpp"
-#include "angle_convert.hpp"
 
 // Node setup
 #include <NodeHandler.h>
 #include <sys/time.h>
 
-#include "motor.pb.h"
-#include "power.pb.h"
+// #include "motor.pb.h"
+// #include "power.pb.h"
 
 #define CONFIG_PATH "/home/admin/quadruped/src/fpga_driver/config/config.yaml"
 

@@ -1,5 +1,3 @@
-#include "angle_convert.hpp"
-#include "case_enum.hpp"
 #include <fpga_server.hpp>
 
 /* TCP node connection setup*/
@@ -7,14 +5,23 @@ volatile int motor_message_updated = 0;
 volatile int fpga_message_updated = 0;
 volatile bool vicon_toggle = true;
 
+// Eigen::VectorXd fk_pc_(8);
+// Eigen::VectorXd d_fk_pc_(7);
+// Eigen::VectorXd dd_fk_pc_(6);
+// Eigen::VectorXd ik_pc_(8);
+// Eigen::VectorXd rm_coeff(5);
+// Eigen::VectorXd d_rm_coeff(4);
+// Eigen::VectorXd dd_rm_coeff(3);
+// Eigen::VectorXd Ic_coeff(5);
+// Eigen::VectorXd d_Ic_coeff(4);
+
 std::mutex mutex_;
-motor_msg::MotorStamped motor_data;
+motor_msg::MotorStamped motor_cmd_data;
 void motor_data_cb(motor_msg::MotorStamped msg)
 {
     mutex_.lock();
     motor_message_updated = 1;
-    motor_data = msg;
-    // if (motor_data.motors().size() == 8) std::cout << "motor_data : " << motor_data.motors(0).angle() << std::endl;
+    motor_cmd_data = msg;
     mutex_.unlock();
 }
 
@@ -64,6 +71,8 @@ Corgi::Corgi()
 
     ModeFsm fsm(&modules_list_, &powerboard_state_, fpga_.powerboard_V_list_);
     fsm_ = fsm;
+    fsm_.NO_CAN_TIMEDOUT_ERROR_ = &NO_CAN_TIMEDOUT_ERROR_;
+    fsm_.NO_SWITCH_TIMEDOUT_ERROR_ = &NO_SWITCH_TIMEDOUT_ERROR_;
 
     load_config_();
 
@@ -88,14 +97,14 @@ void Corgi::load_config_()
     fsm_.cal_tol_ = yaml_node_["Hall_calibration_tol"].as<double>();
 
     if (yaml_node_["Scenario"].as<std::string>().compare("SingleModule") == 0)
-        scenario_ = Scenario::SINGLE_MODULE;
+        fsm_.scenario_ = Scenario::SINGLE_MODULE;
     else
-        scenario_ = Scenario::ROBOT;
+        fsm_.scenario_ = Scenario::ROBOT;
 
     if (yaml_node_["Command_type"].as<std::string>().compare("phiR_phiL") == 0)
-        cmd_type_ = Command_type::PHI_RL;
+        fsm_.cmd_type_ = Command_type::PHI_RL;
     else
-        cmd_type_ = Command_type::THETA_BETA;
+        fsm_.cmd_type_ = Command_type::THETA_BETA;
 
     main_irq_period_us_ = yaml_node_["MainLoop_period_us"].as<int>();
     can_irq_period_us_ = yaml_node_["CANLoop_period_us"].as<int>();
@@ -193,101 +202,14 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
     fpga_.write_powerboard_(&powerboard_state_);
     fpga_.read_powerboard_data_();
 
-    fsm_.runFsm();
+    core::spinOnce();
+    mutex_.lock();
+
+    motor_msg::MotorStamped motor_fb_msg;
+    fsm_.runFsm(motor_fb_msg, motor_cmd_data);
+    motor_message_updated = 0;
     HALL_CALIBRATED_ = fsm_.hall_calibrated;
 
-    core::spinOnce();
-
-    mutex_.lock();
-    motor_msg::MotorStamped motor_module;
-    int index = 0;
-
-    for (auto &mod : modules_list_)
-    {
-        if (mod.enable_)
-        {
-            /* Pubish feedback data from Motors */
-            motor_msg::Motor motor_r;
-            motor_msg::Motor motor_l;
-            motor_msg::LegAngle leg;
-            motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
-            motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
-
-            double tb_[2] = {0, 0};
-            getThetaBeta(tb_, mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
-
-            if (scenario_ == Scenario::SINGLE_MODULE)
-            {
-                leg.set_theta(tb_[0]); // theta
-                leg.set_beta(tb_[1]);  // beta
-            }
-            else
-            {
-                /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
-                leg.set_theta(tb_[0]); // theta
-                if (index == 0 || index == 3)
-                    leg.set_beta(-tb_[1]); // beta
-                else
-                    leg.set_beta(tb_[1]); // beta
-            }
-            motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
-            motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
-            motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
-            motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
-            motor_module.add_motors()->CopyFrom(motor_r);
-            motor_module.add_motors()->CopyFrom(motor_l);
-            motor_module.add_legs()->CopyFrom(leg);
-
-            /* Subscribe command from other nodes */
-            // initialize message
-            // update
-            if (fsm_.workingMode_ == Mode::MOTOR && NO_CAN_TIMEDOUT_ERROR_ && NO_SWITCH_TIMEDOUT_ERROR_ && motor_data.motors().size() == 8)
-            {
-                if (cmd_type_ == Command_type::THETA_BETA)
-                {
-                    double phi[2] = {0, 0};
-                    // Full Robot experiment scenario
-                    if (scenario_ == Scenario::ROBOT)
-                    {
-                        // Special Case for module A D should be inverted
-                        if (index == 0 || index == 3)
-                        {
-                            getPhiVector(phi, motor_data.legs(index).theta(), -1 * motor_data.legs(index).beta());
-                        }
-                        else
-                        {
-                            getPhiVector(phi, motor_data.legs(index).theta(), motor_data.legs(index).beta());
-                        }
-                    }
-                    // Single Module experiment scenario
-                    else
-                    {
-                        getPhiVector(phi, motor_data.legs(index).theta(), motor_data.legs(index).beta());
-                    }
-                    mod.txdata_buffer_[0].position_ = phi[0];
-                    mod.txdata_buffer_[1].position_ = phi[1];
-                }
-                else
-                {
-                    // Command Type Phi_R Phi_L
-                    mod.txdata_buffer_[0].position_ = motor_data.motors(index * 2).angle();
-                    mod.txdata_buffer_[1].position_ = motor_data.motors(index * 2 + 1).angle();
-                }
-                // std::cout << "data=" << motor_data.motors(index*2).angle() << std::endl;
-                mod.txdata_buffer_[0].torque_ = motor_data.motors(index * 2).torque();
-                mod.txdata_buffer_[1].torque_ = motor_data.motors(index * 2 + 1).torque();
-                mod.txdata_buffer_[0].KP_ = motor_data.motors(index * 2).kp();
-                mod.txdata_buffer_[0].KI_ = motor_data.motors(index * 2).ki();
-                mod.txdata_buffer_[0].KD_ = motor_data.motors(index * 2).kd();
-                mod.txdata_buffer_[1].KP_ = motor_data.motors(index * 2 + 1).kp();
-                mod.txdata_buffer_[1].KI_ = motor_data.motors(index * 2 + 1).ki();
-                mod.txdata_buffer_[1].KD_ = motor_data.motors(index * 2 + 1).kd();
-            }
-        }
-        index++;
-    }
-    
-    motor_message_updated = 0;
     mutex_.unlock();
 
     // Communication with Node Architecture
@@ -346,7 +268,7 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
     }
     mutex_.unlock();
 
-    state_pub_.publish(motor_module);
+    state_pub_.publish(motor_fb_msg);
 
     logger(seq);
     seq++;

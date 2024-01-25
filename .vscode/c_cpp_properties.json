@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/local/include/eigen3"
+                "/usr/local/include/eigen3",
+                "/usr/local/include/yaml-cpp"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

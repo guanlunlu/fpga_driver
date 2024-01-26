@@ -208,6 +208,7 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
     motor_msg::MotorStamped motor_fb_msg;
     fsm_.runFsm(motor_fb_msg, motor_cmd_data);
     motor_message_updated = 0;
+
     HALL_CALIBRATED_ = fsm_.hall_calibrated;
 
     mutex_.unlock();

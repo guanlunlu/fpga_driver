@@ -21,43 +21,12 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, motor_msg::MotorStam
     {
         if (pb_state_->at(2) == true)
         {
+            publishMsg(motor_fb_msg);
             for (auto &mod : *modules_list_)
             {
                 int index = 0;
                 if (mod.enable_)
                 {
-                    /* Pubish feedback data from Motors */
-                    motor_msg::Motor motor_r;
-                    motor_msg::Motor motor_l;
-                    motor_msg::LegAngle leg;
-                    motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
-                    motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
-
-                    Eigen::Vector2d phi_(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
-                    Eigen::Vector2d tb_ = phi2tb(phi_);
-
-                    if (scenario_ == Scenario::SINGLE_MODULE)
-                    {
-                        leg.set_theta(tb_[0]); // theta
-                        leg.set_beta(tb_[1]);  // beta
-                    }
-                    else
-                    {
-                        /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
-                        leg.set_theta(tb_[0]); // theta
-                        if (index == 0 || index == 3)
-                            leg.set_beta(-tb_[1]); // beta
-                        else
-                            leg.set_beta(tb_[1]); // beta
-                    }
-                    motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
-                    motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
-                    motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
-                    motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
-                    motor_fb_msg.add_motors()->CopyFrom(motor_r);
-                    motor_fb_msg.add_motors()->CopyFrom(motor_l);
-                    motor_fb_msg.add_legs()->CopyFrom(leg);
-
                     mod.txdata_buffer_[0].position_ = 0;
                     mod.txdata_buffer_[0].torque_ = 0;
                     mod.txdata_buffer_[0].KP_ = 0;
@@ -78,43 +47,11 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, motor_msg::MotorStam
     {
         if (pb_state_->at(2) == true)
         {
-            int index = 0;
+            publishMsg(motor_fb_msg);
             for (auto &mod : *modules_list_)
             {
                 if (mod.enable_)
                 {
-                    /* Pubish feedback data from Motors */
-                    motor_msg::Motor motor_r;
-                    motor_msg::Motor motor_l;
-                    motor_msg::LegAngle leg;
-                    motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
-                    motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
-
-                    Eigen::Vector2d phi_(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
-                    Eigen::Vector2d tb_ = phi2tb(phi_);
-
-                    if (scenario_ == Scenario::SINGLE_MODULE)
-                    {
-                        leg.set_theta(tb_[0]); // theta
-                        leg.set_beta(tb_[1]);  // beta
-                    }
-                    else
-                    {
-                        /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
-                        leg.set_theta(tb_[0]); // theta
-                        if (index == 0 || index == 3)
-                            leg.set_beta(-tb_[1]); // beta
-                        else
-                            leg.set_beta(tb_[1]); // beta
-                    }
-                    motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
-                    motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
-                    motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
-                    motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
-                    motor_fb_msg.add_motors()->CopyFrom(motor_r);
-                    motor_fb_msg.add_motors()->CopyFrom(motor_l);
-                    motor_fb_msg.add_legs()->CopyFrom(leg);
-
                     mod.txdata_buffer_[0].position_ = 0;
                     mod.txdata_buffer_[0].torque_ = 0;
                     mod.txdata_buffer_[0].KP_ = 0;
@@ -144,26 +81,6 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, motor_msg::MotorStam
         }
 
         int module_enabled = 0;
-        /* if (power_off || hall_calibrated == true)
-        {
-            hall_calibrate_status = -1;
-        }
-        else
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                if (modules_list_->at(i).enable_)
-                {
-                    modules_list_->at(i).txdata_buffer_[0].KP_ = 50;
-                    modules_list_->at(i).txdata_buffer_[0].KI_ = 0;
-                    modules_list_->at(i).txdata_buffer_[0].KD_ = 1.5;
-                    modules_list_->at(i).txdata_buffer_[1].KP_ = 50;
-                    modules_list_->at(i).txdata_buffer_[1].KI_ = 0;
-                    modules_list_->at(i).txdata_buffer_[1].KD_ = 1.5;
-                    module_enabled++;
-                }
-            }
-        } */
 
         for (int i = 0; i < 4; i++)
         {
@@ -284,43 +201,14 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, motor_msg::MotorStam
 
     case Mode::MOTOR:
     {
+        /* Pubish feedback data from Motors */
+        publishMsg(motor_fb_msg);
+
         int index = 0;
         for (auto &mod : *modules_list_)
         {
             if (mod.enable_)
             {
-                /* Pubish feedback data from Motors */
-                motor_msg::Motor motor_r;
-                motor_msg::Motor motor_l;
-                motor_msg::LegAngle leg;
-                motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
-                motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
-
-                Eigen::Vector2d phi_(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
-                Eigen::Vector2d tb_ = phi2tb(phi_);
-
-                if (scenario_ == Scenario::SINGLE_MODULE)
-                {
-                    leg.set_theta(tb_[0]); // theta
-                    leg.set_beta(tb_[1]);  // beta
-                }
-                else
-                {
-                    /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
-                    leg.set_theta(tb_[0]); // theta
-                    if (index == 0 || index == 3)
-                        leg.set_beta(-tb_[1]); // beta
-                    else
-                        leg.set_beta(tb_[1]); // beta
-                }
-                motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
-                motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
-                motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
-                motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
-                motor_fb_msg.add_motors()->CopyFrom(motor_r);
-                motor_fb_msg.add_motors()->CopyFrom(motor_l);
-                motor_fb_msg.add_legs()->CopyFrom(leg);
-
                 /* Subscribe command from other nodes */
                 // initialize message
                 // update
@@ -437,4 +325,47 @@ bool ModeFsm::switchMode(Mode next_mode)
     workingMode_ = next_mode_switch;
 
     return success;
+}
+
+void ModeFsm::publishMsg(motor_msg::MotorStamped &motor_fb_msg)
+{
+    int index = 0;
+    for (auto &mod : *modules_list_)
+    {
+        if (mod.enable_)
+        {
+            /* Pubish feedback data from Motors */
+            motor_msg::Motor motor_r;
+            motor_msg::Motor motor_l;
+            motor_msg::LegAngle leg;
+            motor_r.set_angle(mod.rxdata_buffer_[0].position_); // phi R
+            motor_l.set_angle(mod.rxdata_buffer_[1].position_); // phi L
+
+            Eigen::Vector2d phi_(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
+            Eigen::Vector2d tb_ = phi2tb(phi_);
+
+            if (scenario_ == Scenario::SINGLE_MODULE)
+            {
+                leg.set_theta(tb_[0]); // theta
+                leg.set_beta(tb_[1]);  // beta
+            }
+            else
+            {
+                /* Special Case for Module A and D in Robot Scenario [ Module's beta frame should *-1 ]*/
+                leg.set_theta(tb_[0]); // theta
+                if (index == 0 || index == 3)
+                    leg.set_beta(-tb_[1]); // beta
+                else
+                    leg.set_beta(tb_[1]); // beta
+            }
+            motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
+            motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
+            motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
+            motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
+            motor_fb_msg.add_motors()->CopyFrom(motor_r);
+            motor_fb_msg.add_motors()->CopyFrom(motor_l);
+            motor_fb_msg.add_legs()->CopyFrom(leg);
+        }
+        index++;
+    }
 }

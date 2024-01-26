@@ -48,6 +48,7 @@ public:
 
   void runFsm(motor_msg::MotorStamped &motor_fb_msg, motor_msg::MotorStamped &motor_cmd_msg);
   bool switchMode(Mode next_mode);
+  void publishMsg(motor_msg::MotorStamped &motor_fb_msg);
 };
 
 #endif

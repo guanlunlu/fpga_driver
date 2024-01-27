@@ -7,9 +7,6 @@ Master_IP: "192.168.0.107"
 Master_port: 9999
 Local_IP: "192.168.0.107"
 
-Command_topic: "/fpga/command"
-Publish_topic: "/fpga/state"
-
 # Experiment scenario: "Robot" or "SingleModule"
 Scenario: "Robot"
 # Scenario: "SingleModule"
@@ -19,6 +16,7 @@ Scenario: "Robot"
 Command_type: "phiR_phiL"
 
 # Measure hall calibration offset
+# Set to 1 when measuring the offset value of each module
 Measure_offset: 0
 Hall_calibration_vel: 0.25
 Hall_calibration_tol: 0.05
@@ -38,6 +36,12 @@ CAN_Timeout_us: 500
 LF_Module:
   Enable: 1
   CAN_PORT: "MOD1CAN0"
+  # Impedance = [M_d, K_0, D_d]
+  # Adaptive = [K_p, K_i, K_d]
+  Impedance_x: [0.652, 30000, 400]
+  Impedance_y: [0.652, 30000, 400]
+  Adaptive_x: [30, 10, 20]
+  Adaptive_y: [30, 10, 20]
   Motor_R:
     FW_Version: 3
     CAN_ID: 20
@@ -59,6 +63,10 @@ LF_Module:
 RF_Module:
   Enable: 1
   CAN_PORT: "MOD1CAN1"
+  Impedance_x: [0.652, 30000, 400]
+  Impedance_y: [0.652, 30000, 400]
+  Adaptive_x: [30, 10, 20]
+  Adaptive_y: [30, 10, 20]
   Motor_R:
     FW_Version: 3
     CAN_ID: 17
@@ -80,6 +88,10 @@ RF_Module:
 RH_Module:
   Enable: 1
   CAN_PORT: "MOD2CAN0"
+  Impedance_x: [0.652, 30000, 400]
+  Impedance_y: [0.652, 30000, 400]
+  Adaptive_x: [30, 10, 20]
+  Adaptive_y: [30, 10, 20]
   Motor_R:
     FW_Version: 3
     CAN_ID: 16
@@ -101,6 +113,10 @@ RH_Module:
 LH_Module:
   Enable: 1
   CAN_PORT: "MOD2CAN1"
+  Impedance_x: [0.652, 30000, 400]
+  Impedance_y: [0.652, 30000, 400]
+  Adaptive_x: [30, 10, 20]
+  Adaptive_y: [30, 10, 20]
   Motor_R:
     FW_Version: 3
     CAN_ID: 14

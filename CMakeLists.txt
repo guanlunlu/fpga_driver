@@ -17,14 +17,13 @@ add_executable(fpga_srv_main ${SRC_DIR}/fpga_server.cpp
                              ${SRC_DIR}/fsm.cpp
                              ${SRC_DIR}/console.cpp
                              ${SRC_DIR}/theta_error.cpp
-                             ${SRC_DIR}/angle_convert.cpp
                              ${SRC_DIR}/NiFpga.c
                              ${SRC_DIR}/NiFpga_FPGA_CANBus_IMU_4module_IRQ.c
                              ${SRC_DIR}/force_control.cpp
                              ${SRC_DIR}/force_tracking.cpp
                              ${SRC_DIR}/leg_kinematics.cpp)
 
-target_link_libraries(fpga_srv_main yaml-cpp ${CURSES_LIBRARY} -lncurses ${CMAKE_DL_LIBS} ${_CORE_LIBRARIES} motor_proto power_proto -lpthread Eigen3::Eigen)
+target_link_libraries(fpga_srv_main yaml-cpp ${CURSES_LIBRARY} -lncurses ${CMAKE_DL_LIBS} ${_CORE_LIBRARIES} motor_proto power_proto force_proto -lpthread Eigen3::Eigen)
 
 # add_executable(force_control ${SRC_DIR}/force_control.cpp)
 # target_link_libraries(force_control Eigen3::Eigen)

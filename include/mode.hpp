@@ -11,7 +11,8 @@ enum class Mode
     REST,
     MOTOR,
     SET_ZERO,
-    HALL_CALIBRATE
+    HALL_CALIBRATE,
+    IMPEDANCE
 };
 
 enum class Behavior

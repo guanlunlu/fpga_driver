@@ -11,9 +11,10 @@ ModeFsm::ModeFsm(std::vector<LegModule> *_modules, std::vector<bool> *_pb_state,
 
     hall_calibrated = false;
     hall_calibrate_status = 0;
+    impedance_status = 0;
 }
 
-void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, motor_msg::MotorStamped &motor_cmd_msg)
+void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::MotorStamped &motor_cmd_msg, const force_msg::LegForceStamped &force_cmd_msg)
 {
     switch (workingMode_)
     {
@@ -260,6 +261,60 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, motor_msg::MotorStam
         }
     }
     break;
+
+    case Mode::IMPEDANCE:
+    {
+        /* Pubish feedback data from Motors */
+        publishMsg(motor_fb_msg);
+
+        switch (impedance_status)
+        {
+        case 0:
+        {
+            for (auto &mod : *modules_list_)
+            {
+                if (mod.enable_)
+                {
+                    Eigen::Vector2d phi_(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
+                    Eigen::Vector2d tb_ = phi2tb(phi_);
+                    mod.force_tracker.initialize(tb_);
+                }
+            }
+            impedance_status++;
+        }
+        break;
+        case 1:
+        {
+            int idx = 0;
+            for (auto &mod : *modules_list_)
+            {
+                if (mod.enable_)
+                {
+                    // X_d, F_d
+                    double x_d = force_cmd_msg.force(idx).pose_x();
+                    double y_d = force_cmd_msg.force(idx).pose_y();
+                    double f_x = force_cmd_msg.force(idx).force_x();
+                    double f_y = force_cmd_msg.force(idx).force_y();
+                    if (idx == 0 || idx == 3)
+                    {
+                        // Special case for A, D module
+                        x_d *= -1;
+                        f_x *= -1;
+                    }
+                    Eigen::Vector2d X_d(x_d, y_d);
+                    Eigen::Vector2d F_d(f_x, f_y);
+
+                    Eigen::Vector2d phi_fb(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
+                    Eigen::Vector2d tb_fb = phi2tb(phi_fb);
+                    Eigen::Vector2d trq_fb(mod.rxdata_buffer_[0].torque_, mod.rxdata_buffer_[1].torque_);
+                    mod.force_tracker.controlLoop(X_d, F_d, tb_fb, trq_fb);
+                }
+            }
+        }
+        break;
+        }
+    }
+    break;
     }
 }
 
@@ -280,8 +335,9 @@ bool ModeFsm::switchMode(Mode next_mode)
 
     if (next_mode == Mode::HALL_CALIBRATE)
     {
+        // Skip hall calibration if the modules have been calibrated
         if (hall_calibrated)
-            next_mode_switch = Mode::REST;
+            next_mode_switch = workingMode_;
     }
 
     double time_elapsed = 0;

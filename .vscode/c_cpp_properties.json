@@ -5,7 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/local/include/eigen3",
-                "/usr/local/include/yaml-cpp"
+                "/usr/local/include/yaml-cpp",
+                "/home/guanlunlu/.grpc_local/include/",
+                "/home/guanlunlu/quadruped/build"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

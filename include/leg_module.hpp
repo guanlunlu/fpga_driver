@@ -8,6 +8,7 @@
 #include <fpga_handler.hpp>
 #include <iomanip>
 #include "msg.hpp"
+#include <force_control.hpp>
 
 class LegModule
 {
@@ -43,6 +44,9 @@ public:
   // ModuleIO
   void load_config();
   void CAN_timeoutCheck();
+
+  // Force Tracker
+  ForceTracker force_tracker;
 };
 
 #endif

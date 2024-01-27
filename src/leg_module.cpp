@@ -65,6 +65,20 @@ void LegModule::load_config()
     std::cout << "[ " << label_ << " Configuration ]" << std::endl;
     enable_ = config_[label_]["Enable"].as<int>();
     CAN_port_ = config_[label_]["CAN_PORT"].as<std::string>();
+
+    std::vector<double> impedance_x = config_[label_]["Impedance_x"].as<std::vector<double>>();
+    std::vector<double> impedance_y = config_[label_]["Impedance_y"].as<std::vector<double>>();
+    std::vector<double> adaptive_x = config_[label_]["Adaptive_x"].as<std::vector<double>>();
+    std::vector<double> adaptive_y = config_[label_]["Adaptive_y"].as<std::vector<double>>();
+    Eigen::DiagonalMatrix<double, 2> M_(impedance_x[0], impedance_y[0]);
+    Eigen::DiagonalMatrix<double, 2> K_(impedance_x[1], impedance_y[1]);
+    Eigen::DiagonalMatrix<double, 2> D_(impedance_x[2], impedance_y[2]);
+    Eigen::Vector2d a_kp_(adaptive_x[0], adaptive_y[0]);
+    Eigen::Vector2d a_ki_(adaptive_x[1], adaptive_y[1]);
+    Eigen::Vector2d a_kd_(adaptive_x[2], adaptive_y[2]);
+    ForceTracker ft(M_, K_, D_, a_kp_, a_ki_, a_kd_);
+    force_tracker = ft;
+
     // Motor F setup
     motor_r.fw_version_ = config_[label_]["Motor_R"]["FW_Version"].as<int>();
     motor_r.CAN_ID_ = config_[label_]["Motor_R"]["CAN_ID"].as<int>();

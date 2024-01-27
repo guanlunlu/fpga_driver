@@ -1,52 +1,55 @@
 #include <force_control.hpp>
 
-ForceTracker::ForceTracker(Eigen::Vector2d init_xy, Eigen::Vector2d a_kp, Eigen::Vector2d a_ki, Eigen::Vector2d a_kd)
+ForceTracker::ForceTracker(Eigen::Matrix2d M, Eigen::Matrix2d K, Eigen::Matrix2d D,
+                           Eigen::Vector2d a_kp, Eigen::Vector2d a_ki, Eigen::Vector2d a_kd)
 {
-    // initialize state queue
-    Eigen::Vector2d z(0, 0);
-    init_tb = ik(init_xy);
-    X_d_q.push_front(init_xy);
-    X_d_q.push_front(init_xy);
-    X_d_q.push_front(init_xy);
-
-    F_d_q.push_front(z);
-    F_d_q.push_front(z);
-    F_d_q.push_front(z);
-
-    X_c_q.push_front(init_xy);
-    X_c_q.push_front(init_xy);
-
-    TB_fb_q.push_front(init_tb);
-    TB_fb_q.push_front(init_tb);
-    TB_fb_q.push_front(init_tb);
-    TB_fb_q.push_front(init_tb);
-
-    T_fb_q.push_front(z);
-    T_fb_q.push_front(z);
-    T_fb_q.push_front(z);
-
+    M_d = M;
+    K_0 = K;
+    D_d = D;
     adaptive_kp = a_kp;
     adaptive_kp = a_ki;
     adaptive_kp = a_kd;
-    adaptive_pid_out.push_front(z);
-    adaptive_pid_out.push_front(z);
-    adaptive_pid_out.push_front(z);
-    adaptive_pid_err.push_front(z);
-    adaptive_pid_err.push_front(z);
-    adaptive_pid_err.push_front(z);
+}
 
-    M_d << 0.652, 0,
-        0, 0.652;
-    K_d << 50000, 0,
-        0, 50000;
-    D_d << 400, 0,
-        0, 400;
+void ForceTracker::initialize(const Eigen::Vector2d &init_tb)
+{
+    // initialize state queue
+    Eigen::Vector2d z(0, 0);
+    Eigen::Vector2d init_xy = fk(init_tb);
+    X_d_q.push_front(init_xy);
+    X_d_q.push_front(init_xy);
+    X_d_q.push_front(init_xy);
+
+    F_d_q.push_front(z);
+    F_d_q.push_front(z);
+    F_d_q.push_front(z);
+
+    X_c_q.push_front(init_xy);
+    X_c_q.push_front(init_xy);
+
+    TB_fb_q.push_front(init_tb);
+    TB_fb_q.push_front(init_tb);
+    TB_fb_q.push_front(init_tb);
+    TB_fb_q.push_front(init_tb);
+
+    T_fb_q.push_front(z);
+    T_fb_q.push_front(z);
+    T_fb_q.push_front(z);
+
+    adaptive_pid_out.push_front(z);
+    adaptive_pid_out.push_front(z);
+    adaptive_pid_out.push_front(z);
+    adaptive_pid_err.push_front(z);
+    adaptive_pid_err.push_front(z);
+    adaptive_pid_err.push_front(z);
 }
 
 Eigen::Vector2d ForceTracker::track(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d, const Eigen::Matrix2d &K_adapt)
 {
+    Eigen::Matrix2d K_d = K_0 + K_adapt;
     Eigen::Vector2d Xc_k = PositionBasedImpFilter(M_d, K_d, D_d, X_d_q, F_d_q, X_c_q, TB_fb_q, T_fb_q);
     update_delay_state<Eigen::Vector2d>(X_c_q, Xc_k);
+
     Eigen::Vector2d tb_k = ik(Xc_k);
     Eigen::Vector2d phi_k = tb2phi(tb_k);
     return phi_k;

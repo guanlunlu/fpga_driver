@@ -2,26 +2,27 @@
 
 /* TCP node connection setup*/
 volatile int motor_message_updated = 0;
+volatile int force_message_updated = 0;
 volatile int fpga_message_updated = 0;
 volatile bool vicon_toggle = true;
 
-// Eigen::VectorXd fk_pc_(8);
-// Eigen::VectorXd d_fk_pc_(7);
-// Eigen::VectorXd dd_fk_pc_(6);
-// Eigen::VectorXd ik_pc_(8);
-// Eigen::VectorXd rm_coeff(5);
-// Eigen::VectorXd d_rm_coeff(4);
-// Eigen::VectorXd dd_rm_coeff(3);
-// Eigen::VectorXd Ic_coeff(5);
-// Eigen::VectorXd d_Ic_coeff(4);
-
 std::mutex mutex_;
 motor_msg::MotorStamped motor_cmd_data;
+force_msg::LegForceStamped force_cmd_data;
+
 void motor_data_cb(motor_msg::MotorStamped msg)
 {
     mutex_.lock();
     motor_message_updated = 1;
     motor_cmd_data = msg;
+    mutex_.unlock();
+}
+
+void force_data_cb(force_msg::LegForceStamped msg)
+{
+    mutex_.lock();
+    force_message_updated = 1;
+    force_cmd_data = msg;
     mutex_.unlock();
 }
 
@@ -132,7 +133,8 @@ void Corgi::load_config_()
     }
 }
 
-void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_)
+void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_,
+                             core::Publisher<motor_msg::MotorStamped> &state_pub_, core::Subscriber<force_msg::LegForceStamped> &force_sub)
 {
     while (NiFpga_IsNotError(fpga_.status_) && !stop_ && !sys_stop)
     {
@@ -174,7 +176,7 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
             if (irqsAsserted & NiFpga_Irq_0)
             {
                 /* TODO: do something if IRQ0 */
-                mainLoop_(power_srv, cmd_sub_, state_pub_);
+                mainLoop_(power_srv, cmd_sub_, state_pub_, force_sub);
                 // Acknowledge IRQ to begin DMA acquisition
                 NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
             }
@@ -197,7 +199,8 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
     }
 }
 
-void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_)
+void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_,
+                      core::Publisher<motor_msg::MotorStamped> &state_pub_, core::Subscriber<force_msg::LegForceStamped> &force_sub)
 {
     fpga_.write_powerboard_(&powerboard_state_);
     fpga_.read_powerboard_data_();
@@ -206,8 +209,9 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
     mutex_.lock();
 
     motor_msg::MotorStamped motor_fb_msg;
-    fsm_.runFsm(motor_fb_msg, motor_cmd_data);
+    fsm_.runFsm(motor_fb_msg, motor_cmd_data, force_cmd_data);
     motor_message_updated = 0;
+    force_message_updated = 0;
 
     HALL_CALIBRATED_ = fsm_.hall_calibrated;
 
@@ -449,8 +453,9 @@ int main()
         nh.serviceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>("power/command", cb);
     core::Publisher<motor_msg::MotorStamped> &motor_pub = nh.advertise<motor_msg::MotorStamped>("motor/state");
     core::Subscriber<motor_msg::MotorStamped> &motor_sub = nh.subscribe<motor_msg::MotorStamped>("motor/command", 1000, motor_data_cb);
+    core::Subscriber<force_msg::LegForceStamped> &force_sub = nh.subscribe<force_msg::LegForceStamped>("robot/force", 1000, force_data_cb);
 
-    corgi.interruptHandler(power_srv, motor_sub, motor_pub);
+    corgi.interruptHandler(power_srv, motor_sub, motor_pub, force_sub);
 
     if (NiFpga_IsError(corgi.fpga_.status_))
     {

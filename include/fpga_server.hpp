@@ -10,7 +10,6 @@
 // Node setup
 #include <NodeHandler.h>
 #include <sys/time.h>
-
 // #include "motor.pb.h"
 // #include "power.pb.h"
 
@@ -60,11 +59,13 @@ public:
   bool power_switch_;
   bool stop_;
 
-  void interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_);
+  void interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_,
+                        core::Publisher<motor_msg::MotorStamped> &state_pub_, core::Subscriber<force_msg::LegForceStamped> &force_sub);
 
   void powerboardPack();
 
-  void mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_);
+  void mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_,
+                 core::Publisher<motor_msg::MotorStamped> &state_pub_, core::Subscriber<force_msg::LegForceStamped> &force_sub);
   void canLoop_();
 
   void logger_init();

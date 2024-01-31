@@ -70,6 +70,11 @@ void LegModule::load_config()
     std::vector<double> impedance_y = config_[label_]["Impedance_y"].as<std::vector<double>>();
     std::vector<double> adaptive_x = config_[label_]["Adaptive_x"].as<std::vector<double>>();
     std::vector<double> adaptive_y = config_[label_]["Adaptive_y"].as<std::vector<double>>();
+    std::vector<double> bk_ft = config_[label_]["breakaway_friction"].as<std::vector<double>>();
+    std::vector<double> bk_vel = config_[label_]["breakaway_velocity"].as<std::vector<double>>();
+    std::vector<double> coul_ft = config_[label_]["coulumb_friction"].as<std::vector<double>>();
+    std::vector<double> vis_cff = config_[label_]["viscous_coeff"].as<std::vector<double>>();
+
     Eigen::DiagonalMatrix<double, 2> M_(impedance_x[0], impedance_y[0]);
     Eigen::DiagonalMatrix<double, 2> K_(impedance_x[1], impedance_y[1]);
     Eigen::DiagonalMatrix<double, 2> D_(impedance_x[2], impedance_y[2]);
@@ -78,6 +83,10 @@ void LegModule::load_config()
     Eigen::Vector2d a_kd_(adaptive_x[2], adaptive_y[2]);
     ForceTracker ft(M_, K_, D_, a_kp_, a_ki_, a_kd_);
     force_tracker = ft;
+    force_tracker.breakaway_Ft_ = bk_ft;
+    force_tracker.breakaway_vel_ = bk_vel;
+    force_tracker.coulumb_Ft_ = coul_ft;
+    force_tracker.viscous_cff_ = vis_cff;
 
     // Motor F setup
     motor_r.fw_version_ = config_[label_]["Motor_R"]["FW_Version"].as<int>();

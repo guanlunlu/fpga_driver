@@ -4,6 +4,9 @@
 #include <Eigen/Dense>
 #include <vector>
 
+#include <ostream>
+#include <fstream>
+
 double deg2rad(double deg);
 double rad2deg(double rad);
 double polyval(const Eigen::VectorXd &coeff, double x);
@@ -50,5 +53,7 @@ extern double breakaway_Ft;
 extern double breakaway_vel;
 extern double coulumb_Ft;
 extern double viscous_cff;
+
+extern std::ofstream term;
 
 #endif

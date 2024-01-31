@@ -3,7 +3,7 @@
 Eigen::Vector2d PositionBasedImpFilter(const Eigen::Matrix2d &M, const Eigen::Matrix2d &K, const Eigen::Matrix2d &D,
                                        const std::deque<Eigen::Vector2d> &Xref, const std::deque<Eigen::Vector2d> &Fref,
                                        const std::deque<Eigen::Vector2d> &Xc, const std::deque<Eigen::Vector2d> &TB_fb,
-                                       const std::deque<Eigen::Vector2d> &T_fb)
+                                       const std::deque<Eigen::Vector2d> &T_fb, const std::deque<Eigen::Vector2d> &F_fb)
 {
     /* Xref = [x_k, y_k;
               x_k_1, y_k_1;
@@ -26,24 +26,35 @@ Eigen::Vector2d PositionBasedImpFilter(const Eigen::Matrix2d &M, const Eigen::Ma
     Eigen::Vector2d X_k_1 = fk(TB_fb[1]);
     Eigen::Vector2d X_k_2 = fk(TB_fb[2]);
 
-    Eigen::Vector2d d_phi = dtb2dphi((TB_fb[0] - TB_fb[1]) / T_);
-    Eigen::Vector2d d_phi_1 = dtb2dphi((TB_fb[1] - TB_fb[2]) / T_);
-    Eigen::Vector2d d_phi_2 = dtb2dphi((TB_fb[2] - TB_fb[3]) / T_);
-    Eigen::Vector2d tau_ft = jointFriction(d_phi);
-    Eigen::Vector2d tau_ft_1 = jointFriction(d_phi_1);
-    Eigen::Vector2d tau_ft_2 = jointFriction(d_phi_2);
+    // Eigen::Vector2d d_phi = dtb2dphi((TB_fb[0] - TB_fb[1]) / T_);
+    // Eigen::Vector2d d_phi_1 = dtb2dphi((TB_fb[1] - TB_fb[2]) / T_);
+    // Eigen::Vector2d d_phi_2 = dtb2dphi((TB_fb[2] - TB_fb[3]) / T_);
+    // Eigen::Vector2d tau_ft = jointFriction(phi_vel[0]);
+    // Eigen::Vector2d tau_ft_1 = jointFriction(phi_vel[1]);
+    // Eigen::Vector2d tau_ft_2 = jointFriction(phi_vel[2]);
 
-    Eigen::Vector2d F_k = jointTrq2footendForce(T_fb[0] - tau_ft, TB_fb[0]);
-    Eigen::Vector2d F_k_1 = jointTrq2footendForce(T_fb[1] - tau_ft_1, TB_fb[1]);
-    Eigen::Vector2d F_k_2 = jointTrq2footendForce(T_fb[2] - tau_ft_2, TB_fb[2]);
+    // Eigen::Vector2d F_k = jointTrq2footendForce(T_fb[0] - tau_ft, TB_fb[0]);
+    // Eigen::Vector2d F_k_1 = jointTrq2footendForce(T_fb[1] - tau_ft_1, TB_fb[1]);
+    // Eigen::Vector2d F_k_2 = jointTrq2footendForce(T_fb[2] - tau_ft_2, TB_fb[2]);
 
-    /* Eigen::Vector2d d_F_k = F_k - Fref[0];
-    Eigen::Vector2d d_F_k_1 = F_k_1 - Fref[1];
-    Eigen::Vector2d d_F_k_2 = F_k_2 - Fref[2]; */
+    // Eigen::Vector2d d_F_k = F_k - Fref[0];
+    // Eigen::Vector2d d_F_k_1 = F_k_1 - Fref[1];
+    // Eigen::Vector2d d_F_k_2 = F_k_2 - Fref[2];
 
-    Eigen::Vector2d d_F_k = F_k;
-    Eigen::Vector2d d_F_k_1 = F_k_1;
-    Eigen::Vector2d d_F_k_2 = F_k_2;
+    // Eigen::Vector2d d_F_k = F_k;
+    // Eigen::Vector2d d_F_k_1 = F_k_1;
+    // Eigen::Vector2d d_F_k_2 = F_k_2;
+
+    Eigen::Vector2d d_F_k = F_fb[0];
+    Eigen::Vector2d d_F_k_1 = F_fb[1];
+    Eigen::Vector2d d_F_k_2 = F_fb[2];
+
+    // d_F_k[0] = 0;
+    // d_F_k[1] = 0;
+    // d_F_k_1[0] = 0;
+    // d_F_k_1[1] = 0;
+    // d_F_k_2[0] = 0;
+    // d_F_k_2[1] = 0;
 
     Eigen::Vector2d E_k_1 = Xref[1] - Xc[0];
     Eigen::Vector2d E_k_2 = Xref[2] - Xc[1];
@@ -52,20 +63,43 @@ Eigen::Vector2d PositionBasedImpFilter(const Eigen::Matrix2d &M, const Eigen::Ma
     Eigen::Matrix<double, 2, 2> w2 = 2 * K * pow(T_, 2) - 8 * M;
     Eigen::Matrix<double, 2, 2> w3 = K * pow(T_, 2) - 2 * D * T_ + 4 * M;
 
+    term << "K: " << K << std::endl;
+    term << "Xref[1]: " << Xref[1].transpose() << std::endl;
+    term << "Xref[2]: " << Xref[2].transpose() << std::endl;
+    term << "Xc[0]: " << Xc[0].transpose() << std::endl;
+    term << "Xc[1]: " << Xc[1].transpose() << std::endl;
+
+    term << "E_k_1: " << E_k_1 << std::endl;
+    term << "E_k_2: " << E_k_2 << std::endl;
+    term << "w1: " << w1 << std::endl;
+    term << "w2: " << w2 << std::endl;
+    term << "w3: " << w3 << std::endl;
+
     Eigen::Vector2d E_k;
     E_k = w1.inverse() * (pow(T_, 2) * (d_F_k + 2 * d_F_k_1 + d_F_k_2) - w2 * E_k_1 - w3 * E_k_2);
+
+    term << "Xref[0]: " << Xref[0].transpose() << std::endl;
+    term << "E_k: " << E_k.transpose() << std::endl;
+
     Eigen::Vector2d Xc_k = Xref[0] - E_k;
 
     return Xc_k;
 }
 
-Eigen::Vector2d forceEstimation(const Eigen::Vector2d &T_fb, const std::deque<Eigen::Vector2d> &TB_fb)
+Eigen::Vector2d forceEstimation(const Eigen::Vector2d &T_fb, const std::deque<Eigen::Vector2d> &TB_fb, const Eigen::Vector2d &tau_friction)
 {
     // Return force exert to ground
     Eigen::Vector2d tau_inertia = inverseDynamic(TB_fb);
-    Eigen::Vector2d d_phi = dtb2dphi((TB_fb[0] - TB_fb[1]) / T_);
-    Eigen::Vector2d tau_friction = jointFriction(d_phi);
-    Eigen::Vector2d F_est = jointTrq2footendForce(T_fb - tau_inertia - tau_friction, TB_fb[0]);
+
+    // Eigen::Vector2d d_phi = dtb2dphi((TB_fb[0] - TB_fb[1]) / T_);
+    // Eigen::Vector2d tau_friction = jointFriction(d_phi);
+    // Eigen::Vector2d tau_friction = jointFriction(phi_vel);
+
+    // Eigen::Vector2d F_est = jointTrq2footendForce(T_fb - tau_inertia - tau_friction, TB_fb[0]);
+    Eigen::Vector2d F_est = jointTrq2footendForce(T_fb - tau_friction, TB_fb[0]);
+    term << "T_fb: " << T_fb.transpose() << std::endl;
+    term << "tau_inertia: " << tau_inertia.transpose() << std::endl;
+    term << "tau_friction: " << tau_friction.transpose() << std::endl;
     return F_est;
 }
 
@@ -120,20 +154,20 @@ Eigen::Vector2d adaptiveStiffness(const Eigen::Vector2d &F_err,
     return k_stiffness;
 }
 
-Eigen::Vector2d jointFriction(const Eigen::Vector2d &v_phi)
-{
-    /* Apply Stribeck friction model */
-    double tf_R = stribeckFrictionModel(v_phi[0]);
-    double tf_L = stribeckFrictionModel(v_phi[1]);
-    Eigen::Vector2d t_friction(tf_R, tf_L);
-    return t_friction;
-}
+// Eigen::Vector2d jointFriction(const Eigen::Vector2d &v_phi)
+// {
+//     /* Apply Stribeck friction model */
+//     double tf_R = stribeckFrictionModel(v_phi[0]);
+//     double tf_L = stribeckFrictionModel(v_phi[1]);
+//     Eigen::Vector2d t_friction(tf_R, tf_L);
+//     return t_friction;
+// }
 
-double stribeckFrictionModel(double v)
-{
-    double v_st = breakaway_vel * sqrt(2);
-    double v_coul = breakaway_vel / 10;
-    double e = std::exp(1);
-    double F = sqrt(2 * e) * (breakaway_Ft - coulumb_Ft) * std::exp(-pow((v / v_st), 2)) * v / v_st + coulumb_Ft * tanh(v / v_coul) + viscous_cff * v;
-    return F;
-}
+// double stribeckFrictionModel(double v)
+// {
+//     double v_st = breakaway_vel * sqrt(2);
+//     double v_coul = breakaway_vel / 10;
+//     double e = std::exp(1);
+//     double F = sqrt(2 * e) * (breakaway_Ft - coulumb_Ft) * std::exp(-pow((v / v_st), 2)) * v / v_st + coulumb_Ft * tanh(v / v_coul) + viscous_cff * v;
+//     return F;
+// }

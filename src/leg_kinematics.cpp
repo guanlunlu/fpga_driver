@@ -22,7 +22,7 @@ Eigen::VectorXd d_Ic_coeff(4);
 
 void kinematics_setup()
 {
-    T_ = 0.0025;
+    T_ = 0.001;
     /* Physics prop. (SI units)*/
     leg_m = 0.654;
     g = 9.80665;
@@ -39,10 +39,10 @@ void kinematics_setup()
     dd_rm_coeff = polyder(rm_coeff);
     d_Ic_coeff = polyder(Ic_coeff);
 
-    breakaway_Ft = 0.3;
+    breakaway_Ft = 0.44;
     breakaway_vel = 0.01;
-    coulumb_Ft = 0.01;
-    viscous_cff = 1.5;
+    coulumb_Ft = 0.2;
+    viscous_cff = 0.3;
 }
 
 Eigen::Vector2d phi2tb(const Eigen::Vector2d &phi)

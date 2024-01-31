@@ -18,7 +18,7 @@ Command_type: "phiR_phiL"
 # Measure hall calibration offset
 # Set to 1 when measuring the offset value of each module
 Measure_offset: 0
-Hall_calibration_vel: 0.25
+Hall_calibration_vel: 0.4
 Hall_calibration_tol: 0.05
 
 # Interrupt Setup, Triggered By FPGA IRQ
@@ -34,14 +34,18 @@ CAN_Timeout_us: 500
 
 # MOD A Bias represented in radian
 LF_Module:
-  Enable: 1
+  Enable: 0
   CAN_PORT: "MOD1CAN0"
-  # Impedance = [M_d, K_0, D_d]
-  # Adaptive = [K_p, K_i, K_d]
+  # Impedance = [M_d, K_0, D_d] # default value
+  # Adaptive = [K_p, K_i, K_d] # default value
   Impedance_x: [0.652, 30000, 400]
   Impedance_y: [0.652, 30000, 400]
   Adaptive_x: [30, 10, 20]
   Adaptive_y: [30, 10, 20]
+  breakaway_friction: [0.44, 0.44]
+  breakaway_velocity: [0.01, 0.01]
+  coulumb_friction: [0.2, 0.2]
+  viscous_coeff: [0.3, 0.3]
   Motor_R:
     FW_Version: 3
     CAN_ID: 20
@@ -58,7 +62,8 @@ LF_Module:
     KI: 0
     KD: 1.75
     Torque_Feedfoward: 0
-
+  
+  
 # MOD B
 RF_Module:
   Enable: 1
@@ -67,6 +72,10 @@ RF_Module:
   Impedance_y: [0.652, 30000, 400]
   Adaptive_x: [30, 10, 20]
   Adaptive_y: [30, 10, 20]
+  breakaway_friction: [0.6, 0.6]
+  breakaway_velocity: [0.01, 0.01]
+  coulumb_friction: [0.01, 0.01]
+  viscous_coeff: [0.3, 0.3]
   Motor_R:
     FW_Version: 3
     CAN_ID: 17
@@ -86,12 +95,16 @@ RF_Module:
 
 # MOD C
 RH_Module:
-  Enable: 1
+  Enable: 0
   CAN_PORT: "MOD2CAN0"
   Impedance_x: [0.652, 30000, 400]
   Impedance_y: [0.652, 30000, 400]
   Adaptive_x: [30, 10, 20]
   Adaptive_y: [30, 10, 20]
+  breakaway_friction: [0.44, 0.44]
+  breakaway_velocity: [0.01, 0.01]
+  coulumb_friction: [0.2, 0.2]
+  viscous_coeff: [0.3, 0.3]
   Motor_R:
     FW_Version: 3
     CAN_ID: 16
@@ -111,12 +124,16 @@ RH_Module:
 
 # MOD D
 LH_Module:
-  Enable: 1
+  Enable: 0
   CAN_PORT: "MOD2CAN1"
   Impedance_x: [0.652, 30000, 400]
   Impedance_y: [0.652, 30000, 400]
   Adaptive_x: [30, 10, 20]
   Adaptive_y: [30, 10, 20]
+  breakaway_friction: [0.44, 0.44]
+  breakaway_velocity: [0.01, 0.01]
+  coulumb_friction: [0.2, 0.2]
+  viscous_coeff: [0.3, 0.3]
   Motor_R:
     FW_Version: 3
     CAN_ID: 14

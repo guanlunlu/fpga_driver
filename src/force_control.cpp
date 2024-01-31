@@ -16,9 +16,14 @@ void ForceTracker::initialize(const Eigen::Vector2d &init_tb)
     // initialize state queue
     Eigen::Vector2d z(0, 0);
     Eigen::Vector2d init_xy = fk(init_tb);
+
     X_d_q.push_front(init_xy);
     X_d_q.push_front(init_xy);
     X_d_q.push_front(init_xy);
+
+    term << "--initialize--" << std::endl;
+    term << "init_xy: " << init_xy.transpose();
+    term << "init_tb: " << init_tb.transpose();
 
     F_d_q.push_front(z);
     F_d_q.push_front(z);
@@ -35,6 +40,10 @@ void ForceTracker::initialize(const Eigen::Vector2d &init_tb)
     T_fb_q.push_front(z);
     T_fb_q.push_front(z);
     T_fb_q.push_front(z);
+
+    F_fb_q.push_front(z);
+    F_fb_q.push_front(z);
+    F_fb_q.push_front(z);
 
     adaptive_pid_out.push_front(z);
     adaptive_pid_out.push_front(z);
@@ -44,36 +53,76 @@ void ForceTracker::initialize(const Eigen::Vector2d &init_tb)
     adaptive_pid_err.push_front(z);
 }
 
-Eigen::Vector2d ForceTracker::track(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d, const Eigen::Matrix2d &K_adapt)
+Eigen::Vector2d ForceTracker::track(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d,
+                                    const Eigen::Matrix2d &K_adapt)
 {
-    Eigen::Matrix2d K_d = K_0 + K_adapt;
-    Eigen::Vector2d Xc_k = PositionBasedImpFilter(M_d, K_d, D_d, X_d_q, F_d_q, X_c_q, TB_fb_q, T_fb_q);
+    // Eigen::Matrix2d K_d = K_0 + K_adapt;
+    Eigen::Matrix2d K_d = K_0;
+    Eigen::Vector2d Xc_k = PositionBasedImpFilter(M_d, K_d, D_d, X_d_q, F_d_q, X_c_q, TB_fb_q, T_fb_q, F_fb_q);
     update_delay_state<Eigen::Vector2d>(X_c_q, Xc_k);
+
+    term << "Xc_k: " << Xc_k.transpose() << std::endl;
 
     Eigen::Vector2d tb_k = ik(Xc_k);
     Eigen::Vector2d phi_k = tb2phi(tb_k);
+
+    term << "tb_k: " << tb_k.transpose() << std::endl;
+    term << "phi_k: " << phi_k.transpose() << std::endl;
+
     return phi_k;
 }
 
-Eigen::Vector2d ForceTracker::controlLoop(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d, const Eigen::Vector2d &tb_fb, const Eigen::Vector2d &trq_fb)
+Eigen::Vector2d ForceTracker::controlLoop(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d,
+                                          const Eigen::Vector2d &tb_fb, const Eigen::Vector2d &trq_fb, const Eigen::Vector2d &phi_vel)
 {
+
     update_delay_state<Eigen::Vector2d>(TB_fb_q, tb_fb);
     update_delay_state<Eigen::Vector2d>(T_fb_q, trq_fb);
     update_delay_state<Eigen::Vector2d>(X_d_q, X_d);
     update_delay_state<Eigen::Vector2d>(F_d_q, F_d);
 
-    Eigen::Vector2d F_est_l2g = forceEstimation(trq_fb, TB_fb_q);
+    term << "phi_vel: " << phi_vel.transpose() << std::endl;
+    Eigen::Vector2d tau_friction = jointFriction(phi_vel);
+
+    Eigen::Vector2d F_est_l2g = forceEstimation(trq_fb, TB_fb_q, tau_friction);
     Eigen::Vector2d F_est_g2l = -1 * F_est_l2g;
     Eigen::Vector2d F_err_g2l = F_d - F_est_g2l;
+    update_delay_state<Eigen::Vector2d>(F_fb_q, F_est_l2g);
 
+    // adaptive stiffness
     update_delay_state<Eigen::Vector2d>(adaptive_pid_err, F_err_g2l);
     Eigen::Vector2d K_adapt = adaptiveStiffness(F_err_g2l, adaptive_pid_out, adaptive_pid_err, adaptive_kp, adaptive_ki, adaptive_kd);
     update_delay_state<Eigen::Vector2d>(adaptive_pid_out, K_adapt);
-
     Eigen::Matrix2d K_adpt;
     K_adpt << K_adapt[0], 0, 0, K_adapt[1];
+
+    term << "X_d, F_d: " << X_d.transpose() << ", " << F_d.transpose() << std::endl;
+    term << "TB_fb, trq_fb: " << tb_fb.transpose() << ", " << trq_fb.transpose() << std::endl;
+    term << "F_est_l2g: " << F_est_l2g.transpose() << std::endl;
+    term << "K_adapt: " << K_adapt[0] << ", " << K_adapt[1] << std::endl;
+
     Eigen::Vector2d phi = track(X_d, F_d, K_adpt);
+
+    term << "--" << std::endl;
+
     return phi;
+}
+
+Eigen::Vector2d ForceTracker::jointFriction(const Eigen::Vector2d &v_phi)
+{
+    double tf_R = stribeckFrictionModel(0, v_phi[0]);
+    double tf_L = stribeckFrictionModel(1, v_phi[1]);
+    Eigen::Vector2d t_friction(tf_R, tf_L);
+    return t_friction;
+}
+
+double ForceTracker::stribeckFrictionModel(int idx, double v)
+{
+    double v_st = breakaway_vel_[idx] * sqrt(2);
+    double v_coul = breakaway_vel_[idx] / 10;
+    double e = std::exp(1);
+    double F = sqrt(2 * e) * (breakaway_Ft_[idx] - coulumb_Ft_[idx]) * std::exp(-pow((v / v_st), 2)) * v / v_st + coulumb_Ft_[idx] * tanh(v / v_coul) + viscous_cff_[idx] * v;
+    return F;
 }
 
 template <typename T>

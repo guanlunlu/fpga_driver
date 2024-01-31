@@ -5,6 +5,7 @@
 #define _HALL_CALIBRATE 1 // hall sensor calibration
 #define _MOTOR_MODE 2
 #define _SET_ZERO 3
+#define _IMPEDANCE 4
 
 enum class Mode
 {

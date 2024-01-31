@@ -58,6 +58,7 @@ public:
   bool signal_switch_;
   bool power_switch_;
   bool stop_;
+  bool vicon_trigger_;
 
   void interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_,
                         core::Publisher<motor_msg::MotorStamped> &state_pub_, core::Subscriber<force_msg::LegForceStamped> &force_sub);

@@ -6,6 +6,8 @@ volatile int force_message_updated = 0;
 volatile int fpga_message_updated = 0;
 volatile bool vicon_toggle = true;
 
+std::ofstream term;
+
 std::mutex mutex_;
 motor_msg::MotorStamped motor_cmd_data;
 force_msg::LegForceStamped force_cmd_data;
@@ -59,6 +61,7 @@ Corgi::Corgi()
     digital_switch_ = false;
     signal_switch_ = false;
     power_switch_ = false;
+    vicon_trigger_ = false;
 
     NO_CAN_TIMEDOUT_ERROR_ = true;
     NO_SWITCH_TIMEDOUT_ERROR_ = true;
@@ -177,6 +180,7 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
             {
                 /* TODO: do something if IRQ0 */
                 mainLoop_(power_srv, cmd_sub_, state_pub_, force_sub);
+
                 // Acknowledge IRQ to begin DMA acquisition
                 NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
             }
@@ -184,13 +188,8 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
             {
                 /* TODO: do something if IRQ1 */
                 /* Handling CAN-BUS communication */
-                /* Interrupt enabled only in Motor mode*/
                 canLoop_();
 
-                // if (fsm_.workingMode_ == Mode::MOTOR)
-                // {
-                //     canLoop_();
-                // }
                 // Acknowledge IRQ to begin DMA acquisition
                 NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
             }
@@ -237,8 +236,8 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
             powerboard_state_.at(0) = (*power_command_request.mutable_digital())["digital"];
             powerboard_state_.at(1) = (*power_command_request.mutable_digital())["signal"];
             powerboard_state_.at(2) = (*power_command_request.mutable_digital())["power"];
-
             fpga_.write_vicon_trigger((*power_command_request.mutable_digital())["vicon_trigger"]);
+            vicon_trigger_ = (*power_command_request.mutable_digital())["vicon_trigger"];
             fpga_.write_orin_trigger((*power_command_request.mutable_digital())["orin_trigger"]);
 
             if (power_command_request.mode() == _REST_MODE && fsm_.workingMode_ != Mode::REST)
@@ -257,6 +256,11 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
             {
                 fsm_.switchMode(Mode::SET_ZERO);
             }
+            else if (power_command_request.mode() == _IMPEDANCE && fsm_.workingMode_ != Mode::IMPEDANCE)
+            {
+                fsm_.switchMode(Mode::IMPEDANCE);
+            }
+
             /*if (fpga_common_control_data.mode == _REST_MODE)
                 NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::REST);
             else if (fpga_common_control_data.mode == _MOTOR_MODE)
@@ -410,7 +414,8 @@ void Corgi::logger(int seq)
     {
         // log data
         log_stream << seq << ",";
-        log_stream << (*power_command_request.mutable_digital())["vicon_trigger"] << ",";
+        // log_stream << (*power_command_request.mutable_digital())["vicon_trigger"] << ",";
+        log_stream << vicon_trigger_ << ",";
         for (int i = 0; i < 4; i++)
         {
             log_stream << modules_list_.at(i).txdata_buffer_[0].position_ << ",";
@@ -442,18 +447,31 @@ void Corgi::logger(int seq)
     }
 }
 
-int main()
+int main(int argc, char *argv[])
 {
     signal(SIGINT, inthand);
 
     important_message("[FPGA Server] : Launched");
+
+    if (argc == 3)
+    {
+        std::string s(argv[1]);
+        if (s == "-t")
+        {
+            std::cout << "debug terminal output to " << argv[2] << std::endl;
+            term = std::ofstream(argv[2], std::ios_base::out);
+        }
+    }
+
     Corgi corgi;
+    kinematics_setup();
+
     core::NodeHandler nh;
     core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv =
         nh.serviceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>("power/command", cb);
     core::Publisher<motor_msg::MotorStamped> &motor_pub = nh.advertise<motor_msg::MotorStamped>("motor/state");
     core::Subscriber<motor_msg::MotorStamped> &motor_sub = nh.subscribe<motor_msg::MotorStamped>("motor/command", 1000, motor_data_cb);
-    core::Subscriber<force_msg::LegForceStamped> &force_sub = nh.subscribe<force_msg::LegForceStamped>("robot/force", 1000, force_data_cb);
+    core::Subscriber<force_msg::LegForceStamped> &force_sub = nh.subscribe<force_msg::LegForceStamped>("robot/force_command", 1000, force_data_cb);
 
     corgi.interruptHandler(power_srv, motor_sub, motor_pub, force_sub);
 

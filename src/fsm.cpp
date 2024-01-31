@@ -288,13 +288,14 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::Mot
             int idx = 0;
             for (auto &mod : *modules_list_)
             {
-                if (mod.enable_)
+                if (mod.enable_ && *NO_CAN_TIMEDOUT_ERROR_ && *NO_SWITCH_TIMEDOUT_ERROR_ && force_cmd_msg.force().size() == 4)
                 {
                     // X_d, F_d
                     double x_d = force_cmd_msg.force(idx).pose_x();
                     double y_d = force_cmd_msg.force(idx).pose_y();
                     double f_x = force_cmd_msg.force(idx).force_x();
                     double f_y = force_cmd_msg.force(idx).force_y();
+
                     if (idx == 0 || idx == 3)
                     {
                         // Special case for A, D module
@@ -304,12 +305,44 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::Mot
                     Eigen::Vector2d X_d(x_d, y_d);
                     Eigen::Vector2d F_d(f_x, f_y);
 
+                    // load param from command
+                    mod.force_tracker.M_d(0, 0) = force_cmd_msg.impedance(idx).m_x();
+                    mod.force_tracker.M_d(1, 1) = force_cmd_msg.impedance(idx).m_y();
+                    mod.force_tracker.K_0(0, 0) = force_cmd_msg.impedance(idx).k0_x();
+                    mod.force_tracker.K_0(1, 1) = force_cmd_msg.impedance(idx).k0_y();
+                    mod.force_tracker.D_d(0, 0) = force_cmd_msg.impedance(idx).d_x();
+                    mod.force_tracker.D_d(1, 1) = force_cmd_msg.impedance(idx).d_y();
+                    mod.force_tracker.adaptive_kp[0] = force_cmd_msg.impedance(idx).adaptive_kp_x();
+                    mod.force_tracker.adaptive_kp[1] = force_cmd_msg.impedance(idx).adaptive_kp_y();
+                    mod.force_tracker.adaptive_ki[0] = force_cmd_msg.impedance(idx).adaptive_ki_x();
+                    mod.force_tracker.adaptive_ki[1] = force_cmd_msg.impedance(idx).adaptive_ki_y();
+                    mod.force_tracker.adaptive_kd[0] = force_cmd_msg.impedance(idx).adaptive_kd_x();
+                    mod.force_tracker.adaptive_kd[1] = force_cmd_msg.impedance(idx).adaptive_kd_y();
+
                     Eigen::Vector2d phi_fb(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
                     Eigen::Vector2d tb_fb = phi2tb(phi_fb);
                     Eigen::Vector2d trq_fb(mod.rxdata_buffer_[0].torque_, mod.rxdata_buffer_[1].torque_);
-                    mod.force_tracker.controlLoop(X_d, F_d, tb_fb, trq_fb);
+                    Eigen::Vector2d phi_vel(mod.rxdata_buffer_[0].velocity_, mod.rxdata_buffer_[1].velocity_);
+                    trq_fb = trq_fb * 2.2; // KT compensation
+                    Eigen::Vector2d phi_cmd = mod.force_tracker.controlLoop(X_d, F_d, tb_fb, trq_fb, phi_vel);
+
+                    mod.txdata_buffer_[0].position_ = phi_cmd[0];
+                    mod.txdata_buffer_[1].position_ = phi_cmd[1];
+                    mod.txdata_buffer_[0].torque_ = 0;
+                    mod.txdata_buffer_[1].torque_ = 0;
+                    mod.txdata_buffer_[0].KP_ = 90;
+                    mod.txdata_buffer_[0].KI_ = 0;
+                    mod.txdata_buffer_[0].KD_ = 1.75;
+                    mod.txdata_buffer_[1].KP_ = 90;
+                    mod.txdata_buffer_[1].KI_ = 0;
+                    mod.txdata_buffer_[1].KD_ = 1.75;
                 }
+                idx++;
             }
+        }
+        break;
+        case 2:
+        {
         }
         break;
         }
@@ -339,9 +372,14 @@ bool ModeFsm::switchMode(Mode next_mode)
         if (hall_calibrated)
             next_mode_switch = workingMode_;
     }
+    else if (next_mode == Mode::IMPEDANCE)
+    {
+        // For impedance mode, motors' state are position control mode
+        next_mode_switch = Mode::MOTOR;
+        impedance_status = 0;
+    }
 
     double time_elapsed = 0;
-
     while (1)
     {
         if (mode_switched_cnt == module_enabled)
@@ -376,6 +414,9 @@ bool ModeFsm::switchMode(Mode next_mode)
         time_elapsed += 0.01;
         usleep(1e4);
     }
+
+    if (next_mode == Mode::IMPEDANCE)
+        next_mode_switch = Mode::IMPEDANCE;
 
     prev_workingMode_ = workingMode_;
     workingMode_ = next_mode_switch;

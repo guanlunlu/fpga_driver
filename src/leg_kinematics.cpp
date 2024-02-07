@@ -87,7 +87,7 @@ Eigen::Vector2d dtb2dphi(const Eigen::Vector2d &dtb)
 Eigen::Vector2d dphi2dtb(const Eigen::Vector2d &dphi)
 {
     Eigen::Vector2d dtb;
-    Eigen::Matrix t;
+    Eigen::Matrix2d t;
     t << 0.5, -0.5, 0.5, 0.5;
     dtb = t * dphi;
     return dtb;

@@ -471,7 +471,14 @@ int main(int argc, char *argv[])
                  << "tau_inertia_r,"
                  << "tau_inertia_l,"
                  << "tau_friction_r,"
-                 << "tau_friction_l\n";
+                 << "tau_friction_l,"
+                 << "F_est_l2g[0],F_est_l2g[1],"
+                 << "d_F_k[0],d_F_k[1],"
+                 << "d_F_k_1[0],d_F_k_1[1],"
+                 << "d_F_k_2[0],d_F_k_2[1],"
+                 << "E_k[0],E_k[1],"
+                 << "E_k_1[0],E_k_1[1],"
+                 << "E_k_2[0],E_k_2[1],Xref[0],Xref[1],w1inv_00,w1inv_11\n";
         }
     }
     // Setup physical properties constant

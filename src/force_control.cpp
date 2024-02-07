@@ -26,10 +26,6 @@ void ForceTracker::initialize(const Eigen::Vector2d &init_tb)
     X_d_q.push_front(init_xy);
     X_d_q.push_front(init_xy);
 
-    term << "--initialize--" << std::endl;
-    term << "init_xy: " << init_xy.transpose();
-    term << "init_tb: " << init_tb.transpose();
-
     F_d_q.push_front(z);
     F_d_q.push_front(z);
     F_d_q.push_front(z);
@@ -66,13 +62,8 @@ Eigen::Vector2d ForceTracker::track(const Eigen::Vector2d &X_d, const Eigen::Vec
     Eigen::Vector2d Xc_k = PositionBasedImpFilter(M_d, K_d, D_d, X_d_q, F_d_q, X_c_q, TB_fb_q, T_fb_q, F_fb_q);
     update_delay_state<Eigen::Vector2d>(X_c_q, Xc_k);
 
-    // term << "Xc_k: " << Xc_k.transpose() << std::endl;
-
     Eigen::Vector2d tb_k = ik(Xc_k);
     Eigen::Vector2d phi_k = tb2phi(tb_k);
-
-    // term << "tb_k: " << tb_k.transpose() << std::endl;
-    // term << "phi_k: " << phi_k.transpose() << std::endl;
 
     return phi_k;
 }
@@ -85,7 +76,6 @@ Eigen::Vector2d ForceTracker::controlLoop(const Eigen::Vector2d &X_d, const Eige
     update_delay_state<Eigen::Vector2d>(X_d_q, X_d);
     update_delay_state<Eigen::Vector2d>(F_d_q, F_d);
 
-    // term << "phi_vel_filt: " << phi_vel_fb_filt << std::endl;
     term << phi_vel_fb_filt[0] << "," << phi_vel_fb_filt[1] << ",";
 
     Eigen::Vector2d tau_friction = jointFriction(phi_vel_fb_filt);
@@ -94,6 +84,8 @@ Eigen::Vector2d ForceTracker::controlLoop(const Eigen::Vector2d &X_d, const Eige
     Eigen::Vector2d F_err_g2l = F_d - F_est_g2l;
     update_delay_state<Eigen::Vector2d>(F_fb_q, F_est_l2g);
 
+    term << F_est_l2g[0] << "," << F_est_l2g[1] << ",";
+
     // adaptive stiffness
     update_delay_state<Eigen::Vector2d>(adaptive_pid_err, F_err_g2l);
     Eigen::Vector2d K_adapt = adaptiveStiffness(F_err_g2l, adaptive_pid_out, adaptive_pid_err, adaptive_kp, adaptive_ki, adaptive_kd);
@@ -101,14 +93,7 @@ Eigen::Vector2d ForceTracker::controlLoop(const Eigen::Vector2d &X_d, const Eige
     Eigen::Matrix2d K_adpt;
     K_adpt << K_adapt[0], 0, 0, K_adapt[1];
 
-    // term << "X_d, F_d: " << X_d.transpose() << ", " << F_d.transpose() << std::endl;
-    // term << "TB_fb, trq_fb: " << tb_fb.transpose() << ", " << trq_fb_filt.transpose() << std::endl;
-    // term << "F_est_l2g: " << F_est_l2g.transpose() << std::endl;
-    // term << "K_adapt: " << K_adapt[0] << ", " << K_adapt[1] << std::endl;
-
     Eigen::Vector2d phi = track(X_d, F_d, K_adpt);
-
-    // term << "--" << std::endl;
 
     return phi;
 }

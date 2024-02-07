@@ -82,7 +82,8 @@
         "*.inc": "cpp",
         "queue": "cpp",
         "hash_set": "cpp",
-        "forward_list": "cpp"
+        "forward_list": "cpp",
+        "dense": "cpp"
     },
     "cmake.configureOnOpen": false
 }

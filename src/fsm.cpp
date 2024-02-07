@@ -14,7 +14,8 @@ ModeFsm::ModeFsm(std::vector<LegModule> *_modules, std::vector<bool> *_pb_state,
     impedance_status = 0;
 }
 
-void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::MotorStamped &motor_cmd_msg, const force_msg::LegForceStamped &force_cmd_msg)
+void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::MotorStamped &motor_cmd_msg,
+                     force_msg::LegForceStamped &force_fb_msg, const force_msg::LegForceStamped &force_cmd_msg)
 {
     switch (workingMode_)
     {
@@ -63,6 +64,10 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::Mot
                     mod.txdata_buffer_[1].KP_ = 0;
                     mod.txdata_buffer_[1].KI_ = 0;
                     mod.txdata_buffer_[1].KD_ = 0;
+                    // mod.force_tracker.trq_lpf_r.reset();
+                    // mod.force_tracker.trq_lpf_l.reset();
+                    // mod.force_tracker.vel_lpf_r.reset();
+                    // mod.force_tracker.vel_lpf_l.reset();
                 }
             }
         }
@@ -319,11 +324,16 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::Mot
                     mod.force_tracker.adaptive_kd[0] = force_cmd_msg.impedance(idx).adaptive_kd_x();
                     mod.force_tracker.adaptive_kd[1] = force_cmd_msg.impedance(idx).adaptive_kd_y();
 
+                    double vel_filt_r = mod.force_tracker.vel_lpf_r.y_k;
+                    double vel_filt_l = mod.force_tracker.vel_lpf_l.y_k;
+                    double trq_filt_r = mod.force_tracker.trq_lpf_r.y_k;
+                    double trq_filt_l = mod.force_tracker.trq_lpf_l.y_k;
+
                     Eigen::Vector2d phi_fb(mod.rxdata_buffer_[0].position_, mod.rxdata_buffer_[1].position_);
                     Eigen::Vector2d tb_fb = phi2tb(phi_fb);
-                    Eigen::Vector2d trq_fb(mod.rxdata_buffer_[0].torque_, mod.rxdata_buffer_[1].torque_);
-                    Eigen::Vector2d phi_vel(mod.rxdata_buffer_[0].velocity_, mod.rxdata_buffer_[1].velocity_);
-                    trq_fb = trq_fb * 2.2; // KT compensation
+                    Eigen::Vector2d trq_fb(trq_filt_r, trq_filt_l);
+                    Eigen::Vector2d phi_vel(vel_filt_r, vel_filt_l);
+                    // trq_fb = trq_fb * 2.2; // KT compensation
                     Eigen::Vector2d phi_cmd = mod.force_tracker.controlLoop(X_d, F_d, tb_fb, trq_fb, phi_vel);
 
                     mod.txdata_buffer_[0].position_ = phi_cmd[0];
@@ -336,6 +346,19 @@ void ModeFsm::runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::Mot
                     mod.txdata_buffer_[1].KP_ = 90;
                     mod.txdata_buffer_[1].KI_ = 0;
                     mod.txdata_buffer_[1].KD_ = 1.75;
+
+                    Eigen::Vector2d F_fb = mod.force_tracker.F_fb_q[0];
+                    force_msg::LegForce f;
+                    f.set_force_x(F_fb[0]);
+                    f.set_force_y(F_fb[1]);
+                    force_fb_msg.add_force()->CopyFrom(f);
+                }
+                else
+                {
+                    force_msg::LegForce f;
+                    f.set_force_x(0);
+                    f.set_force_y(0);
+                    force_fb_msg.add_force()->CopyFrom(f);
                 }
                 idx++;
             }
@@ -455,10 +478,40 @@ void ModeFsm::publishMsg(motor_msg::MotorStamped &motor_fb_msg)
                 else
                     leg.set_beta(tb_[1]); // beta
             }
-            motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
-            motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
-            motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
-            motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
+            double vel_filt_r = mod.force_tracker.vel_lpf_r.update(mod.rxdata_buffer_[0].velocity_);
+            double vel_filt_l = mod.force_tracker.vel_lpf_l.update(mod.rxdata_buffer_[1].velocity_);
+            double trq_filt_r = mod.force_tracker.trq_lpf_r.update(mod.rxdata_buffer_[0].torque_ * 2.2);
+            double trq_filt_l = mod.force_tracker.trq_lpf_l.update(mod.rxdata_buffer_[1].torque_ * 2.2);
+            motor_r.set_twist(vel_filt_r);  // velocity R
+            motor_l.set_twist(vel_filt_l);  // velocity L
+            motor_r.set_torque(trq_filt_r); // torque R
+            motor_l.set_torque(trq_filt_l); // torque L
+            // motor_r.set_twist(mod.rxdata_buffer_[0].velocity_); // velocity R
+            // motor_l.set_twist(mod.rxdata_buffer_[1].velocity_); // velocity L
+            // motor_r.set_torque(mod.rxdata_buffer_[0].torque_);  // torque R
+            // motor_l.set_torque(mod.rxdata_buffer_[1].torque_);  // torque L
+
+            // term << "raw_vel: " << mod.rxdata_buffer_[0].velocity_ << std::endl;
+            // term << "vel_filt_r: " << vel_filt_r << std::endl;
+
+            motor_fb_msg.add_motors()->CopyFrom(motor_r);
+            motor_fb_msg.add_motors()->CopyFrom(motor_l);
+            motor_fb_msg.add_legs()->CopyFrom(leg);
+        }
+        else
+        {
+            /* Pubish feedback data from Motors */
+            motor_msg::Motor motor_r;
+            motor_msg::Motor motor_l;
+            motor_msg::LegAngle leg;
+            motor_r.set_angle(0);  // phi R
+            motor_l.set_angle(0);  // phi L
+            leg.set_theta(0);      // theta
+            leg.set_beta(0);       // beta
+            motor_r.set_twist(0);  // velocity R
+            motor_l.set_twist(0);  // velocity L
+            motor_r.set_torque(0); // torque R
+            motor_l.set_torque(0); // torque L
             motor_fb_msg.add_motors()->CopyFrom(motor_r);
             motor_fb_msg.add_motors()->CopyFrom(motor_l);
             motor_fb_msg.add_legs()->CopyFrom(leg);

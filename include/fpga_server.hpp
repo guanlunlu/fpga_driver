@@ -60,13 +60,15 @@ public:
   bool stop_;
   bool vicon_trigger_;
 
-  void interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_,
-                        core::Publisher<motor_msg::MotorStamped> &state_pub_, core::Subscriber<force_msg::LegForceStamped> &force_sub);
+  void interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv,
+                        core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_,
+                        core::Subscriber<force_msg::LegForceStamped> &force_sub, core::Publisher<force_msg::LegForceStamped> &force_pub);
 
   void powerboardPack();
 
-  void mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_,
-                 core::Publisher<motor_msg::MotorStamped> &state_pub_, core::Subscriber<force_msg::LegForceStamped> &force_sub);
+  void mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv,
+                 core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_,
+                 core::Subscriber<force_msg::LegForceStamped> &force_sub, core::Publisher<force_msg::LegForceStamped> &force_pub);
   void canLoop_();
 
   void logger_init();

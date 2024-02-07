@@ -136,8 +136,9 @@ void Corgi::load_config_()
     }
 }
 
-void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_,
-                             core::Publisher<motor_msg::MotorStamped> &state_pub_, core::Subscriber<force_msg::LegForceStamped> &force_sub)
+void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv,
+                             core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_,
+                             core::Subscriber<force_msg::LegForceStamped> &force_sub, core::Publisher<force_msg::LegForceStamped> &force_pub)
 {
     while (NiFpga_IsNotError(fpga_.status_) && !stop_ && !sys_stop)
     {
@@ -179,7 +180,7 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
             if (irqsAsserted & NiFpga_Irq_0)
             {
                 /* TODO: do something if IRQ0 */
-                mainLoop_(power_srv, cmd_sub_, state_pub_, force_sub);
+                mainLoop_(power_srv, cmd_sub_, state_pub_, force_sub, force_pub);
 
                 // Acknowledge IRQ to begin DMA acquisition
                 NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
@@ -198,8 +199,9 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
     }
 }
 
-void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv, core::Subscriber<motor_msg::MotorStamped> &cmd_sub_,
-                      core::Publisher<motor_msg::MotorStamped> &state_pub_, core::Subscriber<force_msg::LegForceStamped> &force_sub)
+void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv,
+                      core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_,
+                      core::Subscriber<force_msg::LegForceStamped> &force_sub, core::Publisher<force_msg::LegForceStamped> &force_pub)
 {
     fpga_.write_powerboard_(&powerboard_state_);
     fpga_.read_powerboard_data_();
@@ -208,7 +210,8 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
     mutex_.lock();
 
     motor_msg::MotorStamped motor_fb_msg;
-    fsm_.runFsm(motor_fb_msg, motor_cmd_data, force_cmd_data);
+    force_msg::LegForceStamped force_fb_msg;
+    fsm_.runFsm(motor_fb_msg, motor_cmd_data, force_fb_msg, force_cmd_data);
     motor_message_updated = 0;
     force_message_updated = 0;
 
@@ -275,9 +278,10 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
             fpga_message_updated = 0;
         }
     }
-    mutex_.unlock();
 
+    mutex_.unlock();
     state_pub_.publish(motor_fb_msg);
+    force_pub.publish(force_fb_msg);
 
     logger(seq);
     seq++;
@@ -460,20 +464,32 @@ int main(int argc, char *argv[])
         {
             std::cout << "debug terminal output to " << argv[2] << std::endl;
             term = std::ofstream(argv[2], std::ios_base::out);
+            term << "phi_vel_filt_r,"
+                 << "phi_vel_filt_l,"
+                 << "T_fb_r,"
+                 << "T_fb_l,"
+                 << "tau_inertia_r,"
+                 << "tau_inertia_l,"
+                 << "tau_friction_r,"
+                 << "tau_friction_l\n";
         }
     }
+    // Setup physical properties constant
+    kinematics_setup();
 
     Corgi corgi;
-    kinematics_setup();
 
     core::NodeHandler nh;
     core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv =
         nh.serviceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>("power/command", cb);
+
     core::Publisher<motor_msg::MotorStamped> &motor_pub = nh.advertise<motor_msg::MotorStamped>("motor/state");
     core::Subscriber<motor_msg::MotorStamped> &motor_sub = nh.subscribe<motor_msg::MotorStamped>("motor/command", 1000, motor_data_cb);
+
+    core::Publisher<force_msg::LegForceStamped> &force_pub = nh.advertise<force_msg::LegForceStamped>("robot/force_state");
     core::Subscriber<force_msg::LegForceStamped> &force_sub = nh.subscribe<force_msg::LegForceStamped>("robot/force_command", 1000, force_data_cb);
 
-    corgi.interruptHandler(power_srv, motor_sub, motor_pub, force_sub);
+    corgi.interruptHandler(power_srv, motor_sub, motor_pub, force_sub, force_pub);
 
     if (NiFpga_IsError(corgi.fpga_.status_))
     {

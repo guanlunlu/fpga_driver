@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "force_tracking.hpp"
+#include "lpf.hpp"
 
 class ForceTracker
 {
@@ -42,6 +43,11 @@ public:
     void update_delay_state(std::deque<T> &state, T x);
 
     void initialize(const Eigen::Vector2d &init_tb);
+
+    lowpassFilter trq_lpf_r;
+    lowpassFilter trq_lpf_l;
+    lowpassFilter vel_lpf_r;
+    lowpassFilter vel_lpf_l;
 
     // Track desired force F_d and reference trajectory X_d (leg_frame)
     Eigen::Vector2d track(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d,

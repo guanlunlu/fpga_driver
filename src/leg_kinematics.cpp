@@ -8,8 +8,6 @@ double breakaway_vel;
 double coulumb_Ft;
 double viscous_cff;
 
-std::vector<int> a{1, 2, 4};
-
 Eigen::VectorXd fk_pc_(8);
 Eigen::VectorXd d_fk_pc_(7);
 Eigen::VectorXd dd_fk_pc_(6);
@@ -84,6 +82,15 @@ Eigen::Vector2d dtb2dphi(const Eigen::Vector2d &dtb)
     t << 1, 1, -1, 1;
     dphi = t * dtb;
     return dphi;
+}
+
+Eigen::Vector2d dphi2dtb(const Eigen::Vector2d &dphi)
+{
+    Eigen::Vector2d dtb;
+    Eigen::Matrix t;
+    t << 0.5, -0.5, 0.5, 0.5;
+    dtb = t * dphi;
+    return dtb;
 }
 
 Eigen::Vector2d fk(const Eigen::Vector2d &tb)

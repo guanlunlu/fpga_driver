@@ -48,7 +48,8 @@ public:
   bool *NO_SWITCH_TIMEDOUT_ERROR_;
   double *powerboard_voltage;
 
-  void runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::MotorStamped &motor_cmd_msg, const force_msg::LegForceStamped &force_cmd_msg);
+  void runFsm(motor_msg::MotorStamped &motor_fb_msg, const motor_msg::MotorStamped &motor_cmd_msg,
+              force_msg::LegForceStamped &force_fb_msg, const force_msg::LegForceStamped &force_cmd_msg);
   bool switchMode(Mode next_mode);
   void publishMsg(motor_msg::MotorStamped &motor_fb_msg);
 };

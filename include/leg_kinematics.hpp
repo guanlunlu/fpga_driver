@@ -11,10 +11,14 @@ double deg2rad(double deg);
 double rad2deg(double rad);
 double polyval(const Eigen::VectorXd &coeff, double x);
 Eigen::VectorXd polyder(const Eigen::VectorXd &coeff);
+
 void kinematics_setup();
+
 Eigen::Vector2d phi2tb(const Eigen::Vector2d &phi);
 Eigen::Vector2d tb2phi(const Eigen::Vector2d &tb);
 Eigen::Vector2d dtb2dphi(const Eigen::Vector2d &dtb);
+Eigen::Vector2d dphi2dtb(const Eigen::Vector2d &dphi);
+
 Eigen::Vector2d fk(const Eigen::Vector2d &tb);
 Eigen::Vector2d ik(const Eigen::Vector2d &xy);
 Eigen::Matrix2d jacG(const Eigen::Vector2d &tb);

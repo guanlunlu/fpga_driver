@@ -63,23 +63,23 @@ Eigen::Vector2d PositionBasedImpFilter(const Eigen::Matrix2d &M, const Eigen::Ma
     Eigen::Matrix<double, 2, 2> w2 = 2 * K * pow(T_, 2) - 8 * M;
     Eigen::Matrix<double, 2, 2> w3 = K * pow(T_, 2) - 2 * D * T_ + 4 * M;
 
-    term << "K: " << K << std::endl;
-    term << "Xref[1]: " << Xref[1].transpose() << std::endl;
-    term << "Xref[2]: " << Xref[2].transpose() << std::endl;
-    term << "Xc[0]: " << Xc[0].transpose() << std::endl;
-    term << "Xc[1]: " << Xc[1].transpose() << std::endl;
+    // term << "K: " << K << std::endl;
+    // term << "Xref[1]: " << Xref[1].transpose() << std::endl;
+    // term << "Xref[2]: " << Xref[2].transpose() << std::endl;
+    // term << "Xc[0]: " << Xc[0].transpose() << std::endl;
+    // term << "Xc[1]: " << Xc[1].transpose() << std::endl;
 
-    term << "E_k_1: " << E_k_1 << std::endl;
-    term << "E_k_2: " << E_k_2 << std::endl;
-    term << "w1: " << w1 << std::endl;
-    term << "w2: " << w2 << std::endl;
-    term << "w3: " << w3 << std::endl;
+    // term << "E_k_1: " << E_k_1 << std::endl;
+    // term << "E_k_2: " << E_k_2 << std::endl;
+    // term << "w1: " << w1 << std::endl;
+    // term << "w2: " << w2 << std::endl;
+    // term << "w3: " << w3 << std::endl;
 
     Eigen::Vector2d E_k;
     E_k = w1.inverse() * (pow(T_, 2) * (d_F_k + 2 * d_F_k_1 + d_F_k_2) - w2 * E_k_1 - w3 * E_k_2);
 
-    term << "Xref[0]: " << Xref[0].transpose() << std::endl;
-    term << "E_k: " << E_k.transpose() << std::endl;
+    // term << "Xref[0]: " << Xref[0].transpose() << std::endl;
+    // term << "E_k: " << E_k.transpose() << std::endl;
 
     Eigen::Vector2d Xc_k = Xref[0] - E_k;
 
@@ -96,10 +96,14 @@ Eigen::Vector2d forceEstimation(const Eigen::Vector2d &T_fb, const std::deque<Ei
     // Eigen::Vector2d tau_friction = jointFriction(phi_vel);
 
     // Eigen::Vector2d F_est = jointTrq2footendForce(T_fb - tau_inertia - tau_friction, TB_fb[0]);
-    Eigen::Vector2d F_est = jointTrq2footendForce(T_fb - tau_friction, TB_fb[0]);
-    term << "T_fb: " << T_fb.transpose() << std::endl;
-    term << "tau_inertia: " << tau_inertia.transpose() << std::endl;
-    term << "tau_friction: " << tau_friction.transpose() << std::endl;
+    // Eigen::Vector2d F_est = jointTrq2footendForce(T_fb - tau_friction, TB_fb[0]);
+    Eigen::Vector2d F_est = jointTrq2footendForce(T_fb, TB_fb[0]);
+    term << T_fb[0] << "," << T_fb[1] << ","
+         << tau_inertia[0] << "," << tau_inertia[1] << ","
+         << tau_friction[0] << "," << tau_friction[1] << ",";
+    // term << "T_fb: " << T_fb.transpose() << std::endl;
+    // term << "tau_inertia: " << tau_inertia.transpose() << std::endl;
+    // term << "tau_friction: " << tau_friction.transpose() << std::endl;
     return F_est;
 }
 

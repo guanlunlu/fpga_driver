@@ -72,10 +72,10 @@ RF_Module:
   Impedance_y: [0.652, 30000, 400]
   Adaptive_x: [30, 10, 20]
   Adaptive_y: [30, 10, 20]
-  breakaway_friction: [0.6, 0.6]
+  breakaway_friction: [0.50727871, 0.50727871]
   breakaway_velocity: [0.01, 0.01]
-  coulumb_friction: [0.01, 0.01]
-  viscous_coeff: [0.3, 0.3]
+  coulumb_friction: [0.5072787, 0.5072787]
+  viscous_coeff: [0.01211775, 0.01211775]
   Motor_R:
     FW_Version: 3
     CAN_ID: 17

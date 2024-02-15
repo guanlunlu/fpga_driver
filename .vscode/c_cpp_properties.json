@@ -6,7 +6,7 @@
                 "${workspaceFolder}/**",
                 "/usr/local/include/eigen3",
                 "/usr/local/include/yaml-cpp",
-                "/home/guanlunlu/.grpc_local/include/",
+                "/home/guanlunlu/.local/include/",
                 "/home/guanlunlu/quadruped/build"
             ],
             "defines": [],

@@ -1,9 +1,9 @@
 #include "force_tracking.hpp"
 
-Eigen::Vector2d PositionBasedImpFilter(const Eigen::Matrix2d &M, const Eigen::Matrix2d &K, const Eigen::Matrix2d &D,
-                                       const std::deque<Eigen::Vector2d> &Xref, const std::deque<Eigen::Vector2d> &Fref,
-                                       const std::deque<Eigen::Vector2d> &Xc, const std::deque<Eigen::Vector2d> &TB_fb,
-                                       const std::deque<Eigen::Vector2d> &T_fb, const std::deque<Eigen::Vector2d> &F_fb)
+Eigen::Vector2d PositionBasedImpFilter(const Eigen::Matrix2d& M, const Eigen::Matrix2d& K, const Eigen::Matrix2d& D,
+                                       const std::deque<Eigen::Vector2d>& Xref, const std::deque<Eigen::Vector2d>& Fref,
+                                       const std::deque<Eigen::Vector2d>& Xc, const std::deque<Eigen::Vector2d>& TB_fb,
+                                       const std::deque<Eigen::Vector2d>& T_fb, const std::deque<Eigen::Vector2d>& F_fb)
 {
     /* Xref = [x_k, y_k;
               x_k_1, y_k_1;
@@ -40,21 +40,18 @@ Eigen::Vector2d PositionBasedImpFilter(const Eigen::Matrix2d &M, const Eigen::Ma
     Eigen::Vector2d E_k;
     E_k = w1.inverse() * (pow(T_, 2) * (d_F_k + 2 * d_F_k_1 + d_F_k_2) - w2 * E_k_1 - w3 * E_k_2);
 
-    term << d_F_k[0] << "," << d_F_k[1] << ","
-         << d_F_k_1[0] << "," << d_F_k_1[1] << ","
-         << d_F_k_2[0] << "," << d_F_k_2[1] << ","
-         << E_k[0] << "," << E_k[1] << ","
-         << E_k_1[0] << "," << E_k_1[1] << ","
-         << E_k_2[0] << "," << E_k_2[1] << ","
-         << Xref[0][0] << "," << Xref[0][1] << ","
-         << w1.inverse()(0, 0) << "," << w1.inverse()(1, 1) << "\n";
+    term << d_F_k[0] << "," << d_F_k[1] << "," << d_F_k_1[0] << "," << d_F_k_1[1] << "," << d_F_k_2[0] << ","
+         << d_F_k_2[1] << "," << E_k[0] << "," << E_k[1] << "," << E_k_1[0] << "," << E_k_1[1] << "," << E_k_2[0] << ","
+         << E_k_2[1] << "," << Xref[0][0] << "," << Xref[0][1] << "," << w1.inverse()(0, 0) << "," << w1.inverse()(1, 1)
+         << "\n";
 
     Eigen::Vector2d Xc_k = Xref[0] - E_k;
 
     return Xc_k;
 }
 
-Eigen::Vector2d forceEstimation(const Eigen::Vector2d &T_fb, const std::deque<Eigen::Vector2d> &TB_fb, const Eigen::Vector2d &tau_friction)
+Eigen::Vector2d forceEstimation(const Eigen::Vector2d& T_fb, const std::deque<Eigen::Vector2d>& TB_fb,
+                                const Eigen::Vector2d& tau_friction)
 {
     // Return force exert to ground
     Eigen::Vector2d tau_inertia = inverseDynamic(TB_fb);
@@ -63,17 +60,17 @@ Eigen::Vector2d forceEstimation(const Eigen::Vector2d &T_fb, const std::deque<Ei
     // Eigen::Vector2d tau_friction = jointFriction(d_phi);
     // Eigen::Vector2d tau_friction = jointFriction(phi_vel);
 
-    // Eigen::Vector2d F_est = jointTrq2footendForce(T_fb - tau_inertia - tau_friction, TB_fb[0]);
-    // Eigen::Vector2d F_est = jointTrq2footendForce(T_fb - tau_friction, TB_fb[0]);
+    // Eigen::Vector2d F_est = jointTrq2footendForce(T_fb - tau_inertia -
+    // tau_friction, TB_fb[0]); Eigen::Vector2d F_est = jointTrq2footendForce(T_fb
+    // - tau_friction, TB_fb[0]);
     Eigen::Vector2d F_est = jointTrq2footendForce(T_fb, TB_fb[0]);
-    term << T_fb[0] << "," << T_fb[1] << ","
-         << tau_inertia[0] << "," << tau_inertia[1] << ","
-         << tau_friction[0] << "," << tau_friction[1] << ",";
+    term << T_fb[0] << "," << T_fb[1] << "," << tau_inertia[0] << "," << tau_inertia[1] << "," << tau_friction[0] << ","
+         << tau_friction[1] << ",";
 
     return F_est;
 }
 
-Eigen::Vector2d inverseDynamic(const std::deque<Eigen::Vector2d> &TB)
+Eigen::Vector2d inverseDynamic(const std::deque<Eigen::Vector2d>& TB)
 {
     Eigen::Vector2d tb = TB[0];
     Eigen::Vector2d dtb = (TB[0] - TB[1]) / T_;
@@ -87,12 +84,10 @@ Eigen::Vector2d inverseDynamic(const std::deque<Eigen::Vector2d> &TB)
     Eigen::Matrix2d Mq;
     Eigen::Vector2d Cq;
     Eigen::Vector2d Gq;
-    Mq << leg_m, 0,
-        0, Ic(tb[0]) + leg_m * pow(q[0], 2);
-    Cq << -leg_m * q[0] * pow(q[1], 2),
-        2 * leg_m * q[0] * dq[0] * dq[1] + dIc(tb[0], dtb[0]) * dq[1];
-    Gq << -leg_m * g * cos(q[1]),
-        -leg_m * g * q[0] * sin(q[1]);
+
+    Mq << leg_m, 0, 0, Ic(tb[0]) + leg_m * pow(q[0], 2);
+    Cq << -leg_m * q[0] * pow(q[1], 2), 2 * leg_m * q[0] * dq[0] * dq[1] + dIc(tb[0], dtb[0]) * dq[1];
+    Gq << -leg_m * g * cos(q[1]), -leg_m * g * q[0] * sin(q[1]);
     Eigen::Vector2d Frm_Tb;
     Eigen::Vector2d joint_trq;
     Frm_Tb = Mq * ddq + Cq + Gq;
@@ -100,9 +95,9 @@ Eigen::Vector2d inverseDynamic(const std::deque<Eigen::Vector2d> &TB)
     return joint_trq;
 }
 
-Eigen::Vector2d adaptiveStiffness(const Eigen::Vector2d &F_err,
-                                  const std::deque<Eigen::Vector2d> &pid_out, const std::deque<Eigen::Vector2d> &pid_err,
-                                  const Eigen::Vector2d &kp, const Eigen::Vector2d &ki, const Eigen::Vector2d &kd)
+Eigen::Vector2d adaptiveStiffness(const Eigen::Vector2d& F_err, const std::deque<Eigen::Vector2d>& pid_out,
+                                  const std::deque<Eigen::Vector2d>& pid_err, const Eigen::Vector2d& kp,
+                                  const Eigen::Vector2d& ki, const Eigen::Vector2d& kd)
 {
     // F_err = F_leg2gnd_ref - F_leg2gnd_est (GRF error)
     Eigen::Vector2d k_stiffness(0, 0);
@@ -138,6 +133,7 @@ Eigen::Vector2d adaptiveStiffness(const Eigen::Vector2d &F_err,
 //     double v_st = breakaway_vel * sqrt(2);
 //     double v_coul = breakaway_vel / 10;
 //     double e = std::exp(1);
-//     double F = sqrt(2 * e) * (breakaway_Ft - coulumb_Ft) * std::exp(-pow((v / v_st), 2)) * v / v_st + coulumb_Ft * tanh(v / v_coul) + viscous_cff * v;
+//     double F = sqrt(2 * e) * (breakaway_Ft - coulumb_Ft) * std::exp(-pow((v /
+//     v_st), 2)) * v / v_st + coulumb_Ft * tanh(v / v_coul) + viscous_cff * v;
 //     return F;
 // }

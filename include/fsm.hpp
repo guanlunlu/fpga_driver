@@ -4,8 +4,8 @@
 #include "force_tracking.hpp"
 
 #include <vector>
-#include <leg_module.hpp>
-#include <theta_error.hpp>
+#include "leg_module.hpp"
+#include "theta_error.hpp"
 #include <fstream>
 #include <unistd.h>
 

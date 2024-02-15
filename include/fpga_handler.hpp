@@ -6,9 +6,9 @@
 #include <vector>
 #include <functional>
 #include <dlfcn.h>
-#include <NiFpga_FPGA_CANBus_IMU_4module_IRQ.h>
-#include <can_packet.h>
-#include <color.hpp>
+#include "NiFpga_FPGA_CANBus_IMU_4module_IRQ.h"
+#include "can_packet.h"
+#include "color.hpp"
 #include <signal.h>
 #include "msg.hpp"
 

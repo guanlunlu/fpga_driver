@@ -1,6 +1,6 @@
 #ifndef __MSG_H
 #define __MSG_H
-#include <mode.hpp>
+#include "mode.hpp"
 #include <vector>
 #include <math.h>
 #include <string>

@@ -1,3 +1,0 @@
-/home/guanlunlu/fpga_driver/build/CMakeFiles/force_control.dir
-/home/guanlunlu/fpga_driver/build/CMakeFiles/edit_cache.dir
-/home/guanlunlu/fpga_driver/build/CMakeFiles/rebuild_cache.dir

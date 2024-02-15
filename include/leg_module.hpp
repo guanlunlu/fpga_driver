@@ -5,10 +5,10 @@
 #include <vector>
 #include <math.h>
 #include <yaml.h>
-#include <fpga_handler.hpp>
+#include "fpga_handler.hpp"
 #include <iomanip>
 #include "msg.hpp"
-#include <force_control.hpp>
+#include "force_control.hpp"
 
 class LegModule
 {

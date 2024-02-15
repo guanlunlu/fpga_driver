@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/guanlunlu/fpga_driver/build",
-  "command": "/usr/bin/g++  -I/home/guanlunlu/fpga_driver/include -I/usr/local/include/yaml-cpp -I/usr/include/boost -I/usr/local/include/ncurses -isystem /usr/include/eigen3 -Wall -Wextra -O3 -o CMakeFiles/force_control.dir/src/force_control.cpp.o -c /home/guanlunlu/fpga_driver/src/force_control.cpp",
-  "file": "/home/guanlunlu/fpga_driver/src/force_control.cpp"
-}
-]

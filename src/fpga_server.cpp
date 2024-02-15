@@ -1,4 +1,4 @@
-#include <fpga_server.hpp>
+#include "fpga_server.hpp"
 
 /* TCP node connection setup*/
 volatile int motor_message_updated = 0;
@@ -39,7 +39,7 @@ void power_command_function(power_msg::PowerBoardStamped request)
     mutex_.unlock();
 }
 
-void cb(power_msg::PowerBoardStamped request, power_msg::PowerBoardStamped &reply)
+void cb(power_msg::PowerBoardStamped request, power_msg::PowerBoardStamped& reply)
 {
     power_command_function(request);
     mutex_.lock();
@@ -131,19 +131,22 @@ void Corgi::load_config_()
     {
         fpga_.powerboard_Ifactor[idx_] = f["Current_Factor"].as<double>();
         fpga_.powerboard_Vfactor[idx_] = f["Voltage_Factor"].as<double>();
-        std::cout << "Index " << idx_ << " Current Factor: " << fpga_.powerboard_Ifactor[idx_] << ", Voltage Factor: " << fpga_.powerboard_Vfactor[idx_] << std::endl;
+        std::cout << "Index " << idx_ << " Current Factor: " << fpga_.powerboard_Ifactor[idx_]
+                  << ", Voltage Factor: " << fpga_.powerboard_Vfactor[idx_] << std::endl;
         idx_++;
     }
 }
 
-void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv,
-                             core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_,
-                             core::Subscriber<force_msg::LegForceStamped> &force_sub, core::Publisher<force_msg::LegForceStamped> &force_pub)
+void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>& power_srv,
+                             core::Subscriber<motor_msg::MotorStamped>& cmd_sub_,
+                             core::Publisher<motor_msg::MotorStamped>& state_pub_,
+                             core::Subscriber<force_msg::LegForceStamped>& force_sub,
+                             core::Publisher<force_msg::LegForceStamped>& force_pub)
 {
     while (NiFpga_IsNotError(fpga_.status_) && !stop_ && !sys_stop)
     {
         uint32_t irqsAsserted;
-        uint32_t irqTimeout = 10; // millisecond
+        uint32_t irqTimeout = 10;  // millisecond
         NiFpga_Bool TimedOut = 0;
 
         // Wait on IRQ to ensure FPGA is ready
@@ -199,9 +202,11 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
     }
 }
 
-void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv,
-                      core::Subscriber<motor_msg::MotorStamped> &cmd_sub_, core::Publisher<motor_msg::MotorStamped> &state_pub_,
-                      core::Subscriber<force_msg::LegForceStamped> &force_sub, core::Publisher<force_msg::LegForceStamped> &force_pub)
+void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>& power_srv,
+                      core::Subscriber<motor_msg::MotorStamped>& cmd_sub_,
+                      core::Publisher<motor_msg::MotorStamped>& state_pub_,
+                      core::Subscriber<force_msg::LegForceStamped>& force_sub,
+                      core::Publisher<force_msg::LegForceStamped>& force_pub)
 {
     fpga_.write_powerboard_(&powerboard_state_);
     fpga_.read_powerboard_data_();
@@ -265,15 +270,18 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
             }
 
             /*if (fpga_common_control_data.mode == _REST_MODE)
-                NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::REST);
-            else if (fpga_common_control_data.mode == _MOTOR_MODE)
-                NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::MOTOR);
-            else if (fpga_common_control_data.mode == _HALL_CALIBRATE && !HALL_CALIBRATED_)
+                NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ &&
+            fsm_.switchMode(Mode::REST); else if (fpga_common_control_data.mode ==
+            _MOTOR_MODE) NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ &&
+            fsm_.switchMode(Mode::MOTOR); else if (fpga_common_control_data.mode ==
+            _HALL_CALIBRATE && !HALL_CALIBRATED_)
             {
-                NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::HALL_CALIBRATE);
+                NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ &&
+            fsm_.switchMode(Mode::HALL_CALIBRATE);
             }
             else if (fpga_common_control_data.mode == _SET_ZERO)
-                NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ && fsm_.switchMode(Mode::SET_ZERO);*/
+                NO_SWITCH_TIMEDOUT_ERROR_ = NO_SWITCH_TIMEDOUT_ERROR_ &&
+            fsm_.switchMode(Mode::SET_ZERO);*/
 
             fpga_message_updated = 0;
         }
@@ -293,7 +301,8 @@ void Corgi::canLoop_()
     {
         if (modules_list_[i].enable_ && powerboard_state_.at(2) == true)
         {
-            modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0], &modules_list_[i].rxdata_buffer_[1]);
+            modules_list_[i].io_.CAN_recieve_feedback(&modules_list_[i].rxdata_buffer_[0],
+                                                      &modules_list_[i].rxdata_buffer_[1]);
             modules_list_[i].CAN_timeoutCheck();
 
             if (modules_list_[i].CAN_module_timedout)
@@ -307,7 +316,8 @@ void Corgi::canLoop_()
 
             if (timeout_cnt_ < max_timeout_cnt_)
             {
-                modules_list_[i].io_.CAN_send_command(modules_list_[i].txdata_buffer_[0], modules_list_[i].txdata_buffer_[1]);
+                modules_list_[i].io_.CAN_send_command(modules_list_[i].txdata_buffer_[0],
+                                                      modules_list_[i].txdata_buffer_[1]);
                 NO_CAN_TIMEDOUT_ERROR_ = true;
             }
             else
@@ -418,7 +428,8 @@ void Corgi::logger(int seq)
     {
         // log data
         log_stream << seq << ",";
-        // log_stream << (*power_command_request.mutable_digital())["vicon_trigger"] << ",";
+        // log_stream << (*power_command_request.mutable_digital())["vicon_trigger"]
+        // << ",";
         log_stream << vicon_trigger_ << ",";
         for (int i = 0; i < 4; i++)
         {
@@ -451,7 +462,7 @@ void Corgi::logger(int seq)
     }
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     signal(SIGINT, inthand);
 
@@ -487,14 +498,17 @@ int main(int argc, char *argv[])
     Corgi corgi;
 
     core::NodeHandler nh;
-    core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped> &power_srv =
+    core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>& power_srv =
         nh.serviceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>("power/command", cb);
 
-    core::Publisher<motor_msg::MotorStamped> &motor_pub = nh.advertise<motor_msg::MotorStamped>("motor/state");
-    core::Subscriber<motor_msg::MotorStamped> &motor_sub = nh.subscribe<motor_msg::MotorStamped>("motor/command", 1000, motor_data_cb);
+    core::Publisher<motor_msg::MotorStamped>& motor_pub = nh.advertise<motor_msg::MotorStamped>("motor/state");
+    core::Subscriber<motor_msg::MotorStamped>& motor_sub =
+        nh.subscribe<motor_msg::MotorStamped>("motor/command", 1000, motor_data_cb);
 
-    core::Publisher<force_msg::LegForceStamped> &force_pub = nh.advertise<force_msg::LegForceStamped>("robot/force_state");
-    core::Subscriber<force_msg::LegForceStamped> &force_sub = nh.subscribe<force_msg::LegForceStamped>("robot/force_command", 1000, force_data_cb);
+    core::Publisher<force_msg::LegForceStamped>& force_pub =
+        nh.advertise<force_msg::LegForceStamped>("robot/force_state");
+    core::Subscriber<force_msg::LegForceStamped>& force_sub =
+        nh.subscribe<force_msg::LegForceStamped>("robot/force_command", 1000, force_data_cb);
 
     corgi.interruptHandler(power_srv, motor_sub, motor_pub, force_sub, force_pub);
 

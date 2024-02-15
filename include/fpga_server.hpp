@@ -1,7 +1,8 @@
-#include <fsm.hpp>
-#include <console.hpp>
+#include "fsm.hpp"
+#include "console.hpp"
 #include <yaml.h>
-#include <fpga_handler.hpp>
+#include "fpga_handler.hpp"
+#include "leg_module.hpp"
 #include <string>
 #include <fstream>
 #include <vector>

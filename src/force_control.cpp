@@ -57,8 +57,9 @@ void ForceTracker::initialize(const Eigen::Vector2d &init_tb)
 Eigen::Vector2d ForceTracker::track(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d,
                                     const Eigen::Matrix2d &K_adapt)
 {
-    // Eigen::Matrix2d K_d = K_0 + K_adapt;
-    Eigen::Matrix2d K_d = K_0;
+    Eigen::Matrix2d K_d = K_0 + K_adapt;
+    K_ft = K_d;
+    // Eigen::Matrix2d K_d = K_0;
     Eigen::Vector2d Xc_k = PositionBasedImpFilter(M_d, K_d, D_d, X_d_q, F_d_q, X_c_q, TB_fb_q, T_fb_q, F_fb_q);
     update_delay_state<Eigen::Vector2d>(X_c_q, Xc_k);
 
@@ -69,7 +70,8 @@ Eigen::Vector2d ForceTracker::track(const Eigen::Vector2d &X_d, const Eigen::Vec
 }
 
 Eigen::Vector2d ForceTracker::controlLoop(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d,
-                                          const Eigen::Vector2d &tb_fb, const Eigen::Vector2d &trq_fb_filt, const Eigen::Vector2d &phi_vel_fb_filt)
+                                          const Eigen::Vector2d &tb_fb, const Eigen::Vector2d &trq_fb_filt, 
+                                          const Eigen::Vector2d &phi_vel_fb_filt)
 {
     update_delay_state<Eigen::Vector2d>(TB_fb_q, tb_fb);
     update_delay_state<Eigen::Vector2d>(T_fb_q, trq_fb_filt);

@@ -101,6 +101,9 @@ Eigen::Vector2d adaptiveStiffness(const Eigen::Vector2d& F_err, const std::deque
 {
     // F_err = F_leg2gnd_ref - F_leg2gnd_est (GRF error)
     Eigen::Vector2d k_stiffness(0, 0);
+    double K_ADAPT_MAX = 2000000;
+    double K_ADPAT_MIN = -5000;
+
     for (int i = 0; i < 2; i++)
     {
         double p_ = kp[i];
@@ -114,26 +117,13 @@ Eigen::Vector2d adaptiveStiffness(const Eigen::Vector2d& F_err, const std::deque
         double C1 = i * T_ - 4 * d_ / T_;
         double C0 = -p_ + i_ * T_ / 2 + 2 * d_ / T_;
         double Y_k = C2 * E_k + C1 * E_k_1 + C0 * E_k_2;
-        k_stiffness[i] = Y_k;
+        if (Y_k > K_ADAPT_MAX)
+            k_stiffness[i] = K_ADAPT_MAX;
+        else if (Y_k < K_ADPAT_MIN)
+            k_stiffness[i] = K_ADPAT_MIN;
+        else
+            k_stiffness[i] = Y_k;
     }
+
     return k_stiffness;
 }
-
-// Eigen::Vector2d jointFriction(const Eigen::Vector2d &v_phi)
-// {
-//     /* Apply Stribeck friction model */
-//     double tf_R = stribeckFrictionModel(v_phi[0]);
-//     double tf_L = stribeckFrictionModel(v_phi[1]);
-//     Eigen::Vector2d t_friction(tf_R, tf_L);
-//     return t_friction;
-// }
-
-// double stribeckFrictionModel(double v)
-// {
-//     double v_st = breakaway_vel * sqrt(2);
-//     double v_coul = breakaway_vel / 10;
-//     double e = std::exp(1);
-//     double F = sqrt(2 * e) * (breakaway_Ft - coulumb_Ft) * std::exp(-pow((v /
-//     v_st), 2)) * v / v_st + coulumb_Ft * tanh(v / v_coul) + viscous_cff * v;
-//     return F;
-// }

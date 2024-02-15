@@ -20,6 +20,8 @@ public:
     Eigen::Matrix2d K_0;
     Eigen::Matrix2d D_d;
 
+    Eigen::Matrix2d K_ft; // stiffness while applying adaptive law
+
     std::deque<Eigen::Vector2d> X_d_q;
     std::deque<Eigen::Vector2d> X_c_q;
     std::deque<Eigen::Vector2d> F_d_q;

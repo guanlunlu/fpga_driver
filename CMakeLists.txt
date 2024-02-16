@@ -22,7 +22,8 @@ add_executable(fpga_srv_main ${SRC_DIR}/fpga_server.cpp
                              ${SRC_DIR}/force_control.cpp
                              ${SRC_DIR}/force_tracking.cpp
                              ${SRC_DIR}/leg_kinematics.cpp
-                             ${SRC_DIR}/lpf.cpp)
+                             ${SRC_DIR}/lpf.cpp
+                             ${SRC_DIR}/pid.cpp)
 
 target_link_libraries(fpga_srv_main yaml-cpp ${CURSES_LIBRARY} -lncurses ${CMAKE_DL_LIBS} ${_CORE_LIBRARIES} motor_proto power_proto force_proto -lpthread Eigen3::Eigen)
 

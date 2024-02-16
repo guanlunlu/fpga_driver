@@ -315,12 +315,12 @@ void ModeFsm::runFsm(motor_msg::MotorStamped& motor_fb_msg, const motor_msg::Mot
                             mod.force_tracker.K_0(1, 1) = force_cmd_msg.impedance(idx).k0_y();
                             mod.force_tracker.D_d(0, 0) = force_cmd_msg.impedance(idx).d_x();
                             mod.force_tracker.D_d(1, 1) = force_cmd_msg.impedance(idx).d_y();
-                            mod.force_tracker.adaptive_kp[0] = force_cmd_msg.impedance(idx).adaptive_kp_x();
-                            mod.force_tracker.adaptive_kp[1] = force_cmd_msg.impedance(idx).adaptive_kp_y();
-                            mod.force_tracker.adaptive_ki[0] = force_cmd_msg.impedance(idx).adaptive_ki_x();
-                            mod.force_tracker.adaptive_ki[1] = force_cmd_msg.impedance(idx).adaptive_ki_y();
-                            mod.force_tracker.adaptive_kd[0] = force_cmd_msg.impedance(idx).adaptive_kd_x();
-                            mod.force_tracker.adaptive_kd[1] = force_cmd_msg.impedance(idx).adaptive_kd_y();
+                            mod.force_tracker.force_tracker_x.kp = force_cmd_msg.impedance(idx).adaptive_kp_x();
+                            mod.force_tracker.force_tracker_y.kp = force_cmd_msg.impedance(idx).adaptive_kp_y();
+                            mod.force_tracker.force_tracker_x.ki = force_cmd_msg.impedance(idx).adaptive_ki_x();
+                            mod.force_tracker.force_tracker_y.ki = force_cmd_msg.impedance(idx).adaptive_ki_y();
+                            mod.force_tracker.force_tracker_x.kd = force_cmd_msg.impedance(idx).adaptive_kd_x();
+                            mod.force_tracker.force_tracker_y.kd = force_cmd_msg.impedance(idx).adaptive_kd_y();
 
                             double vel_filt_r = mod.force_tracker.vel_lpf_r.y_k;
                             double vel_filt_l = mod.force_tracker.vel_lpf_l.y_k;
@@ -354,12 +354,12 @@ void ModeFsm::runFsm(motor_msg::MotorStamped& motor_fb_msg, const motor_msg::Mot
                             f.set_pose_x(xy_fb[0]);
                             f.set_pose_x(xy_fb[1]);
                             force_msg::Impedance imp;
-                            imp.set_m_x(mod.force_tracker.M_d(0,0));
-                            imp.set_m_y(mod.force_tracker.M_d(1,1));
-                            imp.set_k0_x(mod.force_tracker.K_ft(0,0));
-                            imp.set_k0_y(mod.force_tracker.K_ft(1,1));
-                            imp.set_d_x(mod.force_tracker.D_d(0,0));
-                            imp.set_d_y(mod.force_tracker.D_d(1,1));
+                            imp.set_m_x(mod.force_tracker.M_d(0, 0));
+                            imp.set_m_y(mod.force_tracker.M_d(1, 1));
+                            imp.set_k0_x(mod.force_tracker.K_ft(0, 0));
+                            imp.set_k0_y(mod.force_tracker.K_ft(1, 1));
+                            imp.set_d_x(mod.force_tracker.D_d(0, 0));
+                            imp.set_d_y(mod.force_tracker.D_d(1, 1));
                             imp.set_adaptive_kp_x(mod.force_tracker.adaptive_kp[0]);
                             imp.set_adaptive_kp_y(mod.force_tracker.adaptive_kp[1]);
                             imp.set_adaptive_ki_x(mod.force_tracker.adaptive_ki[0]);
@@ -374,7 +374,9 @@ void ModeFsm::runFsm(motor_msg::MotorStamped& motor_fb_msg, const motor_msg::Mot
                             force_msg::LegForce f;
                             f.set_force_x(0);
                             f.set_force_y(0);
+                            force_msg::Impedance imp;
                             force_fb_msg.add_force()->CopyFrom(f);
+                            force_fb_msg.add_impedance()->CopyFrom(imp);
                         }
                         idx++;
                     }

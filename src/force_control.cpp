@@ -7,8 +7,17 @@ ForceTracker::ForceTracker(Eigen::Matrix2d M, Eigen::Matrix2d K, Eigen::Matrix2d
     K_0 = K;
     D_d = D;
     adaptive_kp = a_kp;
-    adaptive_kp = a_ki;
-    adaptive_kp = a_kd;
+    adaptive_ki = a_ki;
+    adaptive_kd = a_kd;
+
+    force_tracker_x.kp = a_kp[0];
+    force_tracker_x.ki = a_ki[0];
+    force_tracker_x.kd = a_kd[0];
+    force_tracker_x.dT = T_;
+    force_tracker_y.kp = a_kp[1];
+    force_tracker_y.ki = a_ki[1];
+    force_tracker_y.kd = a_kd[1];
+    force_tracker_y.dT = T_;
 
     trq_lpf_r.init(10, T_);
     trq_lpf_l.init(10, T_);
@@ -81,19 +90,24 @@ Eigen::Vector2d ForceTracker::controlLoop(const Eigen::Vector2d &X_d, const Eige
     term << phi_vel_fb_filt[0] << "," << phi_vel_fb_filt[1] << ",";
 
     Eigen::Vector2d tau_friction = jointFriction(phi_vel_fb_filt);
-    Eigen::Vector2d F_est_l2g = forceEstimation(trq_fb_filt, TB_fb_q, tau_friction);
-    Eigen::Vector2d F_est_g2l = -1 * F_est_l2g;
+    Eigen::Vector2d F_est_l2g = forceEstimation(trq_fb_filt, TB_fb_q, tau_friction); // force leg to ground
+    Eigen::Vector2d F_est_g2l = -1 * F_est_l2g; // GRF ground to leg
     Eigen::Vector2d F_err_g2l = F_d - F_est_g2l;
-    update_delay_state<Eigen::Vector2d>(F_fb_q, F_est_l2g);
 
+    update_delay_state<Eigen::Vector2d>(F_fb_q, F_est_l2g);
     term << F_est_l2g[0] << "," << F_est_l2g[1] << ",";
 
+
     // adaptive stiffness
-    update_delay_state<Eigen::Vector2d>(adaptive_pid_err, F_err_g2l);
-    Eigen::Vector2d K_adapt = adaptiveStiffness(F_err_g2l, adaptive_pid_out, adaptive_pid_err, adaptive_kp, adaptive_ki, adaptive_kd);
-    update_delay_state<Eigen::Vector2d>(adaptive_pid_out, K_adapt);
+    // update_delay_state<Eigen::Vector2d>(adaptive_pid_err, F_err_g2l);
+    // Eigen::Vector2d K_adapt = adaptiveStiffness(F_err_g2l, adaptive_pid_out, adaptive_pid_err, adaptive_kp, adaptive_ki, adaptive_kd);
+    // update_delay_state<Eigen::Vector2d>(adaptive_pid_out, K_adapt);
     Eigen::Matrix2d K_adpt;
-    K_adpt << K_adapt[0], 0, 0, K_adapt[1];
+    // K_adpt << K_adapt[0], 0, 0, K_adapt[1];
+
+    double ka_x = force_tracker_x.tracking(F_d[0], F_est_g2l[0]);
+    double ka_y = force_tracker_y.tracking(F_d[1], F_est_g2l[1]);
+    K_adpt << ka_x , 0, 0, ka_y;
 
     Eigen::Vector2d phi = track(X_d, F_d, K_adpt);
 

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "force_tracking.hpp"
 #include "lpf.hpp"
+#include "pid.hpp"
 
 class ForceTracker
 {
@@ -50,6 +51,9 @@ public:
     lowpassFilter trq_lpf_l;
     lowpassFilter vel_lpf_r;
     lowpassFilter vel_lpf_l;
+
+    PID_controller force_tracker_x;
+    PID_controller force_tracker_y;
 
     // Track desired force F_d and reference trajectory X_d (leg_frame)
     Eigen::Vector2d track(const Eigen::Vector2d &X_d, const Eigen::Vector2d &F_d,

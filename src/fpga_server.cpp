@@ -137,11 +137,12 @@ void Corgi::load_config_()
     }
 }
 
-void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>& power_srv,
-                             core::Subscriber<motor_msg::MotorStamped>& cmd_sub_,
-                             core::Publisher<motor_msg::MotorStamped>& state_pub_,
-                             core::Subscriber<force_msg::LegForceStamped>& force_sub,
-                             core::Publisher<force_msg::LegForceStamped>& force_pub)
+void Corgi::interruptHandler(
+    core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>& power_srv,
+    core::Subscriber<motor_msg::MotorStamped>& cmd_sub_,
+    core::Publisher<motor_msg::MotorStamped>& state_pub_,
+    core::Subscriber<force_msg::LegForceStamped>& force_sub,
+    core::Publisher<force_msg::LegForceStamped>& force_pub)
 {
     while (NiFpga_IsNotError(fpga_.status_) && !stop_ && !sys_stop)
     {
@@ -150,31 +151,34 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
         NiFpga_Bool TimedOut = 0;
 
         // Wait on IRQ to ensure FPGA is ready
-        NiFpga_MergeStatus(&fpga_.status_,
-                           NiFpga_WaitOnIrqs(fpga_.session_, fpga_.irqContext_, NiFpga_Irq_0 | NiFpga_Irq_1, irqTimeout,
-                                             &irqsAsserted, &TimedOut));
+        NiFpga_MergeStatus(&fpga_.status_, NiFpga_WaitOnIrqs(fpga_.session_, fpga_.irqContext_,
+                                                             NiFpga_Irq_0 | NiFpga_Irq_1,
+                                                             irqTimeout, &irqsAsserted, &TimedOut));
 
         if (NiFpga_IsError(fpga_.status_))
         {
-            std::cout << red << "[FPGA Server] Error! Exiting program. LabVIEW error code: " << fpga_.status_ << reset
-                      << std::endl;
+            std::cout << red << "[FPGA Server] Error! Exiting program. LabVIEW error code: "
+                      << fpga_.status_ << reset << std::endl;
         }
 
         uint32_t irq0_cnt;
         uint32_t irq1_cnt;
 
-        NiFpga_MergeStatus(
-            &fpga_.status_,
-            NiFpga_ReadU32(fpga_.session_, NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ0_cnt, &irq0_cnt));
+        NiFpga_MergeStatus(&fpga_.status_,
+                           NiFpga_ReadU32(fpga_.session_,
+                                          NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ0_cnt,
+                                          &irq0_cnt));
 
-        NiFpga_MergeStatus(
-            &fpga_.status_,
-            NiFpga_ReadU32(fpga_.session_, NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ0_cnt, &irq1_cnt));
+        NiFpga_MergeStatus(&fpga_.status_,
+                           NiFpga_ReadU32(fpga_.session_,
+                                          NiFpga_FPGA_CANBus_IMU_4module_IRQ_IndicatorI32_IRQ0_cnt,
+                                          &irq1_cnt));
 
         if (TimedOut)
         {
             std::cout << red << "IRQ timedout"
-                      << ", IRQ_0 cnt: " << irq0_cnt << ", IRQ_1 cnt: " << irq1_cnt << reset << std::endl;
+                      << ", IRQ_0 cnt: " << irq0_cnt << ", IRQ_1 cnt: " << irq1_cnt << reset
+                      << std::endl;
         }
 
         /* if an IRQ was asserted */
@@ -186,7 +190,8 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
                 mainLoop_(power_srv, cmd_sub_, state_pub_, force_sub, force_pub);
 
                 // Acknowledge IRQ to begin DMA acquisition
-                NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
+                NiFpga_MergeStatus(&fpga_.status_,
+                                   NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
             }
             if (irqsAsserted & NiFpga_Irq_1)
             {
@@ -195,18 +200,20 @@ void Corgi::interruptHandler(core::ServiceServer<power_msg::PowerBoardStamped, p
                 canLoop_();
 
                 // Acknowledge IRQ to begin DMA acquisition
-                NiFpga_MergeStatus(&fpga_.status_, NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
+                NiFpga_MergeStatus(&fpga_.status_,
+                                   NiFpga_AcknowledgeIrqs(fpga_.session_, irqsAsserted));
             }
         }
         usleep(10);
     }
 }
 
-void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>& power_srv,
-                      core::Subscriber<motor_msg::MotorStamped>& cmd_sub_,
-                      core::Publisher<motor_msg::MotorStamped>& state_pub_,
-                      core::Subscriber<force_msg::LegForceStamped>& force_sub,
-                      core::Publisher<force_msg::LegForceStamped>& force_pub)
+void Corgi::mainLoop_(
+    core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>& power_srv,
+    core::Subscriber<motor_msg::MotorStamped>& cmd_sub_,
+    core::Publisher<motor_msg::MotorStamped>& state_pub_,
+    core::Subscriber<force_msg::LegForceStamped>& force_sub,
+    core::Publisher<force_msg::LegForceStamped>& force_pub)
 {
     fpga_.write_powerboard_(&powerboard_state_);
     fpga_.read_powerboard_data_();
@@ -252,19 +259,23 @@ void Corgi::mainLoop_(core::ServiceServer<power_msg::PowerBoardStamped, power_ms
             {
                 fsm_.switchMode(Mode::REST);
             }
-            else if (power_command_request.mode() == _MOTOR_MODE && fsm_.workingMode_ != Mode::MOTOR)
+            else if (power_command_request.mode() == _MOTOR_MODE &&
+                     fsm_.workingMode_ != Mode::MOTOR)
             {
                 fsm_.switchMode(Mode::MOTOR);
             }
-            else if (power_command_request.mode() == _HALL_CALIBRATE && fsm_.workingMode_ != Mode::HALL_CALIBRATE)
+            else if (power_command_request.mode() == _HALL_CALIBRATE &&
+                     fsm_.workingMode_ != Mode::HALL_CALIBRATE)
             {
                 fsm_.switchMode(Mode::HALL_CALIBRATE);
             }
-            else if (power_command_request.mode() == _SET_ZERO && fsm_.workingMode_ != Mode::SET_ZERO)
+            else if (power_command_request.mode() == _SET_ZERO &&
+                     fsm_.workingMode_ != Mode::SET_ZERO)
             {
                 fsm_.switchMode(Mode::SET_ZERO);
             }
-            else if (power_command_request.mode() == _IMPEDANCE && fsm_.workingMode_ != Mode::IMPEDANCE)
+            else if (power_command_request.mode() == _IMPEDANCE &&
+                     fsm_.workingMode_ != Mode::IMPEDANCE)
             {
                 fsm_.switchMode(Mode::IMPEDANCE);
             }
@@ -401,12 +412,32 @@ void Corgi::logger_init()
         log_stream << "seq,vicon_trigger,";
         log_stream << "AR_cmd_pos,AR_cmd_torq,AR_cmd_kp,AR_cmd_kd,AR_rpy_pos,AR_rpy_torq,";
         log_stream << "AL_cmd_pos,AL_cmd_torq,AL_cmd_kp,AL_cmd_kd,AL_rpy_pos,AL_rpy_torq,";
+        log_stream << "A_cmd_x,A_cmd_y,A_cmp_x,A_cmp_y,A_rpy_x,A_rpy_y,A_ft_kp,A_ft_ki,A_ft_kd,A_F_"
+                      "d_x,A_F_d_y,A_"
+                      "Fe_g2l_x,A_Fe_g2l_y,A_"
+                      "kft_x,A_kft_y";
+
         log_stream << "BR_cmd_pos,BR_cmd_torq,BR_cmd_kp,BR_cmd_kd,BR_rpy_pos,BR_rpy_torq,";
         log_stream << "BL_cmd_pos,BL_cmd_torq,BL_cmd_kp,BL_cmd_kd,BL_rpy_pos,BL_rpy_torq,";
+        log_stream << "B_cmd_x,B_cmd_y,B_cmp_x,B_cmp_y,B_rpy_x,B_rpy_y,B_ft_kp,B_ft_ki,B_ft_kd,B_F_"
+                      "d_x,B_F_d_y,B_"
+                      "Fe_g2l_x,B_Fe_g2l_y,B_"
+                      "kft_x,B_kft_y";
+
         log_stream << "CR_cmd_pos,CR_cmd_torq,CR_cmd_kp,CR_cmd_kd,CR_rpy_pos,CR_rpy_torq,";
         log_stream << "CL_cmd_pos,CL_cmd_torq,CL_cmd_kp,CL_cmd_kd,CL_rpy_pos,CL_rpy_torq,";
+        log_stream << "C_cmd_x,C_cmd_y,C_cmp_x,C_cmp_y,C_rpy_x,C_rpy_y,C_ft_kp,C_ft_ki,C_ft_kd,C_F_"
+                      "d_x,C_F_d_y,C_"
+                      "Fe_g2l_x,C_Fe_g2l_y,C_"
+                      "kft_x,C_kft_y";
+
         log_stream << "DR_cmd_pos,DR_cmd_torq,DR_cmd_kp,DR_cmd_kd,DR_rpy_pos,DR_rpy_torq,";
         log_stream << "DL_cmd_pos,DL_cmd_torq,DL_cmd_kp,DL_cmd_kd,DL_rpy_pos,DL_rpy_torq,";
+        log_stream << "D_cmd_x,D_cmd_y,D_cmp_x,D_cmp_y,D_rpy_x,D_rpy_y,D_ft_kp,D_ft_ki,D_ft_kd,D_F_"
+                      "d_x,D_F_d_y,D_"
+                      "Fe_g2l_x,D_Fe_g2l_y,D_"
+                      "kft_x,D_kft_y";
+
         log_stream << "Powerboard_0_V,Powerboard_0_I,";
         log_stream << "Powerboard_1_V,Powerboard_1_I,";
         log_stream << "Powerboard_2_V,Powerboard_2_I,";
@@ -428,11 +459,10 @@ void Corgi::logger(int seq)
     {
         // log data
         log_stream << seq << ",";
-        // log_stream << (*power_command_request.mutable_digital())["vicon_trigger"]
-        // << ",";
         log_stream << vicon_trigger_ << ",";
         for (int i = 0; i < 4; i++)
         {
+            // Log Position Control Data
             log_stream << modules_list_.at(i).txdata_buffer_[0].position_ << ",";
             log_stream << modules_list_.at(i).txdata_buffer_[0].torque_ << ",";
             log_stream << modules_list_.at(i).txdata_buffer_[0].KP_ << ",";
@@ -446,7 +476,31 @@ void Corgi::logger(int seq)
             log_stream << modules_list_.at(i).txdata_buffer_[1].KD_ << ",";
             log_stream << modules_list_.at(i).rxdata_buffer_[1].position_ << ",";
             log_stream << modules_list_.at(i).rxdata_buffer_[1].torque_ << ",";
+
+            // Log Force Control data
+            log_stream << modules_list_.at(i).force_tracker.X_d_q[0][0] << ","
+                       << modules_list_.at(i).force_tracker.X_d_q[0][1] << ",";
+
+            log_stream << modules_list_.at(i).force_tracker.X_c_q[0][0] << ","
+                       << modules_list_.at(i).force_tracker.X_c_q[0][1] << ",";
+
+            Eigen::Vector2d xy_fb = fk(modules_list_.at(i).force_tracker.TB_fb_q[0]);
+            log_stream << xy_fb[0] << "," << xy_fb[1] << ",";
+
+            log_stream << modules_list_.at(i).force_tracker.force_tracker_x.kp << ","
+                       << modules_list_.at(i).force_tracker.force_tracker_x.ki << ","
+                       << modules_list_.at(i).force_tracker.force_tracker_x.kd << ",";
+
+            log_stream << modules_list_.at(i).force_tracker.F_d_q[0][0] << ","
+                       << modules_list_.at(i).force_tracker.F_d_q[0][1] << ",";
+
+            log_stream << modules_list_.at(i).force_tracker.F_fb_q[0][0] << ","
+                       << modules_list_.at(i).force_tracker.F_fb_q[0][1] << ",";
+
+            log_stream << modules_list_.at(i).force_tracker.K_ft(0,0) << ","
+                       << modules_list_.at(i).force_tracker.K_ft(1,1) << ",";
         }
+        // Log Powerboard data
         log_stream << fpga_.powerboard_V_list_[0] << "," << fpga_.powerboard_I_list_[0] << ",";
         log_stream << fpga_.powerboard_V_list_[1] << "," << fpga_.powerboard_I_list_[1] << ",";
         log_stream << fpga_.powerboard_V_list_[2] << "," << fpga_.powerboard_I_list_[2] << ",";
@@ -458,7 +512,8 @@ void Corgi::logger(int seq)
         log_stream << fpga_.powerboard_V_list_[8] << "," << fpga_.powerboard_I_list_[8] << ",";
         log_stream << fpga_.powerboard_V_list_[9] << "," << fpga_.powerboard_I_list_[9] << ",";
         log_stream << fpga_.powerboard_V_list_[10] << "," << fpga_.powerboard_I_list_[10] << ",";
-        log_stream << fpga_.powerboard_V_list_[11] << "," << fpga_.powerboard_I_list_[11] << std::endl;
+        log_stream << fpga_.powerboard_V_list_[11] << "," << fpga_.powerboard_I_list_[11]
+                   << std::endl;
     }
 }
 
@@ -475,21 +530,23 @@ int main(int argc, char* argv[])
         {
             std::cout << "debug terminal output to " << argv[2] << std::endl;
             term = std::ofstream(argv[2], std::ios_base::out);
-            term << "phi_vel_filt_r,"
-                 << "phi_vel_filt_l,"
-                 << "T_fb_r,"
-                 << "T_fb_l,"
-                 << "tau_inertia_r,"
-                 << "tau_inertia_l,"
-                 << "tau_friction_r,"
-                 << "tau_friction_l,"
-                 << "F_est_l2g[0],F_est_l2g[1],"
-                 << "d_F_k[0],d_F_k[1],"
-                 << "d_F_k_1[0],d_F_k_1[1],"
-                 << "d_F_k_2[0],d_F_k_2[1],"
-                 << "E_k[0],E_k[1],"
-                 << "E_k_1[0],E_k_1[1],"
-                 << "E_k_2[0],E_k_2[1],Xref[0],Xref[1],w1inv_00,w1inv_11\n";
+            // term << "phi_vel_filt_r,"
+            //      << "phi_vel_filt_l,"
+            //      << "T_fb_r,"
+            //      << "T_fb_l,"
+            //      << "tau_inertia_r,"
+            //      << "tau_inertia_l,"
+            //      << "tau_friction_r,"
+            //      << "tau_friction_l,"
+            //      << "F_est_l2g[0],F_est_l2g[1],"
+            //      << "d_F_k[0],d_F_k[1],"
+            //      << "d_F_k_1[0],d_F_k_1[1],"
+            //      << "d_F_k_2[0],d_F_k_2[1],"
+            //      << "E_k[0],E_k[1],"
+            //      << "E_k_1[0],E_k_1[1],"
+            //      << "E_k_2[0],E_k_2[1],Xref[0],Xref[1],w1inv_00,w1inv_11\n";
+            term << "kp_x,ki_x,kd_x,err_x,err_sum_x,err_dev_x,ka_x,";
+            term << "kp_y,ki_y,kd_y,err_y,err_sum_y,err_dev_y,ka_y\n";
         }
     }
     // Setup physical properties constant
@@ -499,9 +556,11 @@ int main(int argc, char* argv[])
 
     core::NodeHandler nh;
     core::ServiceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>& power_srv =
-        nh.serviceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>("power/command", cb);
+        nh.serviceServer<power_msg::PowerBoardStamped, power_msg::PowerBoardStamped>(
+            "power/command", cb);
 
-    core::Publisher<motor_msg::MotorStamped>& motor_pub = nh.advertise<motor_msg::MotorStamped>("motor/state");
+    core::Publisher<motor_msg::MotorStamped>& motor_pub =
+        nh.advertise<motor_msg::MotorStamped>("motor/state");
     core::Subscriber<motor_msg::MotorStamped>& motor_sub =
         nh.subscribe<motor_msg::MotorStamped>("motor/command", 1000, motor_data_cb);
 
@@ -514,8 +573,8 @@ int main(int argc, char* argv[])
 
     if (NiFpga_IsError(corgi.fpga_.status_))
     {
-        std::cout << red << "[FPGA Server] Error! Exiting program. LabVIEW error code: " << corgi.fpga_.status_ << reset
-                  << std::endl;
+        std::cout << red << "[FPGA Server] Error! Exiting program. LabVIEW error code: "
+                  << corgi.fpga_.status_ << reset << std::endl;
     }
     else
     {

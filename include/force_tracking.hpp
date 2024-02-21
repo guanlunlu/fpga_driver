@@ -15,8 +15,14 @@ Eigen::Vector2d PositionBasedImpFilter(const Eigen::Matrix2d &M, const Eigen::Ma
                                        const std::deque<Eigen::Vector2d> &T_fb, const std::deque<Eigen::Vector2d> &F_fb);
 
 Eigen::Vector2d forceEstimation(const Eigen::Vector2d &T_fb, const std::deque<Eigen::Vector2d> &TB_fb, const Eigen::Vector2d &tau_friction);
+Eigen::Vector2d forceEstimation(const Eigen::Vector2d &T_fb, const Eigen::Vector2d &TB, const Eigen::Vector2d &dTB,
+                                const Eigen::Vector2d &ddTB, const Eigen::Vector2d &tau_friction);
 
 Eigen::Vector2d inverseDynamic(const std::deque<Eigen::Vector2d> &TB);
+// Inverse Dynamic with filtered input
+Eigen::Vector2d inverseDynamic(const Eigen::Vector2d &TB,
+                               const Eigen::Vector2d &dTB,
+                               const Eigen::Vector2d &ddTB);
 
 Eigen::Vector2d adaptiveStiffness(const Eigen::Vector2d &F_err,
                                   const std::deque<Eigen::Vector2d> &pid_out, const std::deque<Eigen::Vector2d> &pid_err,

@@ -51,6 +51,10 @@ public:
     lowpassFilter trq_lpf_l;
     lowpassFilter vel_lpf_r;
     lowpassFilter vel_lpf_l;
+    lowpassFilter dtheta_lpf;
+    lowpassFilter dbeta_lpf;
+    lowpassFilter ddtheta_lpf;
+    lowpassFilter ddbeta_lpf;
 
     PID_controller force_tracker_x;
     PID_controller force_tracker_y;
